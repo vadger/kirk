@@ -1,4 +1,5 @@
 import com.automation.remarks.kirk.Browser.Companion.drive
+import com.automation.remarks.kirk.be
 import com.automation.remarks.kirk.have
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
@@ -31,8 +32,9 @@ class TestBrowser {
     fun testCanFindElement() {
         drive {
             to(url)
-            element("#header").should(have.text("Slene"))
+            element("#header").should(have.text("Selene"))
             element("#input").setVal("This is test")
+            element("#input_invisible").should(be.visible)
         }
     }
 }
