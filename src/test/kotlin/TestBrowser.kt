@@ -1,5 +1,7 @@
+import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Browser.Companion.drive
-import com.automation.remarks.kirk.Text
+import com.automation.remarks.kirk.BrowserConfig
+import com.automation.remarks.kirk.text
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import org.testng.Assert.assertEquals
 import org.testng.annotations.BeforeClass
@@ -15,6 +17,10 @@ class TestBrowser {
     @BeforeClass
     fun setUp() {
         ChromeDriverManager.getInstance().setup()
+        Browser.conf(BrowserConfig().apply {
+            screenSize = "640x480"
+            forceQuit = false
+        })
     }
 
     @Test
@@ -34,28 +40,20 @@ class TestBrowser {
     }
 
     @Test
-    fun testCanFindElement() {
+    fun testCanSetScreenSize() {
         drive {
             to(url)
-            element("#header").should(Have.text("Selene"))
         }
     }
 
     @Test
-    fun testCanSetScreenSize() {
-        drive(screenSize = "640x480") {
+    fun testCanFindElement() {
+        drive {
             to(url)
-        }
-
-    }
-}
-
-class Have {
-    companion object {
-        fun text(text: String): Text {
-            return Text(text)
+            s("#header").shouldHave(text("Selene"))
         }
     }
+
 }
 
 class StartPage

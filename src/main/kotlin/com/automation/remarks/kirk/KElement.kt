@@ -7,7 +7,15 @@ import org.openqa.selenium.WebElement
  */
 class KElement(val element: WebElement) {
 
-    fun should(condition: Text) {
-        condition.evaluate(element.text)
+    private fun should(condition: Condition) {
+        condition.evaluate(element)
+    }
+
+    fun shouldHave(condition: Condition) {
+        should(condition)
+    }
+
+    fun shouldBe(condition: Condition) {
+        should(condition)
     }
 }

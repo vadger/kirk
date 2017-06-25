@@ -15,7 +15,12 @@ internal class BrowserImpl(val driver: WebDriver) : Browser, WebDriver by driver
             val dimensions = screenSize.split("x")
             driver.manage().window().size = Dimension(dimensions[0].toInt(), dimensions[1].toInt())
         }
+    }
 
+    fun addShutdownHook() {
+        Runtime.getRuntime().addShutdownHook(object : Thread() {
+            override fun run() = quit()
+        })
     }
 
 }

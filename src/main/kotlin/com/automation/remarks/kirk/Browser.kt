@@ -11,20 +11,30 @@ interface Browser : WebDriver {
 
     companion object {
         private var driver: WebDriver = ChromeDriver()
-        private var screenSize: String? = null
+        private var config: BrowserConfig = BrowserConfig()
 
         private fun getDefaultDriver(): WebDriver {
             return driver
         }
 
-        fun drive(screenSize: String? = null, driver: WebDriver = getDefaultDriver(),
+        fun conf(config: BrowserConfig) {
+            this.config = config
+        }
+
+        fun drive(driver: WebDriver = getDefaultDriver(),
                   closure: Browser.() -> Unit) {
             BrowserImpl(driver).apply {
-                Runtime.getRuntime().addShutdownHook(object : Thread() {
-                    override fun run() = quit()
-                })
+                addShutdownHook()
+                setWindowSize(config.screenSize)
+                closure()
+            }
+        }
 
-                setWindowSize(screenSize)
+        fun open(url: String, closure: Browser.() -> Unit) {
+            BrowserImpl(driver).apply {
+                get(url)
+                addShutdownHook()
+                setWindowSize(config.screenSize)
                 closure()
             }
         }
@@ -41,7 +51,11 @@ interface Browser : WebDriver {
         return page
     }
 
-    fun element(cssLocator: String): KElement {
+    fun s(cssLocator: String): KElement {
         return KElement(findElement(By.cssSelector(cssLocator)))
+    }
+
+    fun sleep(millis: Long) {
+        Thread.sleep(millis)
     }
 }
