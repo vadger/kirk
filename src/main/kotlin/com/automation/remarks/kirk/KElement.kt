@@ -1,21 +1,42 @@
 package com.automation.remarks.kirk
 
+import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebElement
 
 /**
  * Created by sergey on 24.06.17.
  */
-class KElement(val element: WebElement) {
+class KElement(val element: WebElement) : WebElement by element {
 
-    private fun should(condition: Condition) {
-        condition.evaluate(element)
+    fun should(condition: Condition) {
+        waitFor(element, condition)
     }
 
-    fun shouldHave(condition: Condition) {
-        should(condition)
+    fun setVal(value: String) {
+        element.clear()
+        element.sendKeys(value)
     }
 
-    fun shouldBe(condition: Condition) {
-        should(condition)
+    private fun waitFor(element: WebElement,
+                        condition: Condition,
+                        timeout: Int = 4000,
+                        poolingInterval: Long = 0.1.toLong()) {
+        val endTime = System.currentTimeMillis() + timeout
+        while (true) {
+            try {
+                return condition.evaluate(element)
+            } catch (ex: ConditionMismatchException) {
+                if (System.currentTimeMillis() > endTime) {
+                    val message = """
+            failed while waiting ${timeout / 1000} seconds
+            to assert $condition
+            for $element
+            reason: ${ex.message}
+                        """
+                    throw TimeoutException(message)
+                }
+                Thread.sleep(poolingInterval)
+            }
+        }
     }
 }

@@ -1,26 +1,40 @@
 package com.automation.remarks.kirk
 
-import org.openqa.selenium.Dimension
+import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 
 /**
  * Created by sergey on 24.06.17.
  */
-internal class BrowserImpl(val driver: WebDriver) : Browser, WebDriver by driver {
+class BrowserImpl(private val driver: WebDriver) {
 
-    fun setWindowSize(screenSize: String?) {
-        if (screenSize == null) {
-            driver.manage().window().maximize()
-        } else {
-            val dimensions = screenSize.split("x")
-            driver.manage().window().size = Dimension(dimensions[0].toInt(), dimensions[1].toInt())
-        }
+    fun to(url: String): String {
+        driver.get(url)
+        return driver.currentUrl
     }
 
-    fun addShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(object : Thread() {
-            override fun run() = quit()
-        })
+    fun <T> to(url: String, pageClass: () -> T): T {
+        val page = pageClass()
+        to(url)
+        return page
     }
 
+    fun <T> to(pageClass: () -> T): T {
+        return pageClass()
+    }
+
+    fun element(cssLocator: String): KElement {
+        return element(By.cssSelector(cssLocator))
+    }
+
+    fun element(locator: By): KElement {
+        return KElement(driver.findElement(locator))
+    }
+
+    fun quit() {
+        driver.quit()
+    }
+
+    val currentUrl: String
+        get() = driver.currentUrl
 }

@@ -6,17 +6,27 @@ import org.openqa.selenium.WebElement
  * Created by sergey on 24.06.17.
  */
 abstract class Condition {
-    fun evaluate(element: WebElement): Boolean {
-        val match = match(element)
-        assert(match)
-        return match
+    fun evaluate(element: WebElement) {
+        match(element)
     }
 
-    abstract fun match(element: WebElement): Boolean
+
+
+    abstract fun match(element: WebElement)
 }
 
 class Text(val text: String) : Condition() {
-    override fun match(element: WebElement): Boolean {
-        return element.text.equals(text)
+    override fun match(element: WebElement) {
+        val actual = element.text
+        if (!actual.equals(text)) {
+            throw ConditionMismatchException(actual, text)
+        }
     }
+
+    override fun toString(): String {
+        return "text"
+    }
+
+
 }
+

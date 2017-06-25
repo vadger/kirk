@@ -6,5 +6,4 @@ package com.automation.remarks.kirk
 class BrowserConfig {
 
     var screenSize: String? = null
-    var forceQuit: Boolean = true
 }

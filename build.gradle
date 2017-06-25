@@ -27,3 +27,8 @@ dependencies {
     testCompile group: 'org.testng', name: 'testng', version: '6.11'
     testCompile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '1.7.0'
 }
+
+test{
+    useTestNG()
+    maxParallelForks = 2
+}

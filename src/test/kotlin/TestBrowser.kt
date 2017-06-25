@@ -1,8 +1,7 @@
-import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Browser.Companion.drive
-import com.automation.remarks.kirk.BrowserConfig
-import com.automation.remarks.kirk.text
+import com.automation.remarks.kirk.have
 import io.github.bonigarcia.wdm.ChromeDriverManager
+import io.github.bonigarcia.wdm.FirefoxDriverManager
 import org.testng.Assert.assertEquals
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
@@ -17,10 +16,7 @@ class TestBrowser {
     @BeforeClass
     fun setUp() {
         ChromeDriverManager.getInstance().setup()
-        Browser.conf(BrowserConfig().apply {
-            screenSize = "640x480"
-            forceQuit = false
-        })
+        FirefoxDriverManager.getInstance().setup()
     }
 
     @Test
@@ -32,28 +28,11 @@ class TestBrowser {
     }
 
     @Test
-    fun testCanOpenUrlUsingPage() {
-        drive {
-            to(url, ::StartPage)
-            assertEquals(currentUrl, url)
-        }
-    }
-
-    @Test
-    fun testCanSetScreenSize() {
-        drive {
-            to(url)
-        }
-    }
-
-    @Test
     fun testCanFindElement() {
         drive {
             to(url)
-            s("#header").shouldHave(text("Selene"))
+            element("#header").should(have.text("Slene"))
+            element("#input").setVal("This is test")
         }
     }
-
 }
-
-class StartPage
