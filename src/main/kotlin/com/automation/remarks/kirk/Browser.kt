@@ -15,8 +15,8 @@ interface Browser : WebDriver {
             return driverContaner.getDriver()
         }
 
-        fun drive(closure: Browser.() -> Unit) {
-            BrowserHandler(getDriver()).apply {
+        fun drive(driver: WebDriver = getDriver(), closure: Browser.() -> Unit) {
+            BrowserHandler(driver).apply {
                 Runtime.getRuntime().addShutdownHook(object : Thread() {
                     override fun run() = quit()
                 })
