@@ -11,8 +11,9 @@ class KElement(val element: WebElement) : WebElement by element {
         waitFor(element, condition)
     }
 
-    fun setVal(value: String) {
+    fun setVal(value: String): KElement {
         element.clear()
         element.sendKeys(value)
+        return this
     }
 }

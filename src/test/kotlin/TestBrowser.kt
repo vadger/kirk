@@ -1,3 +1,4 @@
+
 import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.be
 import com.automation.remarks.kirk.have
@@ -34,7 +35,15 @@ class TestBrowser {
             to(url)
             element("#header").should(have.text("Selene"))
             element("#input").setVal("This is test")
-            element("#input_invisible").should(be.visible)
+            element("#input").should(be.visible)
+        }
+    }
+
+    @Test
+    fun testShouldThrowTimeOutException() {
+        drive {
+            to(url)
+            element("#header").should(have.text("Slene"))
         }
     }
 }
