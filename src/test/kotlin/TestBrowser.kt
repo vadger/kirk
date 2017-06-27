@@ -57,9 +57,11 @@ class TestBrowser : BaseTest() {
 
     @Test
     fun testShouldFailOnWrongSelector() {
-        drive {
-            to(url)
-            element("#wrongLocator").should(be.visible)
+        assertExceptionThrown(TimeoutException::class) {
+            drive {
+                to(url)
+                element("#wrongLocator").should(be.visible)
+            }
         }
     }
 }

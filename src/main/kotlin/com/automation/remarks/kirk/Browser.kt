@@ -1,6 +1,8 @@
 package com.automation.remarks.kirk
 
+import org.aeonbits.owner.ConfigFactory
 import org.openqa.selenium.By
+import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 
 /**
@@ -16,14 +18,26 @@ class Browser(val driver: WebDriver) {
             return driverContaner.getDriver()
         }
 
-        fun drive(driver: WebDriver = getDriver(), closure: Browser.() -> Unit) {
-            driver.manage().window().maximize()
-            Browser(driver).apply {
-                Runtime.getRuntime().addShutdownHook(object : Thread() {
-                    override fun run() = quit()
-                })
-                closure()
+        fun getDefaultConfig(): BrowserConfig {
+            return ConfigFactory.create(BrowserConfig::class.java,
+                    System.getProperties())
+        }
+
+        fun drive(driver: WebDriver = getDriver(),
+                  config: BrowserConfig = getDefaultConfig(),
+                  closure: Browser.() -> Unit) {
+            if (config.startMaximized()) {
+                driver.manage().window().maximize()
+            } else {
+                val screenSize = config.screenSize()
+                driver.manage().window().size = Dimension(screenSize[0], screenSize[1])
             }
+            if (config.autoClose()) {
+                Runtime.getRuntime().addShutdownHook(object : Thread() {
+                    override fun run() = driver.quit()
+                })
+            }
+            Browser(driver).apply(closure)
         }
     }
 
@@ -45,9 +59,5 @@ class Browser(val driver: WebDriver) {
 
     fun element(locator: By): KElement {
         return KElement(locator, driver)
-    }
-
-    fun quit() {
-        driver.quit()
     }
 }

@@ -9,10 +9,12 @@ import static com.codeborne.selenide.Selenide.$;
  */
 public class SelenideTest extends BaseTest {
 
-    @Test
-    public void testName() throws Exception {
-        Configuration.browser = "chrome";
-        Selenide.open(getUrl());
-        $("#asdasdinput").setValue("This is test");
-    }
+  @Test
+  public void testName() throws Exception {
+    Configuration.browser = "chrome";
+    Selenide.open(getUrl());
+    $("#asdasdinput").setValue("This is test");
+  }
 }
+
+

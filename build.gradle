@@ -26,6 +26,7 @@ repositories {
 
 dependencies {
     compile "org.seleniumhq.selenium:selenium-java:3.4.0"
+    compile group: 'org.aeonbits.owner', name: 'owner', version: '1.0.9'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
     testCompile group: 'org.testng', name: 'testng', version: '6.11'
     testCompile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '1.7.0'
