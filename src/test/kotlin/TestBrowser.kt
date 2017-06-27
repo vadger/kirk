@@ -1,9 +1,11 @@
-
 import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.be
 import com.automation.remarks.kirk.have
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
+import me.tatarka.assertk.assert
+import me.tatarka.assertk.assertions.hasClass
+import org.openqa.selenium.TimeoutException
 import org.testng.Assert.assertEquals
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
@@ -41,9 +43,13 @@ class TestBrowser {
 
     @Test
     fun testShouldThrowTimeOutException() {
-        drive {
-            to(url)
-            element("#header").should(have.text("Slene"))
+        assert {
+            drive {
+                to(url)
+                element("#header").should(have.text("Slene"))
+            }
+        }.throwsError {
+            it.hasClass(TimeoutException::class)
         }
     }
 }

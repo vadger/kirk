@@ -19,6 +19,9 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
 }
 
 dependencies {
@@ -26,6 +29,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
     testCompile group: 'org.testng', name: 'testng', version: '6.11'
     testCompile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '1.7.0'
+    testCompile 'me.tatarka.assertk:assertk:1.0-SNAPSHOT'
 }
 
 test{
