@@ -20,27 +20,27 @@ class KElement(val locator: ElementLocator<WebElement>) {
         get() = locator.find()
 
     fun click(): KElement {
-        execute { click() }
+        element { click() }
         return this
     }
 
     fun should(condition: Condition) {
-        waitFor(webElement, condition)
+        waitFor(locator, condition)
     }
 
     fun setVal(value: String): KElement {
-        execute {
+        element {
             clear()
             sendKeys(value)
         }
         return this
     }
 
-    private fun execute(commands: WebElement.() -> Unit) {
+    private fun element(commands: WebElement.() -> Unit) {
         try {
             webElement.apply(commands)
         } catch (ex: Exception) {
-            waitFor(webElement, be.visible)
+            waitFor(locator, be.visible)
         }
     }
 }

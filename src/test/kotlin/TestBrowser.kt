@@ -6,6 +6,7 @@ import me.tatarka.assertk.assertions.hasClass
 import org.openqa.selenium.TimeoutException
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
+import kotlin.reflect.KClass
 
 /**
  * Created by sergey on 24.06.17.
@@ -39,13 +40,21 @@ class TestBrowser : BaseTest() {
 
     @Test
     fun testShouldThrowTimeOutException() {
-        assert {
+        assertExceptionThrown(TimeoutException::class) {
             drive {
                 to(url)
                 element("#header").should(have.text("Slene"))
             }
-        }.throwsError {
-            it.hasClass(TimeoutException::class)
+        }
+    }
+
+    @Test
+    fun testShouldThrowExceptionAtInvisibleElement() {
+        assertExceptionThrown(TimeoutException::class) {
+            drive {
+                to(url)
+                element("#input_invisible").setVal("demo")
+            }
         }
     }
 }

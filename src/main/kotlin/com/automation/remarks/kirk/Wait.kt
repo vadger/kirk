@@ -2,16 +2,15 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.Condition
 import com.automation.remarks.kirk.ex.ConditionMismatchException
+import com.automation.remarks.kirk.locators.ElementLocator
 import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebElement
 
 /**
  * Created by sergey on 25.06.17.
  */
-fun waitFor(element: WebElement,
-            condition: Condition,
-            timeout: Int = 4000,
-            poolingInterval: Long = 0.1.toLong()) {
+fun waitFor(locator: ElementLocator<WebElement>, condition: Condition, timeout: Int = 4000, poolingInterval: Long = 0.1.toLong()) {
+    val element = locator.find()
     val endTime = System.currentTimeMillis() + timeout
     while (true) {
         try {
@@ -21,7 +20,7 @@ fun waitFor(element: WebElement,
                 val message = """
             failed while waiting ${timeout / 1000} seconds
             to assert $condition
-            for $element
+            for element located {${locator.description}}
             reason: ${ex.message}
                         """
                 throw TimeoutException(message)
