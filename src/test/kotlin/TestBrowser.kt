@@ -1,12 +1,9 @@
 import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
-import me.tatarka.assertk.assert
-import me.tatarka.assertk.assertions.hasClass
 import org.openqa.selenium.TimeoutException
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
-import kotlin.reflect.KClass
 
 /**
  * Created by sergey on 24.06.17.

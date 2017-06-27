@@ -2,6 +2,8 @@ import helpers.JettyServer
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
 import me.tatarka.assertk.assertions.hasClass
+import me.tatarka.assertk.assertions.hasMessage
+import me.tatarka.assertk.assertions.hasMessageContaining
 import org.openqa.selenium.net.PortProber
 import org.testng.annotations.BeforeSuite
 import kotlin.reflect.KClass
@@ -27,6 +29,7 @@ abstract class BaseTest {
             closure()
         }.throwsError {
             it.hasClass(kclass)
+            print(it.actual.message)
         }
     }
 }
