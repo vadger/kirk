@@ -13,6 +13,6 @@ public class SelenideTest extends BaseTest {
     public void testName() throws Exception {
         Configuration.browser = "chrome";
         Selenide.open(getUrl());
-        $("#input").setValue("This is test");
+        $("#asdasdinput").setValue("This is test");
     }
 }

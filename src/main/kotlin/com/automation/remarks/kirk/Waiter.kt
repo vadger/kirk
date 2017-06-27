@@ -25,6 +25,11 @@ fun waitFor(element: KElement, condition: Condition, timeout: Int = 4000, poolin
                 throw TimeoutException(message)
             }
             Thread.sleep(poolingInterval)
+        } catch (ex: org.openqa.selenium.NoSuchElementException) {
+            if (System.currentTimeMillis() > endTime) {
+                throw ex
+            }
+            Thread.sleep(poolingInterval)
         }
     }
 }

@@ -54,4 +54,12 @@ class TestBrowser : BaseTest() {
             }
         }
     }
+
+    @Test
+    fun testShouldFailOnWrongSelector() {
+        drive {
+            to(url)
+            element("#wrongLocator").should(be.visible)
+        }
+    }
 }
