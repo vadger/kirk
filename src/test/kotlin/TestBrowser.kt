@@ -1,28 +1,16 @@
-
-import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.Browser.Companion.drive
+import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
-import io.github.bonigarcia.wdm.ChromeDriverManager
-import io.github.bonigarcia.wdm.FirefoxDriverManager
 import me.tatarka.assertk.assert
 import me.tatarka.assertk.assertions.hasClass
 import org.openqa.selenium.TimeoutException
 import org.testng.Assert.assertEquals
-import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
 
 /**
  * Created by sergey on 24.06.17.
  */
-class TestBrowser {
-
-    val url = "file:///home/sergey/Github/kirk/src/test/resources/start_page.html"
-
-    @BeforeClass
-    fun setUp() {
-        ChromeDriverManager.getInstance().setup()
-        FirefoxDriverManager.getInstance().setup()
-    }
+class TestBrowser : BaseTest() {
 
     @Test
     fun testCanOpenUrl() {
@@ -37,8 +25,15 @@ class TestBrowser {
         drive {
             to(url)
             element("#header").should(have.text("Selene"))
-            element("#input").setVal("This is test")
             element("#input").should(be.visible)
+        }
+    }
+
+    @Test
+    fun testCanSetValue() {
+        drive {
+            to(url)
+            element("#input").setVal("This is test")
         }
     }
 

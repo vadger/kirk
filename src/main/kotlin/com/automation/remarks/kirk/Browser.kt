@@ -17,6 +17,7 @@ class Browser(val driver: WebDriver) {
         }
 
         fun drive(driver: WebDriver = getDriver(), closure: Browser.() -> Unit) {
+            driver.manage().window().maximize()
             Browser(driver).apply {
                 Runtime.getRuntime().addShutdownHook(object : Thread() {
                     override fun run() = quit()
@@ -43,7 +44,7 @@ class Browser(val driver: WebDriver) {
     }
 
     fun element(locator: By): KElement {
-        return KElement(driver.findElement(locator))
+        return KElement(locator, driver)
     }
 
     fun quit() {

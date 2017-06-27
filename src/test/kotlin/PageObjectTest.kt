@@ -3,11 +3,12 @@ import com.automation.remarks.kirk.Browser
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import org.openqa.selenium.chrome.ChromeDriver
 import org.testng.annotations.Test
+import pages.StartPage
 
 /**
  * Created by sergey on 26.06.17.
  */
-class PageObjectTest {
+class PageObjectTest : BaseTest() {
 
     @Test
     fun testCanOpenUrl() {
