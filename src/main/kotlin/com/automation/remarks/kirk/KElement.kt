@@ -1,5 +1,6 @@
 package com.automation.remarks.kirk
 
+import com.automation.remarks.kirk.conditions.Condition
 import org.openqa.selenium.WebElement
 
 /**

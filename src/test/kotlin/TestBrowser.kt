@@ -1,6 +1,7 @@
+
+import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.Browser.Companion.drive
-import com.automation.remarks.kirk.be
-import com.automation.remarks.kirk.have
+import com.automation.remarks.kirk.conditions.have
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
 import me.tatarka.assertk.assert
@@ -26,7 +27,7 @@ class TestBrowser {
     @Test
     fun testCanOpenUrl() {
         drive {
-            to(url)
+            val currentUrl = to(url)
             assertEquals(currentUrl, url)
         }
     }

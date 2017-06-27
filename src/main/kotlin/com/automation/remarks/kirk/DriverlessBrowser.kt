@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sergey on 26.06.17.
  */
-class DriverlessBrowser : Browser {
+internal class DriverlessBrowser : WebDriver {
     override fun getWindowHandles(): MutableSet<String> {
         throw UnsupportedOperationException()
     }

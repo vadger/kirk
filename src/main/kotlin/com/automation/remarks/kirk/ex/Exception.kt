@@ -1,4 +1,4 @@
-package com.automation.remarks.kirk
+package com.automation.remarks.kirk.ex
 
 /**
  * Created by sergey on 25.06.17.

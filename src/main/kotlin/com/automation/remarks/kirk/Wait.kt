@@ -1,5 +1,7 @@
 package com.automation.remarks.kirk
 
+import com.automation.remarks.kirk.conditions.Condition
+import com.automation.remarks.kirk.ex.ConditionMismatchException
 import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebElement
 

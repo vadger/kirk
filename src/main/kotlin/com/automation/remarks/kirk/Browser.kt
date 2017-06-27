@@ -6,7 +6,8 @@ import org.openqa.selenium.WebDriver
 /**
  * Created by sergey on 24.06.17.
  */
-interface Browser : WebDriver {
+class Browser(val driver: WebDriver) {
+
     companion object {
 
         private val driverContaner = ThreadLocalDriverContainer()
@@ -16,7 +17,7 @@ interface Browser : WebDriver {
         }
 
         fun drive(driver: WebDriver = getDriver(), closure: Browser.() -> Unit) {
-            BrowserHandler(driver).apply {
+            Browser(driver).apply {
                 Runtime.getRuntime().addShutdownHook(object : Thread() {
                     override fun run() = quit()
                 })
@@ -26,8 +27,8 @@ interface Browser : WebDriver {
     }
 
     fun to(url: String): String {
-        get(url)
-        return currentUrl
+        driver.get(url)
+        return driver.currentUrl
     }
 
     fun <T : Page> to(pageClass: () -> T): T {
@@ -42,6 +43,10 @@ interface Browser : WebDriver {
     }
 
     fun element(locator: By): KElement {
-        return KElement(findElement(locator))
+        return KElement(driver.findElement(locator))
+    }
+
+    fun quit() {
+        driver.quit()
     }
 }

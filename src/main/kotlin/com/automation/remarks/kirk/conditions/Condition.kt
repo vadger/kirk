@@ -1,10 +1,12 @@
-package com.automation.remarks.kirk
+package com.automation.remarks.kirk.conditions
 
+import com.automation.remarks.kirk.ex.ConditionMismatchException
 import org.openqa.selenium.WebElement
 
 /**
  * Created by sergey on 24.06.17.
  */
+
 abstract class Condition {
     fun evaluate(element: WebElement) {
         match(element)
