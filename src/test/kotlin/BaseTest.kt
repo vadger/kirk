@@ -1,9 +1,7 @@
+
 import helpers.JettyServer
 import io.github.bonigarcia.wdm.ChromeDriverManager
-import io.github.bonigarcia.wdm.FirefoxDriverManager
 import me.tatarka.assertk.assertions.hasClass
-import me.tatarka.assertk.assertions.hasMessage
-import me.tatarka.assertk.assertions.hasMessageContaining
 import org.openqa.selenium.net.PortProber
 import org.testng.annotations.BeforeSuite
 import kotlin.reflect.KClass
@@ -13,16 +11,16 @@ import kotlin.reflect.KClass
  */
 abstract class BaseTest {
 
-    val port = PortProber.findFreePort()
+    lateinit var url: String
 
     @BeforeSuite
     fun runServer() {
+        val port = PortProber.findFreePort()
         JettyServer(port).runServer()
         ChromeDriverManager.getInstance().setup()
-        FirefoxDriverManager.getInstance().setup()
+        url = "http://localhost:$port/"
     }
 
-    val url: String = "http://localhost:$port/"
 
     fun <T : Any> assertExceptionThrown(kclass: KClass<out T>, closure: () -> Unit) {
         me.tatarka.assertk.assert {

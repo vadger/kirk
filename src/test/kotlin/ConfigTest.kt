@@ -1,6 +1,5 @@
+
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.Browser.Companion.drive
-import com.automation.remarks.kirk.Config
 import me.tatarka.assertk.assert
 import me.tatarka.assertk.assertAll
 import me.tatarka.assertk.assertions.isEqualTo
@@ -49,20 +48,7 @@ class ConfigTest : BaseTest() {
             assert(cfg.browserName()).isEqualTo("firefox")
             assert(cfg.timeout()).isEqualTo(300)
             assert(cfg.startMaximized()).isEqualTo(true)
-        }
-    }
 
-    @Test
-    fun testConfigWithBrowser() {
-        val cfg = Config(startMaximized = false,
-                screenSize = listOf(640, 480))
-
-        drive(config = cfg) {
-            to(url)
-        }
-
-        drive {
-            to(url)
         }
     }
 }
