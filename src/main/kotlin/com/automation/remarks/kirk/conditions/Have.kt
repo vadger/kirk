@@ -13,6 +13,10 @@ class Have {
     fun collectionSize(size: Int): CollectionSize {
         return CollectionSize(size)
     }
+
+    fun exactText(vararg text: String): CollectionExactText {
+        return CollectionExactText(text)
+    }
 }
 
 val have = Have()

@@ -1,6 +1,6 @@
 package com.automation.remarks.kirk
 
-import com.automation.remarks.kirk.conditions.Condition
+import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.WebElementLocator
@@ -24,7 +24,7 @@ class KElement(val locator: ElementLocator<WebElement>) {
         return this
     }
 
-    fun should(condition: Condition) {
+    fun should(condition: ElementCondition) {
         waitFor(this, condition)
     }
 

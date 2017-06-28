@@ -97,9 +97,17 @@ class TestBrowser : BaseTest() {
     fun shouldIterateOverCollection() {
         drive {
             to(url)
-            for(el in all("li")){
+            for (el in all("li")) {
                 print(el.text)
             }
+        }
+    }
+
+    @Test
+    fun shouldCompareCollectionText() {
+        drive {
+            to(url)
+            all("li").should(have.exactText("Один","Два","Три"))
         }
     }
 }

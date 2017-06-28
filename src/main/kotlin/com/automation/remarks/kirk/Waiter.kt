@@ -1,18 +1,18 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.CollectionCondition
-import com.automation.remarks.kirk.conditions.Condition
+import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import org.openqa.selenium.TimeoutException
 
 /**
  * Created by sergey on 25.06.17.
  */
-fun waitFor(elements: KElementCollection, condition: CollectionCondition, timeout: Int = 4000, poolingInterval: Long = 0.1.toLong()) {
+fun waitFor(elements: KElementCollection, condition: CollectionCondition, timeout: Int = 4000, poolingInterval: Long = 0.1.toLong()): Boolean {
     val endTime = System.currentTimeMillis() + timeout
     while (true) {
         try {
-            condition.evaluate(elements.webElements)
+            return condition.evaluate(elements.webElements)
         } catch (ex: ConditionMismatchException) {
             if (System.currentTimeMillis() > endTime) {
                 val message = """
@@ -40,11 +40,11 @@ fun waitFor(elements: KElementCollection, condition: CollectionCondition, timeou
     }
 }
 
-fun waitFor(element: KElement, condition: Condition, timeout: Int = 4000, poolingInterval: Long = 0.1.toLong()) {
+fun waitFor(element: KElement, condition: ElementCondition, timeout: Int = 4000, poolingInterval: Long = 0.1.toLong()): Boolean {
     val endTime = System.currentTimeMillis() + timeout
     while (true) {
         try {
-            condition.evaluate(element.webElement)
+            return condition.evaluate(element.webElement)
         } catch (ex: ConditionMismatchException) {
             if (System.currentTimeMillis() > endTime) {
                 val message = """
