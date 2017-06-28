@@ -39,7 +39,7 @@ class ConfigTest : BaseTest() {
         }
     }
 
-    @Test
+    @Test(enabled = false)
     fun testCanUserConfigFile() {
         val file = File("src/main/resources/browser.config")
         file.writeText("browserName=firefox\ntimeout=300")

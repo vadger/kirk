@@ -5,7 +5,7 @@ import org.openqa.selenium.By
 /**
  * Created by sergey on 24.06.17.
  */
-open class Page(var browser: Browser = Browser(DriverlessBrowser())) {
+open class Page(var browser: Browser = Browser(DriverlessBrowser(), Browser.getDefaultConfig())) {
     open val url: String? = null
 
     fun element(locator: String): KElement {

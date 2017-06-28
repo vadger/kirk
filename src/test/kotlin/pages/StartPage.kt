@@ -8,7 +8,7 @@ import com.automation.remarks.kirk.Page
 class StartPage : Page() {
 
     override val url: String?
-        get() = "/"
+        get() = ""
 
     fun fillForm(text: String) {
         element("#input").setVal(text)

@@ -1,7 +1,7 @@
-import com.automation.remarks.kirk.conditions.be
+
 import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.Config
 import io.github.bonigarcia.wdm.ChromeDriverManager
-import org.openqa.selenium.chrome.ChromeDriver
 import org.testng.annotations.Test
 import pages.StartPage
 
@@ -13,12 +13,10 @@ class PageObjectTest : BaseTest() {
     @Test
     fun testCanOpenUrl() {
         ChromeDriverManager.getInstance().setup()
-        Browser.drive {
+        val config = Config(baseUrl = url)
+        Browser.drive(config = config) {
             to(::StartPage)
                     .fillForm("This is test")
         }
-
-        Browser(ChromeDriver())
-                .element("#header").should(be.visible)
     }
 }

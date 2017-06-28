@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver
 /**
  * Created by sergey on 24.06.17.
  */
-class Browser(val driver: WebDriver) {
+class Browser(val driver: WebDriver, private val config: BrowserConfig) {
 
     companion object {
 
@@ -37,13 +37,21 @@ class Browser(val driver: WebDriver) {
                     override fun run() = driver.quit()
                 })
             }
-            Browser(driver).apply(closure)
+            Browser(driver, config).apply(closure)
         }
     }
 
     fun to(url: String): String {
-        driver.get(url)
+        if (isAbsoluteUrl(url)) {
+            driver.get(url)
+        } else {
+            driver.get(config.baseUrl() + url)
+        }
         return driver.currentUrl
+    }
+
+    private fun isAbsoluteUrl(url: String): Boolean {
+        return (url.startsWith("http://") || url.startsWith("https://"))
     }
 
     fun <T : Page> to(pageClass: () -> T): T {

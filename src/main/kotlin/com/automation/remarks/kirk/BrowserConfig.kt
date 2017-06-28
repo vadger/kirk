@@ -27,4 +27,6 @@ interface BrowserConfig : Config {
 
     @DefaultValue("1920,1080")
     fun screenSize(): List<Int>
+
+    fun baseUrl(): String
 }

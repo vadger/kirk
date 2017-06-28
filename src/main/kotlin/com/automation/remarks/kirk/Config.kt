@@ -5,7 +5,11 @@ package com.automation.remarks.kirk
  */
 class Config(val startMaximized: Boolean = false,
              val autoClose: Boolean = true,
-             val screenSize: List<Int> = listOf(1920, 1080)) : BrowserConfig {
+             val screenSize: List<Int> = listOf(1920, 1080),
+             val baseUrl: String = "") : BrowserConfig {
+    override fun baseUrl(): String {
+        return baseUrl
+    }
 
     override fun screenSize(): List<Int> {
         return screenSize
