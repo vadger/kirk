@@ -60,4 +60,12 @@ class Browser(val driver: WebDriver) {
     fun element(locator: By): KElement {
         return KElement(locator, driver)
     }
+
+    fun all(cssLocator: String): KElementCollection {
+        return all(By.cssSelector(cssLocator))
+    }
+
+    fun all(locator: By): KElementCollection {
+        return KElementCollection(locator, driver)
+    }
 }

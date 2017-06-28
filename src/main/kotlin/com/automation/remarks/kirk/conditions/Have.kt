@@ -9,6 +9,10 @@ class Have {
     fun text(text: String): Text {
         return Text(text)
     }
+
+    fun collectionSize(size: Int): CollectionSize {
+        return CollectionSize(size)
+    }
 }
 
 val have = Have()

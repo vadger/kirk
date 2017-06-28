@@ -64,4 +64,32 @@ class TestBrowser : BaseTest() {
             }
         }
     }
+
+    @Test
+    fun testShouldFindCollectionOfElements() {
+        drive {
+            to(url)
+            all("li").should(have.collectionSize(3))
+        }
+    }
+
+    @Test
+    fun testShouldThrowExceptionOnWrongNumberOfElements() {
+        assertExceptionThrown(TimeoutException::class) {
+            drive {
+                to(url)
+                all("li").should(have.collectionSize(2))
+            }
+        }
+    }
+
+    @Test
+    fun testShouldFailOnWrongCollectionLocator() {
+        assertExceptionThrown(TimeoutException::class) {
+            drive {
+                to(url)
+                all("@wrongLocator").should(have.collectionSize(5))
+            }
+        }
+    }
 }
