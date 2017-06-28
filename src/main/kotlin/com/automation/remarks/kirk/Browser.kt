@@ -1,53 +1,53 @@
 package com.automation.remarks.kirk
 
+import com.automation.remarks.kirk.Browser.Companion.getDriver
 import org.aeonbits.owner.ConfigFactory
 import org.openqa.selenium.By
-import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 
 /**
  * Created by sergey on 24.06.17.
  */
-class Browser(val driver: WebDriver, private val config: BrowserConfig) {
+class Browser(val driver: WebDriver = getDriver()) {
+
+    var config: BrowserConfig = getConfig()
 
     companion object {
 
-        private val driverContaner = ThreadLocalDriverContainer()
+        private val driverContainer = ThreadLocalDriverContainer()
 
         fun getDriver(): WebDriver {
-            return driverContaner.getDriver()
+            return driverContainer.getDriver()
         }
 
-        fun getDefaultConfig(): BrowserConfig {
+        fun setDriver(driver: WebDriver) {
+            driverContainer.setWebDriver(driver)
+        }
+
+        fun getConfig(): BrowserConfig {
             return ConfigFactory.create(BrowserConfig::class.java,
                     System.getProperties())
         }
 
-        fun drive(driver: WebDriver = getDriver(),
-                  config: BrowserConfig = getDefaultConfig(),
-                  closure: Browser.() -> Unit) {
-            if (config.startMaximized()) {
-                driver.manage().window().maximize()
-            } else {
-                val screenSize = config.screenSize()
-                driver.manage().window().size = Dimension(screenSize[0], screenSize[1])
-            }
-            if (config.autoClose()) {
-                Runtime.getRuntime().addShutdownHook(object : Thread() {
-                    override fun run() = driver.quit()
-                })
-            }
-            Browser(driver, config).apply(closure)
+        fun drive(closure: Browser.() -> Unit) {
+            Browser(getDriver()).apply(closure)
         }
     }
 
-    fun to(url: String): String {
+    fun to(url: String): Browser {
+        addHooks()
         if (isAbsoluteUrl(url)) {
             driver.get(url)
         } else {
             driver.get(config.baseUrl() + url)
         }
-        return driver.currentUrl
+        return this
+    }
+
+    private fun addHooks() {
+        Runtime.getRuntime().addShutdownHook(object : Thread() {
+            override fun run() = quit()
+        })
     }
 
     private fun isAbsoluteUrl(url: String): Boolean {
@@ -75,5 +75,13 @@ class Browser(val driver: WebDriver, private val config: BrowserConfig) {
 
     fun all(locator: By): KElementCollection {
         return KElementCollection(locator, driver)
+    }
+
+    val currentUrl: String by lazy {
+        driver.currentUrl
+    }
+
+    fun quit() {
+        driver.quit()
     }
 }

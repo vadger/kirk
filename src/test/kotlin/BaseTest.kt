@@ -1,8 +1,7 @@
-
 import helpers.JettyServer
 import io.github.bonigarcia.wdm.ChromeDriverManager
+import io.github.bonigarcia.wdm.FirefoxDriverManager
 import me.tatarka.assertk.assertions.hasClass
-import org.openqa.selenium.net.PortProber
 import org.testng.annotations.BeforeSuite
 import kotlin.reflect.KClass
 
@@ -11,14 +10,13 @@ import kotlin.reflect.KClass
  */
 abstract class BaseTest {
 
-    lateinit var url: String
+    val url: String = "http://localhost:32941/"
 
     @BeforeSuite
     fun runServer() {
-        val port = PortProber.findFreePort()
-        JettyServer(port).runServer()
+        JettyServer(32941).runServer()
         ChromeDriverManager.getInstance().setup()
-        url = "http://localhost:$port/"
+        FirefoxDriverManager.getInstance().setup()
     }
 
 

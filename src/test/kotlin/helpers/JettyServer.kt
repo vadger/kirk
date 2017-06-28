@@ -11,7 +11,7 @@ import org.eclipse.jetty.util.resource.Resource
  */
 class JettyServer(val port: Int) {
 
-    fun runServer() {
+    fun runServer(): Int {
 
         val server = Server(port)
 
@@ -36,5 +36,6 @@ class JettyServer(val port: Int) {
         server.handler = context
 
         server.start()
+        return port
     }
 }

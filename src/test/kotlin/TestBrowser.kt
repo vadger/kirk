@@ -13,7 +13,7 @@ class TestBrowser : BaseTest() {
     @Test
     fun testCanOpenUrl() {
         drive {
-            val currentUrl = to(url)
+            val currentUrl = to(url).currentUrl
             assertEquals(currentUrl, url)
         }
     }
@@ -22,7 +22,7 @@ class TestBrowser : BaseTest() {
     fun testCanFindElement() {
         drive {
             to(url)
-            element("#header").should(have.text("Selene"))
+            element("#header").should(have.text("Kirk"))
             element("#input").should(be.visible)
         }
     }
@@ -107,7 +107,7 @@ class TestBrowser : BaseTest() {
     fun shouldCompareCollectionText() {
         drive {
             to(url)
-            all("li").should(have.exactText("Один","Два","Три"))
+            all("li").should(have.exactText("Один", "Два", "Три"))
         }
     }
 }

@@ -1,8 +1,9 @@
 sudo: required
 
 language: java
-sudo: true
 dist: trusty
+addons:
+  firefox: "latest"
 cache:
   directories:
   - $HOME/.gradle

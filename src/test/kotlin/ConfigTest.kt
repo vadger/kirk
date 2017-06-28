@@ -13,7 +13,7 @@ class ConfigTest : BaseTest() {
 
     @Test
     fun testCheckDefaultConfigLoaded() {
-        val cfg = Browser.getDefaultConfig()
+        val cfg = Browser.getConfig()
         assertAll {
             assert(cfg.browserName()).isEqualTo("chrome")
             assert(cfg.timeout()).isEqualTo(4000)
@@ -26,7 +26,7 @@ class ConfigTest : BaseTest() {
         System.setProperty("browserName", "firefox")
         System.setProperty("timeout", "6000")
         System.setProperty("startMaximized", "false")
-        val cfg = Browser.getDefaultConfig()
+        val cfg = Browser.getConfig()
         System.clearProperty("browserName")
         System.clearProperty("timeout")
         System.clearProperty("startMaximized")
@@ -42,7 +42,7 @@ class ConfigTest : BaseTest() {
     fun testCanUserConfigFile() {
         val file = File("src/main/resources/browser.config")
         file.writeText("browserName=firefox\ntimeout=300")
-        val cfg = Browser.getDefaultConfig()
+        val cfg = Browser.getConfig()
         file.delete()
         assertAll {
             assert(cfg.browserName()).isEqualTo("firefox")
