@@ -23,3 +23,7 @@ class CollectionSize(val size: Int) : CollectionCondition() {
         }
     }
 }
+
+class CollectionExactText(){
+
+}

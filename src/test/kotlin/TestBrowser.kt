@@ -92,4 +92,14 @@ class TestBrowser : BaseTest() {
             }
         }
     }
+
+    @Test
+    fun shouldIterateOverCollection() {
+        drive {
+            to(url)
+            for(el in all("li")){
+                print(el.text)
+            }
+        }
+    }
 }

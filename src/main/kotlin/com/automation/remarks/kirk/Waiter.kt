@@ -12,7 +12,7 @@ fun waitFor(elements: KElementCollection, condition: CollectionCondition, timeou
     val endTime = System.currentTimeMillis() + timeout
     while (true) {
         try {
-            return condition.evaluate(elements.webElements)
+            condition.evaluate(elements.webElements)
         } catch (ex: ConditionMismatchException) {
             if (System.currentTimeMillis() > endTime) {
                 val message = """
@@ -44,7 +44,7 @@ fun waitFor(element: KElement, condition: Condition, timeout: Int = 4000, poolin
     val endTime = System.currentTimeMillis() + timeout
     while (true) {
         try {
-            return condition.evaluate(element.webElement)
+            condition.evaluate(element.webElement)
         } catch (ex: ConditionMismatchException) {
             if (System.currentTimeMillis() > endTime) {
                 val message = """

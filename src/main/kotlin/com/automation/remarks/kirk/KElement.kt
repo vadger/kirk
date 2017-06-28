@@ -47,4 +47,8 @@ class KElement(val locator: ElementLocator<WebElement>) {
     override fun toString(): String {
         return locator.description
     }
+
+    val text: String by lazy {
+        webElement.text
+    }
 }
