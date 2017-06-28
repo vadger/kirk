@@ -1,0 +1,29 @@
+sudo: required
+
+language: java
+sudo: true
+dist: trusty
+cache:
+  directories:
+  - $HOME/.gradle
+
+jdk:
+  - oraclejdk8
+
+before_install:
+  - chmod +x gradlew
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sudo apt-get update
+  - sudo apt-get install -y libappindicator1 fonts-liberation
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome*.deb
+
+script:
+  - ./gradlew clean build
+
+notifications:
+  email:
+    recipients:
+      - sergio_89@ukr.net
