@@ -4,6 +4,8 @@
 - No @FindBy
 - Pragmatic DSL
 
+Simple script example:
+
 ```
  @Test fun testCanLogin() {
         Browser.drive {
@@ -14,4 +16,30 @@
             element("a.navbar-brand").should(have.text("Video service"))
         }
     }
+```
+
+Page Object Example:
+
+```
+class LoginPage : Page() {
+
+    override val url: String?
+        get() = "http://localhost:8086"
+
+    val loginInput = element("#inputEmail3")
+    val passwordInput = element("#inputPassword3")
+
+    fun login(name: String, password: String) {
+        loginInput.setVal(name)
+        passwordInput.setVal(password)
+    }
+}
+
+
+@Test fun testCanLoginPageObject2() {
+        Browser.drive {
+            to(::LoginPage)
+                    .login("admin", "admin")
+   }
+}
 ```
