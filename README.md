@@ -6,7 +6,7 @@
 
 Simple script example:
 
-```
+```java
  @Test fun testCanLogin() {
         Browser.drive {
             to("http://localhost:8086")
