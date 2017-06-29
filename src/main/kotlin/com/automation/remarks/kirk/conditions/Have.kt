@@ -17,6 +17,10 @@ class Have {
     fun exactText(vararg text: String): CollectionExactText {
         return CollectionExactText(text)
     }
+
+    fun attr(attr: String, value: String): AttributeValue {
+        return AttributeValue(attr, value)
+    }
 }
 
 val have = Have()

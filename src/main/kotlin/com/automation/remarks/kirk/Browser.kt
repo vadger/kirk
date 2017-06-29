@@ -4,6 +4,7 @@ import com.automation.remarks.kirk.Browser.Companion.getDriver
 import org.aeonbits.owner.ConfigFactory
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement
 
 /**
  * Created by sergey on 24.06.17.
@@ -67,6 +68,14 @@ open class Browser(val driver: WebDriver = getDriver()) {
 
     fun element(locator: By): KElement {
         return KElement(locator, driver)
+    }
+
+    fun element(locator: By, closure: WebElement.() -> Unit) {
+        element(locator).execute(closure)
+    }
+
+    fun element(locator: String, closure: WebElement.() -> Unit): KElement {
+        return element(locator).execute(closure)
     }
 
     fun all(cssLocator: String): KElementCollection {

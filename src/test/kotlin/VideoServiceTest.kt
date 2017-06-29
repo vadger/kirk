@@ -36,7 +36,6 @@ class VideoServiceTest : BaseTest() {
 
         }
     }
-
 }
 
 class LoginPage : Page() {

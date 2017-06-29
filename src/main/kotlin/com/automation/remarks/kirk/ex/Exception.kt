@@ -7,8 +7,8 @@ class ConditionMismatchException(actual: String,
                                  expected: String,
                                  override var message: String = "condition did not match") : Exception() {init {
     message += """
-                expected $expected
-                actual $actual
+                expected: $expected
+                actual: $actual
             """
 }
 }

@@ -20,7 +20,7 @@ class KElement(val locator: ElementLocator<WebElement>) {
         get() = locator.find()
 
     fun click(): KElement {
-        element { click() }
+        execute { click() }
         return this
     }
 
@@ -29,19 +29,20 @@ class KElement(val locator: ElementLocator<WebElement>) {
     }
 
     fun setVal(value: String): KElement {
-        element {
+        execute {
             clear()
             sendKeys(value)
         }
         return this
     }
 
-    private fun element(commands: WebElement.() -> Unit) {
+    fun execute(commands: WebElement.() -> Unit): KElement {
         try {
             webElement.apply(commands)
         } catch (ex: Exception) {
             waitFor(this.locator, be.visible)
         }
+        return this
     }
 
     override fun toString(): String {

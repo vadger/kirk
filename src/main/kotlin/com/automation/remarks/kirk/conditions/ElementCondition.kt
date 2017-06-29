@@ -32,6 +32,20 @@ class Visible : ElementCondition() {
     }
 
     override fun toString(): String {
-        return "element visibility"
+        return "execute visibility"
+    }
+}
+
+class AttributeValue(val attr: String, val expect: String) : ElementCondition() {
+    override fun match(element: WebElement) {
+        val actual = element.getAttribute(attr)
+        if (actual.equals(expect)) {
+            return
+        }
+        throw ConditionMismatchException(actual, expect)
+    }
+
+    override fun toString(): String {
+        return "attribute {$attr}"
     }
 }
