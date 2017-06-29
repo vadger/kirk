@@ -20,7 +20,7 @@ Simple script example:
 
 Page Object Example:
 
-```
+```java
 class LoginPage : Page() {
 
     override val url: String?
