@@ -5,8 +5,7 @@
 - Pragmatic DSL
 
 ```
- @Test
-    fun testCanLogin() {
+ @Test fun testCanLogin() {
         Browser.drive {
             to("http://localhost:8086")
             element("#inputEmail3").setVal("admin")
