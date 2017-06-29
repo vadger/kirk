@@ -1,1 +1,1 @@
-# kirk
+# Kirk - pragmatic UI test automation
