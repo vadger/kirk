@@ -22,7 +22,7 @@ class KElementCollection(private val locator: ElementLocator<List<WebElement>>) 
         get() = webElements.size //To change initializer of created properties use File | Settings | File Templates.
 
     fun should(condition: CollectionCondition) {
-        waitFor(this, condition)
+        waitFor(this.locator, condition)
     }
 
     override fun isEmpty(): Boolean {

@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver
 /**
  * Created by sergey on 24.06.17.
  */
-class Browser(val driver: WebDriver = getDriver()) {
+open class Browser(val driver: WebDriver = getDriver()) {
 
     var config: BrowserConfig = getConfig()
 

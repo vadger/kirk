@@ -13,10 +13,10 @@ class CollectionSize(val size: Int) : CollectionCondition() {
         return "size"
     }
 
-    override fun match(element: List<WebElement>): Boolean {
+    override fun match(element: List<WebElement>) {
         val actual = element.size
         if (actual == size) {
-            return true
+            return
         }
         throw ConditionMismatchException(actual.toString(), size.toString())
     }
@@ -27,11 +27,11 @@ class CollectionExactText(val text: Array<out String>) : CollectionCondition() {
         return "exact text"
     }
 
-    override fun match(element: List<WebElement>): Boolean {
+    override fun match(element: List<WebElement>) {
         val actual = element.map { it.text }
         val expected = text.toList()
         if (actual.equals(expected)) {
-            return true
+            return
         }
         throw ConditionMismatchException(actual.toString(), expected.toString())
     }

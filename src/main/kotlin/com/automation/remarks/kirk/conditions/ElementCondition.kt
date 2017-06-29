@@ -9,10 +9,10 @@ import org.openqa.selenium.WebElement
 abstract class ElementCondition : Condition<WebElement>()
 
 class Text(val text: String) : ElementCondition() {
-    override fun match(element: WebElement): Boolean {
+    override fun match(element: WebElement) {
         val actual = element.text
         if (actual.equals(text)) {
-            return true
+            return
         }
         throw ConditionMismatchException(actual, text)
     }
@@ -23,9 +23,9 @@ class Text(val text: String) : ElementCondition() {
 }
 
 class Visible : ElementCondition() {
-    override fun match(element: WebElement): Boolean {
+    override fun match(element: WebElement) {
         if (element.isDisplayed) {
-            return true
+            return
         }
         throw ConditionMismatchException("invisible", "visible")
 

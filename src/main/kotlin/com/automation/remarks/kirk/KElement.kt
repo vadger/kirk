@@ -25,7 +25,7 @@ class KElement(val locator: ElementLocator<WebElement>) {
     }
 
     fun should(condition: ElementCondition) {
-        waitFor(this, condition)
+        waitFor(this.locator, condition)
     }
 
     fun setVal(value: String): KElement {
@@ -40,7 +40,7 @@ class KElement(val locator: ElementLocator<WebElement>) {
         try {
             webElement.apply(commands)
         } catch (ex: Exception) {
-            waitFor(this, be.visible)
+            waitFor(this.locator, be.visible)
         }
     }
 

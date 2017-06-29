@@ -5,11 +5,11 @@ package com.automation.remarks.kirk.conditions
  */
 
 abstract class Condition<in T> {
-    fun evaluate(element: T): Boolean {
+    fun evaluate(element: T) {
         return match(element)
     }
 
-    abstract fun match(element: T): Boolean
+    abstract fun match(element: T)
 
     abstract override fun toString(): String
 }
