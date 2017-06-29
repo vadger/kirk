@@ -1,6 +1,6 @@
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
-import me.tatarka.assertk.assertions.isEqualTo
+import com.automation.remarks.kirk.extensions.element
 import org.testng.annotations.Test
 
 /**
@@ -15,8 +15,7 @@ class ElementTest : BaseTest() {
             element("#input") {
                 clear()
                 sendKeys("this is from test")
-            }.should(have.attr("value", "demo"))
+            }.should(have.attr(name = "value", value = "demo"))
         }
     }
-
 }

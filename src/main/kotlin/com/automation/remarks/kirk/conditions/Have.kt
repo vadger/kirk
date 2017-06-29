@@ -18,8 +18,8 @@ class Have {
         return CollectionExactText(text)
     }
 
-    fun attr(attr: String, value: String): AttributeValue {
-        return AttributeValue(attr, value)
+    fun attr(name: String, value: String): AttributeValue {
+        return AttributeValue(name, value)
     }
 }
 
