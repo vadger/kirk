@@ -28,24 +28,16 @@ fun display(value: Any?): String {
 fun fail(expected: Any?, actual: Any?,
          message: String = "condition did not match", withDiff: Boolean = true) {
     if (!withDiff) {
-        throw ConditionMismatchException("""$message
-                expected: $expected
-                actual: $actual
-        """)
+        throw ConditionMismatchException(actual, expected, message)
     }
     if (expected == null || actual == null || expected == actual) {
-        throw ConditionMismatchException(
-                """$message
-                expected: ${show(expected)}
-                actual:${show(actual)}
-            """)
+        throw ConditionMismatchException(show(actual), show(expected), message)
     } else {
         val extractor = DiffExtractor(display(expected), display(actual))
         val prefix = extractor.compactPrefix()
         val suffix = extractor.compactSuffix()
-        throw ConditionMismatchException("""$message
-                expected: $prefix${extractor.expectedDiff()}$suffix
-                actual: $prefix${extractor.actualDiff()}$suffix
-            """)
+        throw ConditionMismatchException("$prefix${extractor.actualDiff()}$suffix",
+                "$prefix${extractor.expectedDiff()}$suffix",
+                message)
     }
 }

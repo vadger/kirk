@@ -29,7 +29,7 @@ fun <T> waitFor(locator: ElementLocator<T>, condition: Condition<T>, timeout: In
                 val message = """
             failed while waiting ${timeout / 1000} seconds
             for existence of element {${locator.description}}
-            reason:
+            reason: no such element
                 either wrong locator
                 or did not have time to load
                 """
