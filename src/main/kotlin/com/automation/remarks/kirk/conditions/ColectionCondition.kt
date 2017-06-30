@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk.conditions
 
 import com.automation.remarks.kirk.ex.ConditionMismatchException
+import com.automation.remarks.kirk.fail
 import org.openqa.selenium.WebElement
 
 /**
@@ -18,7 +19,7 @@ class CollectionSize(val size: Int) : CollectionCondition() {
         if (actual == size) {
             return
         }
-        throw ConditionMismatchException(actual.toString(), size.toString())
+        fail(size, actual)
     }
 }
 
@@ -33,7 +34,7 @@ class CollectionExactText(val text: Array<out String>) : CollectionCondition() {
         if (actual.equals(expected)) {
             return
         }
-        throw ConditionMismatchException(actual.toString(), expected.toString())
+        fail(expected, actual)
     }
 
 }

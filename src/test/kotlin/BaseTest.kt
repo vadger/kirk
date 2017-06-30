@@ -10,11 +10,11 @@ import kotlin.reflect.KClass
  */
 abstract class BaseTest {
 
-    val url: String = "http://localhost:32941/"
+    val url: String = "http://localhost:32943/"
 
     @BeforeSuite
     fun runServer() {
-        JettyServer(32941).runServer()
+        JettyServer(32943).runServer()
         ChromeDriverManager.getInstance().setup()
         FirefoxDriverManager.getInstance().setup()
     }

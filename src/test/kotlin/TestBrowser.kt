@@ -1,6 +1,11 @@
 import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
+import com.codeborne.selenide.Condition
+import com.codeborne.selenide.Configuration
+import com.codeborne.selenide.Selenide
+import me.tatarka.assertk.assert
+import me.tatarka.assertk.assertions.isEqualTo
 import org.openqa.selenium.TimeoutException
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
@@ -40,7 +45,7 @@ class TestBrowser : BaseTest() {
         assertExceptionThrown(TimeoutException::class) {
             drive {
                 to(url)
-                element("#header").should(have.text("Slene"))
+                element("#header").should(have.text("KIr"))
             }
         }
     }
@@ -110,4 +115,30 @@ class TestBrowser : BaseTest() {
             all("li").should(have.exactText("Один", "Два", "Три"))
         }
     }
+
+    @Test
+    fun testSite() {
+        drive {
+            to("http://arvi-qa-am.pp.ciklum.com")
+            element(".header-account-link  li:nth-child(1) a").click()
+            element("#email").setVal("wrong@mail.com")
+            element("#pass").setVal("wrongpass")
+            element("#send2").click()
+            element(".error-msg span").should(have.text("Invali login or password."))
+        }
+    }
+
+    @Test
+    fun testSiteSelenide() {
+        drive {
+            Configuration.browser = "chrome"
+            Selenide.open("http://arvi-qa-am.pp.ciklum.com")
+            Selenide.`$`(".header-account-link  li:nth-child(1) a").click()
+            Selenide.`$`("#email").value = "wrong@mail.com"
+            Selenide.`$`("#pass").value = "wrongpass"
+            Selenide.`$`("#send2").click()
+            Selenide.`$`(".error-msg span").shouldHave(Condition.text("Invalid login or password."))
+        }
+    }
+
 }

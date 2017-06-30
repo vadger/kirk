@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk.conditions
 
 import com.automation.remarks.kirk.ex.ConditionMismatchException
+import com.automation.remarks.kirk.fail
 import org.openqa.selenium.WebElement
 
 /**
@@ -14,7 +15,7 @@ class Text(val text: String) : ElementCondition() {
         if (actual.equals(text)) {
             return
         }
-        throw ConditionMismatchException(actual, text)
+        fail(text, actual)
     }
 
     override fun toString(): String {
@@ -27,8 +28,7 @@ class Visible : ElementCondition() {
         if (element.isDisplayed) {
             return
         }
-        throw ConditionMismatchException("invisible", "visible")
-
+        fail("visible", "invisible")
     }
 
     override fun toString(): String {
@@ -42,7 +42,7 @@ class AttributeValue(val attr: String, val expect: String) : ElementCondition() 
         if (actual.equals(expect)) {
             return
         }
-        throw ConditionMismatchException(actual, expect)
+        fail(expect, actual)
     }
 
     override fun toString(): String {
