@@ -25,7 +25,14 @@ fun display(value: Any?): String {
 /**
  * Fails an assert with the given expected and actual values.
  */
-fun fail(expected: Any?, actual: Any?, message: String = "condition did not match") {
+fun fail(expected: Any?, actual: Any?,
+         message: String = "condition did not match", withDiff: Boolean = true) {
+    if (!withDiff) {
+        throw ConditionMismatchException("""$message
+                expected: $expected
+                actual: $actual
+        """)
+    }
     if (expected == null || actual == null || expected == actual) {
         throw ConditionMismatchException(
                 """$message

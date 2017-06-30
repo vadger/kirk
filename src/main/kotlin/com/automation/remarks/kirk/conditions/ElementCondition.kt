@@ -28,7 +28,7 @@ class Visible : ElementCondition() {
         if (element.isDisplayed) {
             return
         }
-        fail("visible", "invisible")
+        fail("visible", "invisible", withDiff = false)
     }
 
     override fun toString(): String {
