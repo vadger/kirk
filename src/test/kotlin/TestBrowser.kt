@@ -115,30 +115,4 @@ class TestBrowser : BaseTest() {
             all("li").should(have.exactText("Один", "Два", "Три"))
         }
     }
-
-    @Test
-    fun testSite() {
-        drive {
-            to("http://arvi-qa-am.pp.ciklum.com")
-            element(".header-account-link  li:nth-child(1) a").click()
-            element("#email").setVal("wrong@mail.com")
-            element("#pass").setVal("wrongpass")
-            element("#send2").click()
-            element(".error-msg span").should(have.text("Invali login or password."))
-        }
-    }
-
-    @Test
-    fun testSiteSelenide() {
-        drive {
-            Configuration.browser = "chrome"
-            Selenide.open("http://arvi-qa-am.pp.ciklum.com")
-            Selenide.`$`(".header-account-link  li:nth-child(1) a").click()
-            Selenide.`$`("#email").value = "wrong@mail.com"
-            Selenide.`$`("#pass").value = "wrongpass"
-            Selenide.`$`("#send2").click()
-            Selenide.`$`(".error-msg span").shouldHave(Condition.text("Invalid login or password."))
-        }
-    }
-
 }
