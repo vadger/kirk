@@ -1,11 +1,6 @@
 import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
-import com.codeborne.selenide.Condition
-import com.codeborne.selenide.Configuration
-import com.codeborne.selenide.Selenide
-import me.tatarka.assertk.assert
-import me.tatarka.assertk.assertions.isEqualTo
 import org.openqa.selenium.TimeoutException
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test

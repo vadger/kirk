@@ -33,7 +33,6 @@ dependencies {
     testCompile 'me.tatarka.assertk:assertk:1.0-SNAPSHOT'
     testCompile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.6.v20170531'
     testCompile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.4.6.v20170531'
-    testCompile group: 'com.codeborne', name: 'selenide', version: '4.5'
 }
 
 test{

@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver
  */
 open class Browser(val driver: WebDriver = getDriver()) {
 
-    var config: BrowserConfig = getConfig()
+    var config: Configuration = getConfig()
 
     companion object {
 
@@ -24,8 +24,8 @@ open class Browser(val driver: WebDriver = getDriver()) {
             driverContainer.setWebDriver(driver)
         }
 
-        fun getConfig(): BrowserConfig {
-            return ConfigFactory.create(BrowserConfig::class.java,
+        fun getConfig(): Configuration {
+            return ConfigFactory.create(Configuration::class.java,
                     System.getProperties())
         }
 

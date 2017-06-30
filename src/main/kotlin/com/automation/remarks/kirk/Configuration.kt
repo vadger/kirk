@@ -8,7 +8,7 @@ import org.aeonbits.owner.Config.Sources
  * Created by sergey on 25.06.17.
  */
 @Sources("classpath:browser.config")
-interface BrowserConfig : Config {
+interface Configuration : Config {
 
     @DefaultValue("chrome")
     fun browserName(): String
