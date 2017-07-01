@@ -11,9 +11,10 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sergey on 28.06.17.
  */
-class KElementCollection(private val locator: ElementLocator<List<WebElement>>) : Collection<KElement> {
+class KElementCollection(private val locator: ElementLocator<List<WebElement>>, private val driver: WebDriver) : Collection<KElement> {
 
-    constructor(locator: By, driver: WebDriver) : this(WebElementListLocator(locator, driver))
+    constructor(locator: By, driver: WebDriver)
+            : this(WebElementListLocator(locator, driver), driver)
 
     val webElements: List<WebElement>
         get() = locator.find()
@@ -57,6 +58,6 @@ class KElementCollection(private val locator: ElementLocator<List<WebElement>>) 
 
     operator fun get(index: Int): KElement {
         return KElement(CachedWebElementLocator(webElements[index],
-                String.format("(%s)[%s]", webElements, index)))
+                String.format("(%s)[%s]", webElements, index)), driver)
     }
 }

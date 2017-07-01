@@ -14,13 +14,12 @@ import org.openqa.selenium.interactions.Actions
 /**
  * Created by sergey on 24.06.17.
  */
-class KElement(val locator: ElementLocator<WebElement>) {
+class KElement(private val locator: ElementLocator<WebElement>, driver: WebDriver) {
 
-    var actions: Actions? = null
+    val actions: Actions = Actions(driver)
 
-    constructor(locator: By, driver: WebDriver) : this(locator = WebElementLocator(locator, driver)) {
-        actions = Actions(driver)
-    }
+    constructor(locator: By, driver: WebDriver) :
+            this(WebElementLocator(locator, driver), driver)
 
     val webElement: WebElement
         get() = locator.find()
@@ -63,7 +62,7 @@ class KElement(val locator: ElementLocator<WebElement>) {
     }
 
     fun hover(): KElement {
-        actions?.moveToElement(webElement)?.build()?.perform()
+        actions.moveToElement(webElement).build().perform()
         return this
     }
 }

@@ -10,7 +10,7 @@ class Have {
         return Text(text)
     }
 
-    fun collectionSize(size: Int): CollectionSize {
+    fun size(size: Int): CollectionSize {
         return CollectionSize(size)
     }
 

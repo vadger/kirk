@@ -43,7 +43,7 @@ class ConditionsTest : BaseTest() {
         assertExceptionThrown(TimeoutException::class) {
             Browser.drive {
                 to(url)
-                all("@wrongLocator").should(have.collectionSize(5))
+                all("@wrongLocator").should(have.size(5))
             }
         }
     }
@@ -60,7 +60,7 @@ class ConditionsTest : BaseTest() {
     fun testShouldFindCollectionOfElements() {
         Browser.drive {
             to(url)
-            all("li").should(have.collectionSize(3))
+            all("li").should(have.size(3))
         }
     }
 
@@ -69,7 +69,7 @@ class ConditionsTest : BaseTest() {
         assertExceptionThrown(TimeoutException::class) {
             Browser.drive {
                 to(url)
-                all("li").should(have.collectionSize(2))
+                all("li").should(have.size(2))
             }
         }
     }
