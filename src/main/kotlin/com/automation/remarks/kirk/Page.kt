@@ -9,19 +9,19 @@ open class Page(var browser: Browser = Browser()) {
 
     open val url: String? = null
 
-    fun element(locator: String): KElement {
-        return browser.element(locator)
+    fun element(byCss: String): KElement {
+        return browser.element(byCss)
     }
 
-    fun element(locator: By): KElement {
-        return browser.element(locator)
+    fun element(by: By): KElement {
+        return browser.element(by)
     }
 
-    fun all(locator: String): KElementCollection {
-        return browser.all(locator)
+    fun all(byCss: String): KElementCollection {
+        return browser.all(byCss)
     }
 
-    fun all(locator: By): KElementCollection {
-        return browser.all(locator)
+    fun all(by: By): KElementCollection {
+        return browser.all(by)
     }
 }

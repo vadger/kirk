@@ -69,20 +69,20 @@ open class Browser(val driver: WebDriver = getDriver()) {
         return page
     }
 
-    fun element(cssLocator: String): KElement {
-        return element(By.cssSelector(cssLocator))
+    fun element(byCss: String): KElement {
+        return element(By.cssSelector(byCss))
     }
 
-    fun element(locator: By): KElement {
-        return KElement(locator, driver)
+    fun element(by: By): KElement {
+        return KElement(by, driver)
     }
 
-    fun all(cssLocator: String): KElementCollection {
-        return all(By.cssSelector(cssLocator))
+    fun all(byCss: String): KElementCollection {
+        return all(By.cssSelector(byCss))
     }
 
-    fun all(locator: By): KElementCollection {
-        return KElementCollection(locator, driver)
+    fun all(by: By): KElementCollection {
+        return KElementCollection(by, driver)
     }
 
     val currentUrl: String by lazy {
