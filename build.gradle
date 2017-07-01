@@ -12,13 +12,13 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'jacoco'
 
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    jcenter()
     maven {
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
@@ -40,5 +40,19 @@ test{
     testLogging {
         events "passed", "skipped", "failed"
         exceptionFormat = 'full'
+    }
+}
+
+jacoco {
+    toolVersion = "0.7.2.201409121644"
+}
+
+jacocoTestReport {
+    executionData = files("${project.buildDir}/jacoco/test.exec")
+    reports {
+        xml.destination "${buildDir}/reports/jacoco/report.xml"
+        xml.enabled true
+        html.enabled true
+        html.destination "${buildDir}/jacocoHtml"
     }
 }
