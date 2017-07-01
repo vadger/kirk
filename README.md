@@ -1,5 +1,7 @@
 # Kirk - pragmatic UI test automation
 
+[![Build Status](https://travis-ci.org/SergeyPirogov/kirk.svg?branch=master)](https://travis-ci.org/SergeyPirogov/kirk)
+
 - No Page Factory
 - No @FindBy
 - Pragmatic DSL
