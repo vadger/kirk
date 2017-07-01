@@ -8,8 +8,8 @@ package com.automation.remarks.kirk.ex
 class ConditionMismatchException(actual: Any?, expected: Any?,
                                  override var message: String) : Exception() {init {
     message += """
-                 expected $expected
-                 actual $actual
+                 expected: $expected
+                 actual: $actual
              """
 }
 }

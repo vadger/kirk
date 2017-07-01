@@ -5,8 +5,10 @@ import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.WebElementLocator
 import org.openqa.selenium.By
+import org.openqa.selenium.Keys
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
+import org.openqa.selenium.interactions.Actions
 
 
 /**
@@ -14,14 +16,17 @@ import org.openqa.selenium.WebElement
  */
 class KElement(val locator: ElementLocator<WebElement>) {
 
-    constructor(locator: By, driver: WebDriver) : this(WebElementLocator(locator, driver))
+    var actions: Actions? = null
+
+    constructor(locator: By, driver: WebDriver) : this(locator = WebElementLocator(locator, driver)) {
+        actions = Actions(driver)
+    }
 
     val webElement: WebElement
         get() = locator.find()
 
-    fun click(): KElement {
+    fun click() {
         execute { click() }
-        return this
     }
 
     fun should(condition: ElementCondition) {
@@ -51,5 +56,14 @@ class KElement(val locator: ElementLocator<WebElement>) {
 
     val text: String by lazy {
         webElement.text
+    }
+
+    fun pressEnter() {
+        execute { sendKeys(Keys.ENTER) }
+    }
+
+    fun hover(): KElement {
+        actions?.moveToElement(webElement)?.build()?.perform()
+        return this
     }
 }

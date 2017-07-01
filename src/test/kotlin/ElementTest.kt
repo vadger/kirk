@@ -1,7 +1,6 @@
 
 import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.extensions.element
 import me.tatarka.assertk.assert
 import me.tatarka.assertk.assertions.isEqualTo
 import org.testng.annotations.Test
@@ -14,7 +13,7 @@ class ElementTest : BaseTest() {
     @Test fun testElementCommands() {
         drive {
             to(url)
-            element("#input") {
+            element("#input").execute {
                 clear()
                 sendKeys("this is from test")
             }.should(have.attr(name = "value", value = "this is from test"))

@@ -37,8 +37,7 @@ class KElementCollection(private val locator: ElementLocator<List<WebElement>>) 
         }
 
         override fun next(): KElement {
-            val indexedElement = KElement(CachedWebElementLocator(webElements[index],
-                    String.format("(%s)[%s]", webElements, index)))
+            val indexedElement = get(index)
             this.index += 1
             return indexedElement
         }
@@ -54,5 +53,10 @@ class KElementCollection(private val locator: ElementLocator<List<WebElement>>) 
 
     override fun containsAll(elements: Collection<KElement>): Boolean {
         throw NotImplementedError()
+    }
+
+    operator fun get(index: Int): KElement {
+        return KElement(CachedWebElementLocator(webElements[index],
+                String.format("(%s)[%s]", webElements, index)))
     }
 }

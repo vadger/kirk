@@ -14,7 +14,7 @@ fun show(value: Any?): String = "<${display(value)}>"
 fun display(value: Any?): String {
     return when (value) {
         null -> "null"
-        is String -> "\"$value\""
+        is String -> "$value"
         is Class<*> -> value.name
         is Array<*> -> value.joinToString(prefix = "[", postfix = "]", transform = ::display)
         is Regex -> "/$value/"
