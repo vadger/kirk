@@ -9,9 +9,9 @@ import org.openqa.selenium.WebElement
  * Created by sepi on 6/29/2017.
  */
 fun Browser.element(locator: String, closure: WebElement.() -> Unit): KElement {
-    return element(locator).execute(closure)
+    return element(By.cssSelector(locator), closure)
 }
 
-fun Browser.element(locator: By, closure: WebElement.() -> Unit) {
-    element(locator).execute(closure)
+fun Browser.element(locator: By, closure: WebElement.() -> Unit): KElement {
+    return element(locator).execute(closure)
 }
