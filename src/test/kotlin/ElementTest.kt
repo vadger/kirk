@@ -1,4 +1,4 @@
-import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.extensions.element
 import org.testng.annotations.Test
@@ -8,14 +8,20 @@ import org.testng.annotations.Test
  */
 class ElementTest : BaseTest() {
 
-    @Test
-    fun testElementCommands() {
-        Browser.drive {
+    @Test fun testElementCommands() {
+        drive {
             to(url)
             element("#input") {
                 clear()
                 sendKeys("this is from test")
-            }.should(have.attr(name = "value", value = "demo"))
+            }.should(have.attr(name = "value", value = "this is from test"))
+        }
+    }
+
+    @Test fun testCanClickOnElement() {
+        drive {
+            to(url)
+            element("#button").click()
         }
     }
 }
