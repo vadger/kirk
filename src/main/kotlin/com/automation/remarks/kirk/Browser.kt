@@ -61,6 +61,14 @@ open class Browser(val driver: WebDriver = getDriver()) {
         return page
     }
 
+    fun <T : Page> to(pageClass: () -> T, closure: T.() -> Unit): T {
+        val page = pageClass()
+        page.browser = this
+        page.url?.let { to(it) }
+        page.apply(closure)
+        return page
+    }
+
     fun element(cssLocator: String): KElement {
         return element(By.cssSelector(cssLocator))
     }

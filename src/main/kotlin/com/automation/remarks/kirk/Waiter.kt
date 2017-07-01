@@ -40,3 +40,6 @@ fun <T> waitFor(locator: ElementLocator<T>, condition: Condition<T>, timeout: In
     }
 }
 
+fun sleep(i: Long) {
+    Thread.sleep(i)
+}

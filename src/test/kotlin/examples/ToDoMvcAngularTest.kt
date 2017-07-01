@@ -3,18 +3,19 @@ package examples
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.byXpath
 import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.sleep
 import io.github.bonigarcia.wdm.ChromeDriverManager
-import org.testng.annotations.BeforeMethod
+import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
 
 /**
  * Created by sergey on 01.07.17.
  */
-class ToDoMVCTest {
+class ToDoMvcAngularTest {
 
     val url = "http://todomvc.com/examples/angularjs/"
 
-    @BeforeMethod
+    @BeforeClass
     fun setUp() {
         ChromeDriverManager.getInstance().setup()
     }
@@ -47,9 +48,4 @@ class ToDoMVCTest {
             all("label.ng-binding").should(have.exactText("A"))
         }
     }
-
-    private fun sleep(i: Long) {
-        Thread.sleep(i)
-    }
-
 }
