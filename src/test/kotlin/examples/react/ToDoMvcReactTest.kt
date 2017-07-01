@@ -20,7 +20,7 @@ class ToDoMvcReactTest {
         Browser.drive {
             to(::TodoPage) {
                 addTask("Item-1", "Item-2")
-                taskList().should(have.size(2))
+                taskList.should(have.size(2))
             }
         }
     }
