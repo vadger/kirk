@@ -1,6 +1,9 @@
+
 import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.extensions.element
+import me.tatarka.assertk.assert
+import me.tatarka.assertk.assertions.isEqualTo
 import org.testng.annotations.Test
 
 /**
@@ -22,6 +25,15 @@ class ElementTest : BaseTest() {
         drive {
             to(url)
             element("#button").click()
+        }
+    }
+
+    @Test fun testCanCheckElementDescription(){
+        drive {
+            to(url)
+            val description = element("#button").toString()
+
+            assert(description).isEqualTo("By.cssSelector: #button")
         }
     }
 }
