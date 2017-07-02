@@ -42,4 +42,11 @@ class ElementTest : BaseTest() {
             element("#parent_div").element("a").should(have.text("Inner Link"))
         }
     }
+
+    @Test fun testCanLocateListOfInnerElements(){
+        drive {
+            to(url)
+            element("ul").all("li").should(have.exactText("Один","Два","Три"))
+        }
+    }
 }

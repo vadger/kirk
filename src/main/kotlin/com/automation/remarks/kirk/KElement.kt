@@ -3,6 +3,7 @@ package com.automation.remarks.kirk
 import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.locators.ElementLocator
+import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator
 import com.automation.remarks.kirk.locators.WebElementLocator
 import org.openqa.selenium.By
@@ -73,5 +74,13 @@ class KElement(private val locator: ElementLocator<WebElement>, private val driv
 
     fun element(by: By): KElement {
         return KElement(InnerWebElementLocator(by, this), driver)
+    }
+
+    fun all(byCss: String): KElementCollection {
+        return all(By.cssSelector(byCss))
+    }
+
+    fun all(by: By): KElementCollection {
+        return KElementCollection(InnerListWebElementLocator(by, this), driver)
     }
 }

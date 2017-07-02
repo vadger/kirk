@@ -20,7 +20,7 @@ class KElementCollection(private val locator: ElementLocator<List<WebElement>>, 
         get() = locator.find()
 
     override val size: Int
-        get() = webElements.size //To change initializer of created properties use File | Settings | File Templates.
+        get() = webElements.size
 
     fun should(condition: CollectionCondition) {
         waitFor(this.locator, condition)
