@@ -3,6 +3,7 @@ package com.automation.remarks.kirk
 import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.locators.ElementLocator
+import com.automation.remarks.kirk.locators.InnerWebElementLocator
 import com.automation.remarks.kirk.locators.WebElementLocator
 import org.openqa.selenium.By
 import org.openqa.selenium.Keys
@@ -14,7 +15,7 @@ import org.openqa.selenium.interactions.Actions
 /**
  * Created by sergey on 24.06.17.
  */
-class KElement(private val locator: ElementLocator<WebElement>, driver: WebDriver) {
+class KElement(private val locator: ElementLocator<WebElement>, private val driver: WebDriver) {
 
     val actions: Actions = Actions(driver)
 
@@ -64,5 +65,13 @@ class KElement(private val locator: ElementLocator<WebElement>, driver: WebDrive
     fun hover(): KElement {
         actions.moveToElement(webElement).build().perform()
         return this
+    }
+
+    fun element(byCss: String): KElement {
+        return element(By.cssSelector(byCss))
+    }
+
+    fun element(by: By): KElement {
+        return KElement(InnerWebElementLocator(by, this), driver)
     }
 }

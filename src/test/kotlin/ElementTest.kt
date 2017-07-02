@@ -35,4 +35,11 @@ class ElementTest : BaseTest() {
             assert(description).isEqualTo("By.cssSelector: #button")
         }
     }
+
+    @Test fun testCanLocateInnerElement(){
+        drive {
+            to(url)
+            element("#parent_div").element("a").should(have.text("Inner Link"))
+        }
+    }
 }
