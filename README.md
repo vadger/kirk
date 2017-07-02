@@ -23,25 +23,49 @@ Simple script example:
 Page Object Example:
 
 ```java
-class LoginPage : Page() {
-
+class TodoPage : Page() {
     override val url: String?
-        get() = "http://localhost:8086"
+        get() = "http://todomvc.com/examples/angularjs/"
 
-    val loginInput = element("#inputEmail3")
-    val passwordInput = element("#inputPassword3")
+    val taskList = all("label.ng-binding")
+    val counter = element("#todo-count strong")
 
-    fun login(name: String, password: String) {
-        loginInput.setVal(name)
-        passwordInput.setVal(password)
+    fun addTasks(vararg tasks: String) {
+        sleep(1000)
+        for (task in tasks) {
+            element("#new-todo")
+                    .setVal(task)
+                    .pressEnter()
+        }
+    }
+
+    fun deleteTask(name: String) {
+        element("#todo-list li div input").hover()
+        element(byXpath("//label[text()='$name']/following-sibling::button"))
+                .click()
+    }
+
+    fun deactivateTask(vararg tasks: String) {
+        for (task in tasks) {
+            element(byXpath("//label[text()='$task']/preceding-sibling::input")).click()
+        }
+    }
+
+    fun goToCompletedTab() {
+        element("#filters li:nth-child(3) a").click()
     }
 }
 
 
-@Test fun testCanLoginPageObject2() {
+ @Test fun testCanDeactivateTask() {
         Browser.drive {
-            to(::LoginPage)
-                    .login("admin", "admin")
-   }
-}
+            to(::TodoPage) {
+                addTasks("A", "B", "C")
+                deactivateTask("A")
+                counter.should(have.text("2"))
+                goToCompletedTab()
+                taskList.should(have.exactText("A"))
+            }
+        }
+    }
 ```
