@@ -1,4 +1,4 @@
-package helpers
+package com.automation.remarks.kirk.test.helpers
 
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.servlet.DefaultServlet

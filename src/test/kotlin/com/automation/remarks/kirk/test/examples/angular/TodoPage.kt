@@ -1,8 +1,8 @@
-package examples.angular
+package com.automation.remarks.kirk.test.examples.angular
 
 import com.automation.remarks.kirk.Page
-import com.automation.remarks.kirk.byXpath
-import com.automation.remarks.kirk.sleep
+import com.automation.remarks.kirk.core.byXpath
+import com.automation.remarks.kirk.core.sleep
 
 /**
  * Created by sergey on 01.07.17.

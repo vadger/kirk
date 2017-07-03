@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.CollectionCondition
+import com.automation.remarks.kirk.core.waitFor
 import com.automation.remarks.kirk.locators.CachedWebElementLocator
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.WebElementListLocator
@@ -23,7 +24,7 @@ class KElementCollection(private val locator: ElementLocator<List<WebElement>>, 
         get() = webElements.size
 
     fun should(condition: CollectionCondition) {
-        waitFor(this.locator, condition)
+        waitFor(driver,this.locator, condition)
     }
 
     override fun isEmpty(): Boolean {

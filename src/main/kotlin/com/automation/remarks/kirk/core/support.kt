@@ -1,4 +1,4 @@
-package com.automation.remarks.kirk
+package com.automation.remarks.kirk.core
 
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.ex.DiffExtractor

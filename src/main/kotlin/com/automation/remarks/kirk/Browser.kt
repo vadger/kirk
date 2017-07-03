@@ -1,14 +1,18 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.Browser.Companion.getDriver
-import org.aeonbits.owner.ConfigFactory
+import com.automation.remarks.kirk.core.IBrowser
+import com.automation.remarks.kirk.core.ThreadLocalDriverContainer
+import org.aeonbits.owner.ConfigFactory.create
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 
 /**
  * Created by sergey on 24.06.17.
  */
-open class Browser(val driver: WebDriver = getDriver()) {
+
+
+open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
 
     var config: Configuration = getConfig()
 
@@ -25,7 +29,7 @@ open class Browser(val driver: WebDriver = getDriver()) {
         }
 
         fun getConfig(): Configuration {
-            return ConfigFactory.create(Configuration::class.java,
+            return create(Configuration::class.java,
                     System.getProperties())
         }
 
@@ -34,7 +38,7 @@ open class Browser(val driver: WebDriver = getDriver()) {
         }
     }
 
-    fun to(url: String): Browser {
+    override fun to(url: String): Browser {
         addHooks()
         if (isAbsoluteUrl(url)) {
             driver.get(url)
@@ -61,31 +65,29 @@ open class Browser(val driver: WebDriver = getDriver()) {
         return page
     }
 
-    fun <T : Page> to(pageClass: () -> T, closure: T.() -> Unit): T {
-        val page = pageClass()
-        page.browser = this
-        page.url?.let { to(it) }
-        page.apply(closure)
-        return page
+    fun <T : Page> to(pageClass: () -> T, closure: T.() -> Unit): PageNavigator {
+        val page = to(pageClass)
+        page.closure()
+        return PageNavigator()
     }
 
-    fun element(byCss: String): KElement {
+    override fun element(byCss: String): KElement {
         return element(By.cssSelector(byCss))
     }
 
-    fun element(by: By): KElement {
+    override fun element(by: By): KElement {
         return KElement(by, driver)
     }
 
-    fun all(byCss: String): KElementCollection {
+    override fun all(byCss: String): KElementCollection {
         return all(By.cssSelector(byCss))
     }
 
-    fun all(by: By): KElementCollection {
+    override fun all(by: By): KElementCollection {
         return KElementCollection(by, driver)
     }
 
-    val currentUrl: String by lazy {
+    override val currentUrl: String by lazy {
         driver.currentUrl
     }
 

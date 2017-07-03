@@ -1,4 +1,4 @@
-package com.automation.remarks.kirk
+package com.automation.remarks.kirk.core
 
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver

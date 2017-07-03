@@ -1,7 +1,6 @@
 package com.automation.remarks.kirk.conditions
 
-import com.automation.remarks.kirk.ex.ConditionMismatchException
-import com.automation.remarks.kirk.fail
+import com.automation.remarks.kirk.core.fail
 import org.openqa.selenium.WebElement
 
 /**

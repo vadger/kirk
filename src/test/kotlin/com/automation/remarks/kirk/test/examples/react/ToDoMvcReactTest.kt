@@ -1,4 +1,4 @@
-package examples.react
+package com.automation.remarks.kirk.test.examples.react
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have

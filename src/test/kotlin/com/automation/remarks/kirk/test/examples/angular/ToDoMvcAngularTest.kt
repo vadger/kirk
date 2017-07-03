@@ -1,4 +1,4 @@
-package examples.angular
+package com.automation.remarks.kirk.test.examples.angular
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have

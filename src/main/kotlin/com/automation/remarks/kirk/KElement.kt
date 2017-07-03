@@ -2,6 +2,7 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
+import com.automation.remarks.kirk.core.waitFor
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator
@@ -30,8 +31,16 @@ class KElement(private val locator: ElementLocator<WebElement>, private val driv
         execute { click() }
     }
 
+    fun clear() {
+        execute { clear() }
+    }
+
+    fun sendKeys(vararg keysToSend: CharSequence) {
+        execute { sendKeys(*keysToSend) }
+    }
+
     fun should(condition: ElementCondition) {
-        waitFor(this.locator, condition)
+        waitFor(driver, this.locator, condition)
     }
 
     fun setVal(value: String): KElement {
@@ -44,9 +53,9 @@ class KElement(private val locator: ElementLocator<WebElement>, private val driv
 
     fun execute(commands: WebElement.() -> Unit): KElement {
         try {
-            webElement.apply(commands)
+            webElement.commands()
         } catch (ex: Exception) {
-            waitFor(this.locator, be.visible)
+            waitFor(driver, this.locator, be.visible)
         }
         return this
     }

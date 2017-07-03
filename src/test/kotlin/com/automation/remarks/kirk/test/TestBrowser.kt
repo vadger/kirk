@@ -1,3 +1,5 @@
+package com.automation.remarks.kirk.test
+
 import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have

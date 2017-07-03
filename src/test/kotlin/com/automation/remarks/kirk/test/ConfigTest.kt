@@ -1,4 +1,4 @@
-
+package com.automation.remarks.kirk.test
 import com.automation.remarks.kirk.Browser
 import me.tatarka.assertk.assert
 import me.tatarka.assertk.assertAll

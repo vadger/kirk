@@ -1,4 +1,4 @@
-package pages
+package com.automation.remarks.kirk.test.examples.simple.pages
 
 import com.automation.remarks.kirk.Page
 
@@ -8,9 +8,7 @@ import com.automation.remarks.kirk.Page
 class StartPage : Page() {
 
     override val url: String?
-        get() = ""
+        get() = "http://localhost:32943/"
 
-    fun fillForm(text: String) {
-        element("#input").setVal(text)
-    }
+
 }
