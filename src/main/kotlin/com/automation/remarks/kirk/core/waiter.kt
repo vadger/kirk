@@ -3,12 +3,8 @@ package com.automation.remarks.kirk.core
 import com.automation.remarks.kirk.conditions.Condition
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.locators.ElementLocator
-import org.apache.commons.io.FileUtils
-import org.openqa.selenium.OutputType
-import org.openqa.selenium.TakesScreenshot
 import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebDriver
-import java.io.File
 
 
 /**
@@ -16,20 +12,18 @@ import java.io.File
  */
 fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condition<T>, timeout: Int = 4000, poolingInterval: Long = 0.1.toLong()) {
     val endTime = System.currentTimeMillis() + timeout
+    val screen = ScreenshotContainer(driver)
     while (true) {
         try {
             return condition.evaluate(locator.find())
         } catch (ex: ConditionMismatchException) {
             if (System.currentTimeMillis() > endTime) {
-                val screenShotPath = "${System.getProperty("user.dir")}/build/screen_${System.currentTimeMillis()}.png"
-                val scrFile = (driver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
-                FileUtils.copyFile(scrFile, File(screenShotPath))
                 val message = """
             failed while waiting ${timeout / 1000} seconds
             to assert $condition
             for element located {${locator.description}}
             reason: ${ex.message}
-            screenshot: file://$screenShotPath
+            screenshot: file://${screen.takeScreenshotAsFile()?.absolutePath}
                         """
                 throw TimeoutException(message)
             }
@@ -42,6 +36,8 @@ fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condit
             reason: no such element
                 either wrong locator
                 or did not have time to load
+
+                screenshot: file://${screen.takeScreenshotAsFile()?.absolutePath}
                 """
                 throw TimeoutException(message)
             }

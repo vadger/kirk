@@ -2,6 +2,7 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.Browser.Companion.getDriver
 import com.automation.remarks.kirk.core.IBrowser
+import com.automation.remarks.kirk.core.ScreenshotContainer
 import com.automation.remarks.kirk.core.ThreadLocalDriverContainer
 import org.aeonbits.owner.ConfigFactory.create
 import org.openqa.selenium.By
@@ -89,6 +90,10 @@ open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
 
     override val currentUrl: String by lazy {
         driver.currentUrl
+    }
+
+    fun takeScreenshot(saveTo: String = "${System.getProperty("user.dir")}/build/screen_${System.currentTimeMillis()}.png") {
+        ScreenshotContainer(driver, saveTo).takeScreenshotAsFile()
     }
 
     fun quit() {
