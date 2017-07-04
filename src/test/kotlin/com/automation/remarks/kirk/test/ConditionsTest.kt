@@ -75,4 +75,14 @@ class ConditionsTest : BaseTest() {
             }
         }
     }
+
+    @Test
+    fun testShouldHighlightButton() {
+        assertExceptionThrown(TimeoutException::class) {
+            Browser.drive {
+                to(url)
+                element("#button").should(have.attr("value", "Глупый клик"))
+            }
+        }
+    }
 }

@@ -5,6 +5,7 @@
 - No Page Factory
 - No @FindBy
 - Pragmatic DSL
+- Informative error messages
 
 Simple script example:
 
@@ -19,6 +20,20 @@ Simple script example:
         }
     }
 ```
+
+Error message:
+
+```
+failed while waiting 4 seconds
+            to assert attribute {value}
+            for element located {By.cssSelector: #button}
+            reason: condition did not match
+                 expected: [Г]лупый клик
+                 actual: [Просто г]лупый клик
+
+            screenshot: file:///kirk/build/reports/screen_1499188301800.png
+```
+
 
 Page Object Example:
 
