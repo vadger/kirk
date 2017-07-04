@@ -52,7 +52,7 @@ private fun <T> highlightElement(driver: WebDriver, locator: ElementLocator<T>) 
     val element = locator.find()
     for (i in 0..1) {
         val js = driver as JavascriptExecutor
-        js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, "border: 2px dotted red;")
+        js.executeScript("arguments[0].style.setProperty('border', '2px dotted red');", element)
     }
 }
 
