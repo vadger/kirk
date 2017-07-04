@@ -24,7 +24,7 @@ Simple script example:
 Error message:
 
 ```
-failed while waiting 4 seconds
+            failed while waiting 4 seconds
             to assert attribute {value}
             for element located {By.cssSelector: #button}
             reason: condition did not match
