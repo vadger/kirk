@@ -3,6 +3,7 @@ package com.automation.remarks.kirk.core
 import com.automation.remarks.kirk.conditions.Condition
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.locators.ElementLocator
+import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebDriver
 
@@ -18,6 +19,7 @@ fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condit
             return condition.evaluate(locator.find())
         } catch (ex: ConditionMismatchException) {
             if (System.currentTimeMillis() > endTime) {
+                highlightElement(driver, locator)
                 val message = """
             failed while waiting ${timeout / 1000} seconds
             to assert $condition
@@ -43,6 +45,14 @@ fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condit
             }
             Thread.sleep(poolingInterval)
         }
+    }
+}
+
+private fun <T> highlightElement(driver: WebDriver, locator: ElementLocator<T>) {
+    val element = locator.find()
+    for (i in 0..1) {
+        val js = driver as JavascriptExecutor
+        js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, "border: 2px dotted red;")
     }
 }
 
