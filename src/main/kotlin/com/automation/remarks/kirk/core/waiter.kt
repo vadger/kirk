@@ -6,6 +6,7 @@ import com.automation.remarks.kirk.locators.ElementLocator
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement
 
 
 /**
@@ -50,10 +51,19 @@ fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condit
 
 private fun <T> highlightElement(driver: WebDriver, locator: ElementLocator<T>) {
     val element = locator.find()
-    for (i in 0..1) {
-        val js = driver as JavascriptExecutor
-        js.executeScript("arguments[0].style.setProperty('border', '2px dotted red');", element)
+    if (element is List<*>) {
+        for (el in element) {
+            highlightElement(driver, el as WebElement)
+        }
+    } else {
+        highlightElement(driver, element as WebElement)
     }
+
+}
+
+private fun highlightElement(driver: WebDriver, element: WebElement) {
+    val js = driver as JavascriptExecutor
+    js.executeScript("arguments[0].style.setProperty('border', '2px dotted red');", element)
 }
 
 fun sleep(i: Long) {
