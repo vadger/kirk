@@ -23,4 +23,6 @@ interface IBrowser {
     fun all(by: By): KElementCollection
 
     val currentUrl: String
+
+    val js: JsExecutor
 }

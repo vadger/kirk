@@ -3,7 +3,6 @@ package com.automation.remarks.kirk.core
 import com.automation.remarks.kirk.conditions.Condition
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.locators.ElementLocator
-import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
@@ -51,19 +50,20 @@ fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condit
 
 private fun <T> highlightElement(driver: WebDriver, locator: ElementLocator<T>) {
     val element = locator.find()
-    if (element is List<*>) {
-        for (el in element) {
-            highlightElement(driver, el as WebElement)
+    when (element) {
+        is List<*> -> {
+            for (el in element) {
+                highlightElement(driver, el as WebElement)
+            }
         }
-    } else {
-        highlightElement(driver, element as WebElement)
+        is WebElement -> highlightElement(driver, element)
     }
-
 }
 
 private fun highlightElement(driver: WebDriver, element: WebElement) {
-    val js = driver as JavascriptExecutor
-    js.executeScript("arguments[0].style.setProperty('border', '2px dotted red');", element)
+    JsExecutor(driver).execute(element) {
+        "arguments[0].style.setProperty('border', '2px dotted red');"
+    }
 }
 
 fun sleep(i: Long) {
