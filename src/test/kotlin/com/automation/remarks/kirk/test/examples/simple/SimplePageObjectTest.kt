@@ -1,6 +1,8 @@
 package com.automation.remarks.kirk.test.examples.simple
 
 import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.Navigator
+import com.automation.remarks.kirk.Page
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.examples.simple.pages.SecondPage
@@ -17,9 +19,13 @@ class SimplePageObjectTest : BaseTest() {
         Browser.drive {
             to(::StartPage) {
                 element(".paginator").element("a").click()
-            }.at(::SecondPage) {
+            }.thenAt(::SecondPage) {
                 element("#header").should(have.text("Second page"))
             }
         }
     }
+}
+
+fun <T : Page> Navigator.thenAt(pageClass: () -> T, closure: T.() -> Unit) {
+    this.at(pageClass, closure)
 }
