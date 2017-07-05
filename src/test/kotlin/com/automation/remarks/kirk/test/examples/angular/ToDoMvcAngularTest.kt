@@ -2,19 +2,12 @@ package com.automation.remarks.kirk.test.examples.angular
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
-import io.github.bonigarcia.wdm.ChromeDriverManager
-import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
 
 /**
  * Created by sergey on 01.07.17.
  */
 class ToDoMvcAngularTest {
-
-    @BeforeClass
-    fun setUp() {
-        ChromeDriverManager.getInstance().setup()
-    }
 
     @Test fun testCanAddNewTaskAndDelete() {
         Browser.drive {
