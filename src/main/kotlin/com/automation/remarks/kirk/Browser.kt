@@ -93,8 +93,7 @@ open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
         driver.currentUrl
     }
 
-    override val js: JsExecutor
-        get() = JsExecutor(driver)
+    override val js: JsExecutor = JsExecutor(driver)
 
     fun takeScreenshot(saveTo: String = "${System.getProperty("user.dir")}/build/screen_${System.currentTimeMillis()}.png") {
         ScreenshotContainer(driver, saveTo).takeScreenshotAsFile()
