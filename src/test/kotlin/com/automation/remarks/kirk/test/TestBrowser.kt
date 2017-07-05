@@ -3,7 +3,8 @@ package com.automation.remarks.kirk.test
 import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
-import org.testng.Assert.assertEquals
+import me.tatarka.assertk.assert
+import me.tatarka.assertk.assertions.isEqualTo
 import org.testng.annotations.Test
 
 /**
@@ -14,8 +15,8 @@ class TestBrowser : BaseTest() {
     @Test
     fun testCanOpenUrl() {
         drive {
-            val currentUrl = to(url).currentUrl
-            assertEquals(currentUrl, url)
+            to(url)
+            assert(currentUrl).isEqualTo(url)
         }
     }
 

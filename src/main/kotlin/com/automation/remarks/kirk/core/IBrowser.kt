@@ -1,6 +1,5 @@
 package com.automation.remarks.kirk.core
 
-import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.KElementCollection
 import org.openqa.selenium.By
@@ -10,7 +9,7 @@ import org.openqa.selenium.By
  */
 interface IBrowser {
 
-    fun to(url: String): Browser
+    fun to(url: String)
 
     fun element(byCss: String): KElement {
         return element(By.cssSelector(byCss))

@@ -1,5 +1,6 @@
 package com.automation.remarks.kirk.core
 
+import io.github.bonigarcia.wdm.ChromeDriverManager
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import java.util.concurrent.ConcurrentHashMap
@@ -7,11 +8,16 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * Created by sergey on 25.06.17.
  */
-class ThreadLocalDriverContainer {
+class WebDriverFactory {
 
     private val driverContainer: MutableMap<Long, WebDriver> = ConcurrentHashMap(4)
 
     private fun createDriver(): WebDriver {
+        return createChromeDriver()
+    }
+
+    private fun createChromeDriver(): WebDriver {
+        ChromeDriverManager.getInstance().setup()
         return ChromeDriver()
     }
 

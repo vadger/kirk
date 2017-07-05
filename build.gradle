@@ -31,8 +31,8 @@ dependencies {
     compile "org.seleniumhq.selenium:selenium-java:3.4.0"
     compile group: 'org.aeonbits.owner', name: 'owner', version: '1.0.9'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
+    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '1.7.0'
     testCompile group: 'org.testng', name: 'testng', version: '6.11'
-    testCompile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '1.7.0'
     testCompile 'me.tatarka.assertk:assertk:1.0-SNAPSHOT'
     testCompile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.6.v20170531'
     testCompile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.4.6.v20170531'

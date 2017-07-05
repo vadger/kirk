@@ -17,7 +17,7 @@ class SimplePageObjectTest : BaseTest() {
         Browser.drive {
             to(::StartPage) {
                 element(".paginator").element("a").click()
-            }.thanAt(::SecondPage) {
+            }.at(::SecondPage) {
                 element("#header").should(have.text("Second page"))
             }
         }

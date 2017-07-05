@@ -4,30 +4,31 @@ import com.automation.remarks.kirk.Browser.Companion.getDriver
 import com.automation.remarks.kirk.core.IBrowser
 import com.automation.remarks.kirk.core.JsExecutor
 import com.automation.remarks.kirk.core.ScreenshotContainer
-import com.automation.remarks.kirk.core.ThreadLocalDriverContainer
+import com.automation.remarks.kirk.core.WebDriverFactory
 import org.aeonbits.owner.ConfigFactory.create
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 
 /**
- * Created by sergey on 24.06.17.
+ * Created by serg private fun isAbsoluteUrl(url: String): Boolean {
+return (url.startsWith("http://") || url.startsWith("https://"))
+}ey on 24.06.17.
  */
-
 
 open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
 
-    var config: Configuration = getConfig()
+    private val navigator = Navigator(driver)
 
     companion object {
 
-        private val driverContainer = ThreadLocalDriverContainer()
+        private val driverFactory = WebDriverFactory()
 
         fun getDriver(): WebDriver {
-            return driverContainer.getDriver()
+            return driverFactory.getDriver()
         }
 
         fun setDriver(driver: WebDriver) {
-            driverContainer.setWebDriver(driver)
+            driverFactory.setWebDriver(driver)
         }
 
         fun getConfig(): Configuration {
@@ -40,24 +41,15 @@ open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
         }
     }
 
-    override fun to(url: String): Browser {
+    override fun to(url: String) {
         addHooks()
-        if (isAbsoluteUrl(url)) {
-            driver.get(url)
-        } else {
-            driver.get(config.baseUrl() + url)
-        }
-        return this
+        navigator.to(url)
     }
 
     private fun addHooks() {
         Runtime.getRuntime().addShutdownHook(object : Thread() {
             override fun run() = quit()
         })
-    }
-
-    private fun isAbsoluteUrl(url: String): Boolean {
-        return (url.startsWith("http://") || url.startsWith("https://"))
     }
 
     fun <T : Page> to(pageClass: () -> T): T {
@@ -67,10 +59,10 @@ open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
         return page
     }
 
-    fun <T : Page> to(pageClass: () -> T, closure: T.() -> Unit): PageNavigator {
+    fun <T : Page> to(pageClass: () -> T, closure: T.() -> Unit): Navigator {
         val page = to(pageClass)
         page.closure()
-        return PageNavigator()
+        return navigator
     }
 
     override fun element(byCss: String): KElement {
