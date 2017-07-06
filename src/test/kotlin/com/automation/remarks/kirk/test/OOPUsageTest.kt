@@ -1,7 +1,9 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.test.examples.simple.pages.StartPage
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.testng.annotations.Test
 
@@ -22,5 +24,18 @@ class OOPUsageTest : BaseTest() {
     fun testCanSetNewDriver() {
         Browser(FirefoxDriver())
                 .to(url)
+    }
+
+    @Test
+    fun testCanOpenTwoBrowser() {
+        Browser.drive {
+            to(::StartPage) {
+                header.should(be.visible)
+            }
+        }
+
+        val ff = Browser(FirefoxDriver())
+        ff.to(url)
+        ff.all("li").should(have.size(3))
     }
 }

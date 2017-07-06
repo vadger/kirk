@@ -10,5 +10,6 @@ class StartPage : Page() {
     override val url: String?
         get() = "http://localhost:32943/"
 
+    val header = element("#header")
 
 }
