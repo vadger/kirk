@@ -6,6 +6,7 @@ import com.automation.remarks.kirk.core.sleep
 import me.tatarka.assertk.assert
 import me.tatarka.assertk.assertAll
 import me.tatarka.assertk.assertions.isEqualTo
+import org.testng.annotations.AfterMethod
 import org.testng.annotations.Test
 import java.io.File
 
@@ -13,6 +14,15 @@ import java.io.File
  * Created by sergey on 27.06.17.
  */
 class ConfigTest : BaseTest() {
+
+    @AfterMethod
+    fun tearDown() {
+        System.clearProperty("browserName")
+        System.clearProperty("timeout")
+        System.clearProperty("startMaximized")
+        System.clearProperty("baseUrl")
+        System.clearProperty("screenSize")
+    }
 
     @Test
     fun testCheckDefaultConfigLoaded() {
@@ -30,10 +40,6 @@ class ConfigTest : BaseTest() {
         System.setProperty("timeout", "6000")
         System.setProperty("startMaximized", "false")
         val cfg = Browser.getConfig()
-        System.clearProperty("browserName")
-        System.clearProperty("timeout")
-        System.clearProperty("startMaximized")
-
         assertAll {
             assert(cfg.browserName()).isEqualTo("firefox")
             assert(cfg.timeout()).isEqualTo(6000)
@@ -51,22 +57,31 @@ class ConfigTest : BaseTest() {
             assert(cfg.browserName()).isEqualTo("firefox")
             assert(cfg.timeout()).isEqualTo(300)
             assert(cfg.startMaximized()).isEqualTo(true)
-
         }
     }
 
     @Test fun testBrowserCanOpenCanonicalUrl() {
-        System.setProperty("baseUrl", url.removePrefix("/"))
+        System.setProperty("baseUrl", url.removeSuffix("/"))
         Browser.drive {
             to("")
             element("#header").should(have.text("Kirk"))
         }
-        System.clearProperty("baseUrl")
+    }
+
+    @Test fun testBrowserWindowSize() {
+        System.setProperty("startMaximized", "false")
+        System.setProperty("screenSize", "640,480")
+        Browser.drive {
+            to(url)
+            element("#header").should(have.text("Kirk"))
+            val size = driver.manage().window().size
+            assert(listOf(size.width,size.height)).isEqualTo(listOf(640, 480))
+        }
     }
 
     @Test fun testBrowserCanOpenCanonicalUrlPlacedInConfigFile() {
         val file = File("src/main/resources/browser.config")
-        file.writeText("baseUrl=${url.removePrefix("/")}")
+        file.writeText("baseUrl=${url}")
         sleep(3000)
         Browser.drive {
             to("")
