@@ -10,14 +10,11 @@ import org.aeonbits.owner.Config.Sources
 @Sources("classpath:browser.config")
 interface Configuration : Config {
 
-    @DefaultValue("chrome")
-    fun browserName(): String
-
     @DefaultValue("4000")
     fun timeout(): Int
 
     @DefaultValue("0.1")
-    fun poolingInterval(): Long
+    fun poolingInterval(): Double
 
     @DefaultValue("true")
     fun startMaximized(): Boolean
@@ -28,5 +25,5 @@ interface Configuration : Config {
     @DefaultValue("1920,1080")
     fun screenSize(): List<Int>
 
-    fun baseUrl(): String
+    fun baseUrl(): String?
 }

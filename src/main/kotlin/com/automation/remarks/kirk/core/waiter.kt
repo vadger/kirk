@@ -1,5 +1,6 @@
 package com.automation.remarks.kirk.core
 
+import com.automation.remarks.kirk.Browser.Companion.getConfig
 import com.automation.remarks.kirk.conditions.Condition
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.locators.ElementLocator
@@ -11,7 +12,12 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sergey on 25.06.17.
  */
-fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condition<T>, timeout: Int = 4000, poolingInterval: Long = 0.1.toLong()) {
+fun <T> waitFor(driver: WebDriver,
+                locator: ElementLocator<T>,
+                condition: Condition<T>,
+                timeout: Int = getConfig().timeout(),
+                poolingInterval: Double = getConfig().poolingInterval()) {
+
     val endTime = System.currentTimeMillis() + timeout
     val screen = ScreenshotContainer(driver)
     while (true) {
@@ -20,6 +26,7 @@ fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condit
         } catch (ex: ConditionMismatchException) {
             if (System.currentTimeMillis() > endTime) {
                 highlightElement(driver, locator)
+
                 val message = """
             failed while waiting ${timeout / 1000} seconds
             to assert $condition
@@ -29,7 +36,7 @@ fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condit
                         """
                 throw TimeoutException(message)
             }
-            Thread.sleep(poolingInterval)
+            Thread.sleep(poolingInterval.toLong())
         } catch (ex: org.openqa.selenium.NoSuchElementException) {
             if (System.currentTimeMillis() > endTime) {
                 val message = """
@@ -43,7 +50,7 @@ fun <T> waitFor(driver: WebDriver, locator: ElementLocator<T>, condition: Condit
                 """
                 throw TimeoutException(message)
             }
-            Thread.sleep(poolingInterval)
+            Thread.sleep(poolingInterval.toLong())
         }
     }
 }

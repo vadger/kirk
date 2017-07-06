@@ -42,14 +42,7 @@ open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
     }
 
     override fun to(url: String) {
-        addHooks()
         navigator.to(url)
-    }
-
-    private fun addHooks() {
-        Runtime.getRuntime().addShutdownHook(object : Thread() {
-            override fun run() = quit()
-        })
     }
 
     fun <T : Page> to(pageClass: () -> T): T {
@@ -89,9 +82,5 @@ open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
 
     fun takeScreenshot(saveTo: String = "${System.getProperty("user.dir")}/build/screen_${System.currentTimeMillis()}.png") {
         ScreenshotContainer(driver, saveTo).takeScreenshotAsFile()
-    }
-
-    fun quit() {
-        driver.quit()
     }
 }

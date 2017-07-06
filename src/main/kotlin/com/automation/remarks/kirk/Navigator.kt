@@ -43,7 +43,18 @@ class Navigator(private val driver: WebDriver) {
         if (isAbsoluteUrl(url)) {
             driver.navigate().to(url)
         } else {
-            driver.navigate().to(config.baseUrl() + url)
+            val baseUrl = config.baseUrl() ?:
+                    throw IllegalStateException("Base url can't be null")
+            driver.navigate().to(baseUrl + url)
         }
+        if (config.autoClose()) {
+            addAutoCloseHook()
+        }
+    }
+
+    private fun addAutoCloseHook() {
+        Runtime.getRuntime().addShutdownHook(object : Thread() {
+            override fun run() = driver.quit()
+        })
     }
 }

@@ -25,7 +25,6 @@ abstract class BaseTest {
             closure()
         }.throwsError {
             it.hasClass(kclass)
-            print(it.actual.message)
         }
     }
 }
