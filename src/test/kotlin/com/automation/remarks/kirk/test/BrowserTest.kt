@@ -10,7 +10,7 @@ import org.testng.annotations.Test
 /**
  * Created by sergey on 24.06.17.
  */
-class TestBrowser : BaseTest() {
+class BrowserTest : BaseTest() {
 
     @Test
     fun testCanOpenUrl() {
@@ -46,5 +46,4 @@ class TestBrowser : BaseTest() {
             }
         }
     }
-
 }

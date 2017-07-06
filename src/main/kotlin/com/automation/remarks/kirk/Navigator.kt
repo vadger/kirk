@@ -31,6 +31,10 @@ class Navigator(private val driver: WebDriver) {
     }
 
     fun to(url: String) {
-        driver.navigate().to(url)
+        if (isAbsoluteUrl(url)) {
+            driver.navigate().to(url)
+        } else {
+            driver.navigate().to(Browser.getConfig().baseUrl() + url)
+        }
     }
 }

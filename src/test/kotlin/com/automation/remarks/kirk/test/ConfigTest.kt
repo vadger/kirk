@@ -1,5 +1,8 @@
 package com.automation.remarks.kirk.test
+
 import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.core.sleep
 import me.tatarka.assertk.assert
 import me.tatarka.assertk.assertAll
 import me.tatarka.assertk.assertions.isEqualTo
@@ -50,5 +53,25 @@ class ConfigTest : BaseTest() {
             assert(cfg.startMaximized()).isEqualTo(true)
 
         }
+    }
+
+    @Test fun testBrowserCanOpenCanonicalUrl() {
+        System.setProperty("baseUrl", url.removePrefix("/"))
+        Browser.drive {
+            to("")
+            element("#header").should(have.text("Kirk"))
+        }
+        System.clearProperty("baseUrl")
+    }
+
+    @Test fun testBrowserCanOpenCanonicalUrlPlacedInConfigFile() {
+        val file = File("src/main/resources/browser.config")
+        file.writeText("baseUrl=${url.removePrefix("/")}")
+        sleep(3000)
+        Browser.drive {
+            to("")
+            element("#header").should(have.text("Kirk"))
+        }
+        file.delete()
     }
 }
