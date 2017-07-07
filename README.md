@@ -38,12 +38,12 @@ Error message:
 Page Object Example:
 
 ```java
-class TodoPage : Page() {
+class TodoPage(browser:Browser) : Page(browser) {
     override val url: String?
         get() = "http://todomvc.com/examples/angularjs/"
 
-    val taskList get() = all("label.ng-binding")
-    val counter get() = element("#todo-count strong")
+    val taskList = all("label.ng-binding")
+    val counter = element("#todo-count strong")
 
     fun addTasks(vararg tasks: String) {
         sleep(1000)
