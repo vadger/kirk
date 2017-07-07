@@ -28,6 +28,7 @@ class BrowserHandler(val driver: WebDriver) : Browser {
         return navigator
     }
 
+
     override fun element(by: By): KElement {
         return KElement(by, driver)
     }

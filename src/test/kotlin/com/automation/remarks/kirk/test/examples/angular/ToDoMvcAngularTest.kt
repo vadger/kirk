@@ -13,9 +13,9 @@ class ToDoMvcAngularTest {
         Browser.drive {
             to(::TodoPage) {
                 addTasks("Item")
-                //taskList.should(have.exactText("Item"))
+                taskList.should(have.exactText("Item"))
                 deleteTask("Item")
-                //taskList.should(have.size(0))
+                taskList.should(have.size(0))
             }
         }
     }

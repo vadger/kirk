@@ -10,6 +10,6 @@ class StartPage : Page() {
     override val url: String?
         get() = "http://localhost:32943/"
 
-    val header by lazy { element("#header") }
+    val header get() = element("#header")
 }
 

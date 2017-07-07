@@ -7,36 +7,36 @@ import org.openqa.selenium.By
 /**
  * Created by sergey on 24.06.17.
  */
-abstract class Page(var browser: Browser = DriverlessBrowser()) : Browser {
+abstract class Page(var browser: Browser = DriverlessBrowser()) {
 
     open val url: String? = null
 
-    override fun to(url: String) {
+    fun to(url: String) {
         browser.to(url)
     }
 
-    override fun <T : Page> to(pageClass: () -> T, block: T.() -> Unit): Navigator {
+    fun <T : Page> to(pageClass: () -> T, block: T.() -> Unit): Navigator {
         return browser.to(pageClass, block)
     }
 
-    override fun element(byCss: String): KElement {
+    fun element(byCss: String): KElement {
         return browser.element(byCss)
     }
 
-    override fun element(by: By): KElement {
+    fun element(by: By): KElement {
         return browser.element(by)
     }
 
-    override fun all(byCss: String): KElementCollection {
+    fun all(byCss: String): KElementCollection {
         return browser.all(byCss)
     }
 
-    override fun all(by: By): KElementCollection {
+    fun all(by: By): KElementCollection {
         return browser.all(by)
     }
 
-    override val currentUrl: String
+    val currentUrl: String
         get() = browser.currentUrl
-    override val js: JsExecutor
+    val js: JsExecutor
         get() = browser.js
 }
