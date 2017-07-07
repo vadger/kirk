@@ -17,7 +17,8 @@ import org.openqa.selenium.interactions.Actions
 /**
  * Created by sergey on 24.06.17.
  */
-class KElement(private val locator: ElementLocator<WebElement>, private val driver: WebDriver) {
+class KElement(private val locator: ElementLocator<WebElement>,
+               private val driver: WebDriver) {
 
     val actions: Actions = Actions(driver)
 
@@ -64,9 +65,9 @@ class KElement(private val locator: ElementLocator<WebElement>, private val driv
         return locator.description
     }
 
-    val text: String by lazy {
-        webElement.text
-    }
+    val text: String
+        get() = webElement.text
+
 
     fun pressEnter() {
         execute { sendKeys(Keys.ENTER) }

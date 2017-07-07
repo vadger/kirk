@@ -11,8 +11,8 @@ class TodoPage : Page() {
     override val url: String?
         get() = "http://todomvc.com/examples/angularjs/"
 
-    val taskList = all("label.ng-binding")
-    val counter = element("#todo-count strong")
+    val counter by lazy { element("#todo-count strong") }
+    val taskList by lazy { all("label.ng-binding") }
 
     fun addTasks(vararg tasks: String) {
         sleep(1000)

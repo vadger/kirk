@@ -6,12 +6,16 @@ import org.openqa.selenium.WebDriver
 /**
  * Created by sergey on 02.07.17.
  */
-class Navigator(private val driver: WebDriver) {
+class Navigator(private val browser: BrowserHandler) {
 
     private val config = Browser.getConfig()
+    private val driver: WebDriver
+        get() = browser.driver
 
     fun <T : Page> at(pageClass: () -> T, closure: T.() -> Unit) {
-        return pageClass().closure()
+        val page = pageClass()
+        page.browser = browser
+        page.closure()
     }
 
     private fun isAbsoluteUrl(url: String): Boolean {
@@ -31,6 +35,10 @@ class Navigator(private val driver: WebDriver) {
     fun refresh(): Navigator {
         driver.navigate().refresh()
         return this
+    }
+
+    fun quit() {
+        driver.quit()
     }
 
     fun to(url: String) {
@@ -54,7 +62,7 @@ class Navigator(private val driver: WebDriver) {
 
     private fun addAutoCloseHook() {
         Runtime.getRuntime().addShutdownHook(object : Thread() {
-            override fun run() = driver.quit()
+            override fun run() = quit()
         })
     }
 }

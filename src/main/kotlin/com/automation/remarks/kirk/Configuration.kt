@@ -7,7 +7,7 @@ import org.aeonbits.owner.Config.Sources
 /**
  * Created by sergey on 25.06.17.
  */
-@Sources("classpath:browser.config")
+@Sources("classpath:browserHandler.config")
 interface Configuration : Config {
 
     @DefaultValue("4000")

@@ -1,23 +1,15 @@
 package com.automation.remarks.kirk
 
-import com.automation.remarks.kirk.Browser.Companion.getDriver
-import com.automation.remarks.kirk.core.IBrowser
 import com.automation.remarks.kirk.core.JsExecutor
-import com.automation.remarks.kirk.core.ScreenshotContainer
 import com.automation.remarks.kirk.core.WebDriverFactory
-import org.aeonbits.owner.ConfigFactory.create
+import org.aeonbits.owner.ConfigFactory
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 
 /**
- * Created by serg private fun isAbsoluteUrl(url: String): Boolean {
-return (url.startsWith("http://") || url.startsWith("https://"))
-}ey on 24.06.17.
+ * Created by sergey on 07.07.17.
  */
-
-open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
-
-    private val navigator = Navigator(driver)
+interface Browser {
 
     companion object {
 
@@ -32,55 +24,32 @@ open class Browser(val driver: WebDriver = getDriver()) : IBrowser {
         }
 
         fun getConfig(): Configuration {
-            return create(Configuration::class.java,
+            return ConfigFactory.create(Configuration::class.java,
                     System.getProperties())
         }
 
-        fun drive(closure: Browser.() -> Unit) {
-            Browser(getDriver()).apply(closure)
+        fun drive(driver: WebDriver = getDriver(), closure: BrowserHandler.() -> Unit) {
+            BrowserHandler(driver).apply(closure)
         }
     }
 
-    override fun to(url: String) {
-        navigator.to(url)
-    }
+    fun to(url: String)
 
-    fun <T : Page> to(pageClass: () -> T): T {
-        val page = pageClass()
-        page.browser = this
-        page.url?.let { to(it) }
-        return page
-    }
+    fun <T : Page> to(pageClass: () -> T, block: T.() -> Unit): Navigator
 
-    fun <T : Page> to(pageClass: () -> T, closure: T.() -> Unit): Navigator {
-        val page = to(pageClass)
-        page.closure()
-        return navigator
-    }
-
-    override fun element(byCss: String): KElement {
+    fun element(byCss: String): KElement {
         return element(By.cssSelector(byCss))
     }
 
-    override fun element(by: By): KElement {
-        return KElement(by, driver)
-    }
+    fun element(by: By): KElement
 
-    override fun all(byCss: String): KElementCollection {
+    fun all(byCss: String): KElementCollection {
         return all(By.cssSelector(byCss))
     }
 
-    override fun all(by: By): KElementCollection {
-        return KElementCollection(by, driver)
-    }
+    fun all(by: By): KElementCollection
 
-    override val currentUrl: String by lazy {
-        driver.currentUrl
-    }
+    val currentUrl: String
 
-    override val js: JsExecutor = JsExecutor(driver)
-
-    fun takeScreenshot(saveTo: String = "${System.getProperty("user.dir")}/build/screen_${System.currentTimeMillis()}.png") {
-        ScreenshotContainer(driver, saveTo).takeScreenshotAsFile()
-    }
+    val js: JsExecutor
 }

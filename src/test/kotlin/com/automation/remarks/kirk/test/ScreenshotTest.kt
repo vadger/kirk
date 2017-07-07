@@ -15,27 +15,23 @@ import org.testng.annotations.Test
 class ScreenshotTest : BaseTest() {
 
     @Test fun testCanGetPathToTheLatestScreenshotOnConditionFail() {
-        Browser.drive {
-            to(url)
-            assertExceptionThrown(TimeoutException::class) {
-                Browser.drive {
-                    to(url)
-                    all("li").should(have.size(1))
-                }
+
+        assertExceptionThrown(TimeoutException::class) {
+            Browser.drive {
+                to(url)
+                all("li").should(have.size(1))
             }
         }
+
 
         assert(ScreenshotContainer.getLatestScreenshot()).isNotNull()
     }
 
     @Test fun testCanGetPathToTheLatestScreenshotOnWrongLocator() {
-        Browser.drive {
-            to(url)
-            assertExceptionThrown(TimeoutException::class) {
-                Browser.drive {
-                    to(url)
-                    all("@").should(have.size(1))
-                }
+        assertExceptionThrown(TimeoutException::class) {
+            Browser.drive {
+                to(url)
+                all("@").should(have.size(1))
             }
         }
 
@@ -47,9 +43,9 @@ class ScreenshotTest : BaseTest() {
 
         Browser.drive {
             to(url)
-            takeScreenshot("$userDir/build/browser.png")
+            takeScreenshot("$userDir/build/browserHandler.png")
         }
 
-        assert(ScreenshotContainer.getLatestScreenshot()?.absolutePath).isEqualTo("$userDir/build/browser.png")
+        assert(ScreenshotContainer.getLatestScreenshot()?.absolutePath).isEqualTo("$userDir/build/browserHandler.png")
     }
 }
