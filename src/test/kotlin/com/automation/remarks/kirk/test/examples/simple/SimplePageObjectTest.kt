@@ -26,6 +26,6 @@ class SimplePageObjectTest : BaseTest() {
     }
 }
 
-fun <T : Page> Navigator.thenAt(pageClass: () -> T, closure: T.() -> Unit) {
+fun <T : Page> Navigator.thenAt(pageClass: (Browser) -> T, closure: T.() -> Unit) {
     this.at(pageClass, closure)
 }

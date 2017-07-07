@@ -1,5 +1,6 @@
 package com.automation.remarks.kirk.test.examples.angular
 
+import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Page
 import com.automation.remarks.kirk.core.byXpath
 import com.automation.remarks.kirk.core.sleep
@@ -7,12 +8,13 @@ import com.automation.remarks.kirk.core.sleep
 /**
  * Created by sergey on 01.07.17.
  */
-class TodoPage : Page() {
+class TodoPage(browser: Browser) : Page(browser) {
+
     override val url: String?
         get() = "http://todomvc.com/examples/angularjs/"
 
-    val counter get() = element("#todo-count strong")
-    val taskList get() = all("label.ng-binding")
+    val counter = element("#todo-count strong")
+    val taskList = all("label.ng-binding")
 
     fun addTasks(vararg tasks: String) {
         sleep(1000)

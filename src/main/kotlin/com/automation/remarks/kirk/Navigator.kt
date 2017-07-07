@@ -12,9 +12,8 @@ class Navigator(private val browser: BrowserHandler) {
     private val driver: WebDriver
         get() = browser.driver
 
-    fun <T : Page> at(pageClass: () -> T, closure: T.() -> Unit) {
-        val page = pageClass()
-        page.browser = browser
+    fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit) {
+        val page = pageClass(browser)
         page.closure()
     }
 

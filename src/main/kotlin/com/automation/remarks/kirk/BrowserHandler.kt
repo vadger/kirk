@@ -6,7 +6,6 @@ import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 
 
-
 class BrowserHandler(val driver: WebDriver) : Browser {
 
     private val navigator = Navigator(this)
@@ -15,19 +14,17 @@ class BrowserHandler(val driver: WebDriver) : Browser {
         navigator.to(url)
     }
 
-    fun <T : Page> to(pageClass: () -> T): T {
-        val page = pageClass()
-        page.browser = this
+    fun <T : Page> to(pageClass: (Browser) -> T): T {
+        val page = pageClass(this)
         page.url?.let { to(it) }
         return page
     }
 
-    override fun <T : Page> to(pageClass: () -> T, block: T.() -> Unit): Navigator {
+    override fun <T : Page> to(pageClass: (Browser) -> T, block: T.() -> Unit): Navigator {
         val page = to(pageClass)
         page.block()
         return navigator
     }
-
 
     override fun element(by: By): KElement {
         return KElement(by, driver)

@@ -35,7 +35,7 @@ interface Browser {
 
     fun to(url: String)
 
-    fun <T : Page> to(pageClass: () -> T, block: T.() -> Unit): Navigator
+    fun <T : Page> to(pageClass: (Browser) -> T, block: T.() -> Unit): Navigator
 
     fun element(byCss: String): KElement {
         return element(By.cssSelector(byCss))

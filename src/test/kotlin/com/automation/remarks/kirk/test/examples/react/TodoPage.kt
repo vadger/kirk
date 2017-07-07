@@ -1,17 +1,18 @@
 package com.automation.remarks.kirk.test.examples.react
 
+import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Page
 import com.automation.remarks.kirk.core.sleep
 
 /**
  * Created by sergey on 01.07.17.
  */
-class TodoPage : Page() {
+class TodoPage(browser: Browser) : Page(browser) {
     override val url: String?
         get() = "http://todomvc.com/examples/react/"
 
-    val input by lazy { element(".new-todo") }
-    val taskList by lazy { all(".todo-list li label") }
+    val input = element(".new-todo")
+    val taskList = all(".todo-list li label")
 
     fun addTask(vararg tasks: String) {
         sleep(1000)
