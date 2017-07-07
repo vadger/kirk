@@ -1,6 +1,5 @@
 package com.automation.remarks.kirk.core
 
-import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.Condition
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.locators.ElementLocator
@@ -15,8 +14,8 @@ import org.openqa.selenium.WebElement
 fun <T> waitFor(driver: WebDriver,
                 locator: ElementLocator<T>,
                 condition: Condition<T>,
-                timeout: Int = Browser.getConfig().timeout(),
-                poolingInterval: Double = Browser.getConfig().poolingInterval()) {
+                timeout: Int,
+                poolingInterval: Double) {
 
     val endTime = System.currentTimeMillis() + timeout
     val screen = ScreenshotContainer(driver)

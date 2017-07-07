@@ -21,6 +21,7 @@ class KElement(private val locator: ElementLocator<WebElement>,
                private val driver: WebDriver) {
 
     val actions: Actions = Actions(driver)
+    private val config = Browser.getConfig()
 
     constructor(locator: By, driver: WebDriver) :
             this(WebElementLocator(locator, driver), driver)
@@ -41,7 +42,7 @@ class KElement(private val locator: ElementLocator<WebElement>,
     }
 
     fun should(condition: ElementCondition) {
-        waitFor(driver, this.locator, condition)
+        waitFor(driver, this.locator, condition, config.timeout(), config.poolingInterval())
     }
 
     fun setVal(value: String): KElement {
@@ -56,7 +57,7 @@ class KElement(private val locator: ElementLocator<WebElement>,
         try {
             webElement.commands()
         } catch (ex: Exception) {
-            waitFor(driver, this.locator, be.visible)
+            waitFor(driver, this.locator, be.visible, config.timeout(), config.poolingInterval())
         }
         return this
     }
