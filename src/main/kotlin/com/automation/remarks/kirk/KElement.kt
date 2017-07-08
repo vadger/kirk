@@ -41,7 +41,7 @@ class KElement(private val locator: ElementLocator<WebElement>,
         execute { sendKeys(*keysToSend) }
     }
 
-    fun should(condition: ElementCondition) {
+    infix fun should(condition: ElementCondition) {
         waitFor(driver, this.locator, condition, config.timeout(), config.poolingInterval())
     }
 

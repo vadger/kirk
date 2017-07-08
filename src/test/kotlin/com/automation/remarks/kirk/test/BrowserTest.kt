@@ -24,8 +24,8 @@ class BrowserTest : BaseTest() {
     fun testCanFindElement() {
         drive {
             to(url)
-            element("#header").should(have.text("Kirk"))
-            element("#input").should(be.visible)
+            element("#header") should have.text("Kirk")
+            element("#input") should be.visible
         }
     }
 
