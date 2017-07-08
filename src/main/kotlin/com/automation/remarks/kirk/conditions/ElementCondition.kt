@@ -9,12 +9,12 @@ import org.openqa.selenium.WebElement
 abstract class ElementCondition : Condition<WebElement>()
 
 class Text(val text: String) : ElementCondition() {
-    override fun match(element: WebElement) {
+    override fun match(element: WebElement): WebElement {
         val actual = element.text
-        if (actual.equals(text)) {
-            return
+        if (actual == text) {
+            return element
         }
-        fail(text, actual)
+        throw fail(text, actual)
     }
 
     override fun toString(): String {
@@ -23,11 +23,11 @@ class Text(val text: String) : ElementCondition() {
 }
 
 class Visible : ElementCondition() {
-    override fun match(element: WebElement) {
+    override fun match(element: WebElement): WebElement {
         if (element.isDisplayed) {
-            return
+            return element
         }
-        fail("visible", "invisible", withDiff = false)
+        throw fail("visible", "invisible", withDiff = false)
     }
 
     override fun toString(): String {
@@ -36,12 +36,12 @@ class Visible : ElementCondition() {
 }
 
 class AttributeValue(val attr: String, val expect: String) : ElementCondition() {
-    override fun match(element: WebElement) {
+    override fun match(element: WebElement): WebElement {
         val actual = element.getAttribute(attr)
-        if (actual.equals(expect)) {
-            return
+        if (actual == expect) {
+            return element
         }
-        fail(expect, actual)
+        throw fail(expect, actual)
     }
 
     override fun toString(): String {

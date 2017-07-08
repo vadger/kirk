@@ -12,9 +12,9 @@ class ToDoMvcAngularTest {
     @Test fun testCanAddNewTaskAndDelete() {
         Browser.drive {
             to(::TodoPage) {
-                addTasks("Item")
-                taskList.should(have.exactText("Item"))
-                deleteTask("Item")
+                addTasks("Item0")
+                taskList.should(have.size(1))
+                deleteTask("Item0")
                 taskList.should(have.size(0))
             }
         }

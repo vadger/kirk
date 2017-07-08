@@ -17,7 +17,7 @@ class TodoPage(browser: Browser) : Page(browser) {
     fun addTask(vararg tasks: String) {
         sleep(1000)
         for (task in tasks) {
-            input.setVal(task).pressEnter()
+            input.setValue(task).pressEnter()
         }
     }
 }

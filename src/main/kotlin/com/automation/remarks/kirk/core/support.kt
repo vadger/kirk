@@ -26,17 +26,17 @@ fun display(value: Any?): String {
  * Fails an assert with the given expected and actual values.
  */
 fun fail(expected: Any?, actual: Any?,
-         message: String = "condition did not match", withDiff: Boolean = true) {
+         message: String = "condition did not match", withDiff: Boolean = true): ConditionMismatchException {
     if (!withDiff) {
-        throw ConditionMismatchException(actual, expected, message)
+        return ConditionMismatchException(actual, expected, message)
     }
     if (expected == null || actual == null || expected == actual) {
-        throw ConditionMismatchException(show(actual), show(expected), message)
+        return ConditionMismatchException(show(actual), show(expected), message)
     } else {
         val extractor = DiffExtractor(display(expected), display(actual))
         val prefix = extractor.compactPrefix()
         val suffix = extractor.compactSuffix()
-        throw ConditionMismatchException("$prefix${extractor.actualDiff()}$suffix",
+        return ConditionMismatchException("$prefix${extractor.actualDiff()}$suffix",
                 "$prefix${extractor.expectedDiff()}$suffix",
                 message)
     }

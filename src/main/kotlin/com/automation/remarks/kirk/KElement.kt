@@ -45,20 +45,17 @@ class KElement(private val locator: ElementLocator<WebElement>,
         waitFor(driver, this.locator, condition, config.timeout(), config.poolingInterval())
     }
 
-    fun setVal(value: String): KElement {
-        execute {
+    fun setValue(value: String): KElement {
+        return execute {
             clear()
             sendKeys(value)
         }
-        return this
     }
 
     fun execute(commands: WebElement.() -> Unit): KElement {
-        try {
-            webElement.commands()
-        } catch (ex: Exception) {
-            waitFor(driver, this.locator, be.visible, config.timeout(), config.poolingInterval())
-        }
+        waitFor(driver, this.locator, be.visible,
+                config.timeout(),
+                config.poolingInterval()).commands()
         return this
     }
 

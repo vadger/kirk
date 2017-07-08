@@ -25,7 +25,7 @@ class ConditionsTest : BaseTest() {
         assertExceptionThrown(TimeoutException::class) {
             Browser.drive {
                 to(url)
-                element("#input_invisible").setVal("demo")
+                element("#input_invisible").setValue("demo")
             }
         }
     }

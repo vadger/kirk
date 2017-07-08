@@ -15,7 +15,7 @@ fun <T> waitFor(driver: WebDriver,
                 locator: ElementLocator<T>,
                 condition: Condition<T>,
                 timeout: Int,
-                poolingInterval: Double) {
+                poolingInterval: Double): T {
 
     val endTime = System.currentTimeMillis() + timeout
     val screen = ScreenshotContainer(driver)

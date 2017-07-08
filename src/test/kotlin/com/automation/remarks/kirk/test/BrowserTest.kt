@@ -33,7 +33,7 @@ class BrowserTest : BaseTest() {
     fun testCanSetValue() {
         drive {
             to(url)
-            element("#input").setVal("This is test")
+            element("#input").setValue("This is test")
         }
     }
 
