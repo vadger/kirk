@@ -6,20 +6,21 @@ import com.automation.remarks.kirk.core.ScreenshotContainer
 import com.automation.remarks.kirk.core.SearchContext
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.interactions.Actions
 
 
-class Browser(val driver: WebDriver) : SearchContext, Navigable {
+class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable {
 
     val mouse: Actions = Actions(driver)
 
-    override fun to(url: String) {
+    override fun open(url: String) {
         driver.navigate().to(url)
     }
 
     override fun <T : Page> to(pageClass: (Browser) -> T): T {
         val page = pageClass(this)
-        page.url?.let { to(it) }
+        page.url?.let { open(it) }
         return page
     }
 

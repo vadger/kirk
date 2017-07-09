@@ -21,7 +21,7 @@ class Navigator(private val browser: Browser) {
 
 
 
-//    fun to(url: String) {
+//    fun open(url: String) {
 //        if (config.startMaximized()) {
 //            driver.manage().window().maximize()
 //        } else {
@@ -29,11 +29,11 @@ class Navigator(private val browser: Browser) {
 //            driver.manage().window().size = Dimension(screenSize[0], screenSize[1])
 //        }
 //        if (isAbsoluteUrl(url)) {
-//            driver.navigate().to(url)
+//            driver.navigate().open(url)
 //        } else {
 //            val baseUrl = config.baseUrl() ?:
 //                    throw IllegalStateException("Base url can't be null")
-//            driver.navigate().to(baseUrl + url)
+//            driver.navigate().open(baseUrl + url)
 //        }
 //        if (config.autoClose()) {
 //            addAutoCloseHook()

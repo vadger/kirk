@@ -1,7 +1,8 @@
-package com.automation.remarks.kirk.test
+package com.automation.remarks.kirk.test.oop
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.test.BaseTest
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.testng.annotations.Test
@@ -9,12 +10,12 @@ import org.testng.annotations.Test
 /**
  * Created by sergey on 28.06.17.
  */
-class OopUsageTest : BaseTest() {
+class BrowserUsageTest : BaseTest() {
 
     @Test
     fun testСanRunBrowser() {
         val browser = Browser(ChromeDriver())
-        browser.to(url)
+        browser.open(url)
         browser.element("#header").should(have.text("Kirk"))
         browser.quit()
     }
@@ -22,7 +23,7 @@ class OopUsageTest : BaseTest() {
     @Test
     fun testCanSetNewDriver() {
         val firefox = Browser(FirefoxDriver())
-        firefox.to(url)
+        firefox.open(url)
         firefox.element(".paginator a").click()
         firefox.element("#header").should(have.text("Second page"))
         firefox.quit()
@@ -30,10 +31,14 @@ class OopUsageTest : BaseTest() {
 
     @Test
     fun testCanOpenTwoBrowser() {
+        val chrome = Browser(ChromeDriver())
+        chrome.open(url)
+        chrome.element("#header").should(have.text("Kirk"))
+        chrome.quit()
 
-
-        val ff = Browser(FirefoxDriver())
-        ff.to(url)
-        ff.all("li").should(have.size(3))
+        val firefox = Browser(FirefoxDriver())
+        firefox.open(url)
+        firefox.all("li").should(have.size(3))
+        firefox.quit()
     }
 }

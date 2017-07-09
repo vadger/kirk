@@ -8,7 +8,7 @@ import com.automation.remarks.kirk.Page
  */
 interface Navigable {
 
-    fun to(url: String)
+    fun open(url: String)
 
     fun <T : Page> to(pageClass: (Browser) -> T): T
 
