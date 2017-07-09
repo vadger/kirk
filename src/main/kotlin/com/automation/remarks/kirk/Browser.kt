@@ -1,56 +1,24 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
-import com.automation.remarks.kirk.ex.WrongUrlException
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 
-
 class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable {
 
     var config: Configuration = loadConfig(Configuration::class)
 
-    var baseUrl: String? = null
-        get() {
-            if (field == null) {
-                field = config.baseUrl()
-            }
-            return field?.removeSuffix("/")
-        }
+    var baseUrl: String by baseUrl()
 
-    var timeout: Int? = null
-        get() {
-            if (field == null) {
-                field = config.timeout()
-            }
-            return field
-        }
+    var timeout: Int by timeout()
 
-    var poolingInterval: Double? = null
-        get() {
-            if (field == null) {
-                field = config.poolingInterval()
-            }
-            return field
-        }
+    var poolingInterval: Double by poolingInterval()
 
-    var startMaximized: Boolean? = null
-        get() {
-            if (field == null) {
-                field = config.startMaximized()
-            }
-            return field
-        }
+    var startMaximized: Boolean? by startMaximized()
 
-    var screenSize: List<Int>? = null
-        get() {
-            if (field == null) {
-                field = config.screenSize()
-            }
-            return field
-        }
+    var screenSize: List<Int> by screenSize()
 
     fun with(block: Browser.() -> Unit): Browser {
         return this.apply(block)
@@ -63,8 +31,8 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
     val js: JsExecutor = JsExecutor(driver)
 
     override fun open(url: String) {
-        if (screenSize != null) {
-            driver.manage().window().size = Dimension(screenSize!![0], screenSize!![1])
+        if (screenSize.isNotEmpty()) {
+            driver.manage().window().size = Dimension(screenSize[0], screenSize[1])
         } else if (startMaximized!!) {
             driver.manage().window().maximize()
         }
@@ -72,10 +40,6 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
         if (isAbsoluteUrl(url)) {
             driver.navigate().to(url)
         } else {
-            if (baseUrl == null) {
-                throw WrongUrlException("Can't navigate to url [$url]. " +
-                        "Please use absolute or set the base url !!!")
-            }
             driver.navigate().to(baseUrl + url)
         }
     }

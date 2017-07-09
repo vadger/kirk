@@ -25,9 +25,10 @@ interface Configuration : Config {
     @DefaultValue("false")
     fun holdOpen(): Boolean
 
+    @DefaultValue("")
     @Key("kirk.screenSize")
     fun screenSize(): List<Int>
 
     @Key("kirk.baseUrl")
-    fun baseUrl(): String?
+    fun baseUrl(): String
 }

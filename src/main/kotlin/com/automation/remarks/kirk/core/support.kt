@@ -1,10 +1,7 @@
 package com.automation.remarks.kirk.core
 
-import com.automation.remarks.kirk.Configuration
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.ex.DiffExtractor
-import org.aeonbits.owner.ConfigFactory.create
-import kotlin.reflect.KClass
 
 /**
  * Created by sepi on 6/30/2017.
@@ -43,8 +40,4 @@ fun fail(expected: Any?, actual: Any?,
                 "$prefix${extractor.expectedDiff()}$suffix",
                 message)
     }
-}
-
-fun <T : Configuration> loadConfig(klazz: KClass<T>): Configuration {
-    return create(klazz.java, System.getProperties())
 }
