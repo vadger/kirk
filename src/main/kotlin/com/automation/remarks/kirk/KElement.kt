@@ -2,7 +2,6 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
-import com.automation.remarks.kirk.core.waitFor
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator
@@ -16,8 +15,8 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sergey on 24.06.17.
  */
-class KElement(private val locator: ElementLocator<WebElement>,
-               private val driver: WebDriver) {
+class KElement(locator: ElementLocator<WebElement>,
+               driver: WebDriver) : Element<WebElement>(locator, driver) {
 
     constructor(locator: By, driver: WebDriver) :
             this(WebElementLocator(locator, driver), driver)
@@ -38,7 +37,7 @@ class KElement(private val locator: ElementLocator<WebElement>,
     }
 
     infix fun should(condition: ElementCondition) {
-        waitFor(driver, this.locator, condition, 4000, 0.1)
+        super.should(condition)
     }
 
     fun setValue(value: String): KElement {
@@ -49,7 +48,7 @@ class KElement(private val locator: ElementLocator<WebElement>,
     }
 
     fun execute(commands: WebElement.() -> Unit): KElement {
-        waitFor(driver, this.locator, be.visible, 4000, 0.1).commands()
+        super.should(be.visible).commands()
         return this
     }
 

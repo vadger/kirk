@@ -55,7 +55,9 @@ class BrowserUsageTest : BaseTest() {
 
     @Test
     fun testCanOpenCanonicalUrl() {
-        val chrome = Browser(baseUrl = url)
+        val chrome = Browser(FirefoxDriver()).with {
+            baseUrl = url
+        }
 
         chrome.open("/")
         chrome.all("li").should(have.size(3))

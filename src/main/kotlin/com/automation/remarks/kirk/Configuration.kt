@@ -7,7 +7,7 @@ import org.aeonbits.owner.Config.Sources
 /**
  * Created by sergey on 25.06.17.
  */
-@Sources("classpath:browser.config")
+@Sources("classpath:kirk.properties")
 interface Configuration : Config {
 
     @DefaultValue("4000")
@@ -22,7 +22,6 @@ interface Configuration : Config {
     @DefaultValue("true")
     fun autoClose(): Boolean
 
-    @DefaultValue("1920,1080")
     fun screenSize(): List<Int>
 
     fun baseUrl(): String?
