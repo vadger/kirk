@@ -24,7 +24,7 @@ class KElementCollection(locator: ElementLocator<List<WebElement>>,
     override val size: Int
         get() = webElements.size
 
-    fun should(condition: CollectionCondition) {
+    infix fun should(condition: CollectionCondition) {
         super.should(condition)
     }
 

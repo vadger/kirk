@@ -6,7 +6,9 @@ import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 
-class Browser(val driver: WebDriver=ChromeDriver()) : SearchContext, Navigable {
+class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable {
+
+    companion object
 
     var config: Configuration = loadConfig(Configuration::class)
 
@@ -57,6 +59,10 @@ class Browser(val driver: WebDriver=ChromeDriver()) : SearchContext, Navigable {
         return page
     }
 
+    fun <T : Page> at(pageClass: (Browser) -> T): T {
+        return pageClass(this)
+    }
+
     override fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit) {
         val page = pageClass(this)
         page.closure()
@@ -97,19 +103,5 @@ class Browser(val driver: WebDriver=ChromeDriver()) : SearchContext, Navigable {
 
     override fun quit() {
         driver.quit()
-    }
-
-    private fun addAutoCloseHook() {
-        Runtime.getRuntime().addShutdownHook(object : Thread() {
-            override fun run() = quit()
-        })
-    }
-}
-
-fun WebDriver.autoClose(enabled: Boolean? = true) {
-    if (enabled!!) {
-        Runtime.getRuntime().addShutdownHook(object : Thread() {
-            override fun run() = quit()
-        })
     }
 }
