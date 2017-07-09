@@ -3,6 +3,8 @@ package com.automation.remarks.kirk.test.oop
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.test.BaseTest
+import me.tatarka.assertk.assert
+import me.tatarka.assertk.assertions.isEqualTo
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.testng.annotations.Test
@@ -40,5 +42,13 @@ class BrowserUsageTest : BaseTest() {
         firefox.open(url)
         firefox.all("li").should(have.size(3))
         firefox.quit()
+    }
+
+    @Test
+    fun testCanGetCurrentUrl() {
+        val chrome = Browser()
+        chrome.open(url)
+        assert(chrome.currentUrl).isEqualTo(url)
+        chrome.quit()
     }
 }

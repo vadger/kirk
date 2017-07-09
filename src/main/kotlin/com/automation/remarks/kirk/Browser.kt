@@ -7,12 +7,9 @@ import com.automation.remarks.kirk.core.SearchContext
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.interactions.Actions
 
 
 class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable {
-
-    val mouse: Actions = Actions(driver)
 
     override fun open(url: String) {
         driver.navigate().to(url)
