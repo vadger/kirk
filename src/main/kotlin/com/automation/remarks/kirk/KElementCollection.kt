@@ -17,7 +17,6 @@ class KElementCollection(private val locator: ElementLocator<List<WebElement>>, 
     constructor(locator: By, driver: WebDriver)
             : this(WebElementListLocator(locator, driver), driver)
 
-    private val config = Browser.getConfig()
     val webElements: List<WebElement>
         get() = locator.find()
 
@@ -25,7 +24,7 @@ class KElementCollection(private val locator: ElementLocator<List<WebElement>>, 
         get() = webElements.size
 
     fun should(condition: CollectionCondition) {
-        waitFor(driver, this.locator, condition, config.timeout(), config.poolingInterval())
+        waitFor(driver, this.locator, condition, 4000, 0.1)
     }
 
     override fun isEmpty(): Boolean {
