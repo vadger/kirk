@@ -1,8 +1,7 @@
 package com.automation.remarks.kirk
 
 import org.aeonbits.owner.Config
-import org.aeonbits.owner.Config.DefaultValue
-import org.aeonbits.owner.Config.Sources
+import org.aeonbits.owner.Config.*
 
 /**
  * Created by sergey on 25.06.17.
@@ -10,19 +9,25 @@ import org.aeonbits.owner.Config.Sources
 @Sources("classpath:kirk.properties")
 interface Configuration : Config {
 
+    @Key("kirk.timeout")
     @DefaultValue("4000")
     fun timeout(): Int
 
+    @Key("kirk.poolingInterval")
     @DefaultValue("0.1")
     fun poolingInterval(): Double
 
+    @Key("kirk.startMaximized")
     @DefaultValue("true")
     fun startMaximized(): Boolean
 
-    @DefaultValue("true")
-    fun autoClose(): Boolean
+    @Key("kirk.holdOpen")
+    @DefaultValue("false")
+    fun holdOpen(): Boolean
 
+    @Key("kirk.screenSize")
     fun screenSize(): List<Int>
 
+    @Key("kirk.baseUrl")
     fun baseUrl(): String?
 }

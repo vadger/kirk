@@ -1,11 +1,14 @@
 package com.automation.remarks.kirk.test.oop
 
 import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.Configuration
 import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.core.loadConfig
 import com.automation.remarks.kirk.ex.WrongUrlException
 import com.automation.remarks.kirk.test.BaseTest
 import me.tatarka.assertk.assert
 import me.tatarka.assertk.assertions.isEqualTo
+import org.aeonbits.owner.Config
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.testng.annotations.Test
@@ -56,6 +59,7 @@ class BrowserUsageTest : BaseTest() {
     @Test
     fun testCanOpenCanonicalUrl() {
         val chrome = Browser(FirefoxDriver()).with {
+            config = loadConfig(Cust::class)
             baseUrl = url
         }
 
@@ -70,4 +74,19 @@ class BrowserUsageTest : BaseTest() {
             Browser().open("/")
         }
     }
+
+//    @Test
+//    fun testConf() {
+//        System.setProperty("firefox.timeout", "2000")
+//        val config: Configuration = ConfigFactory.create(Cust::class.java, System.getProperties())
+//        println(config.baseUrl())
+//        println(config.timeout())
+//        println(config.screenSize())
+//    }
+}
+
+@Config.Sources("classpath:browser.properties")
+interface Cust : Configuration {
+    @Config.Key("firefox.timeout")
+    override fun timeout(): Int
 }

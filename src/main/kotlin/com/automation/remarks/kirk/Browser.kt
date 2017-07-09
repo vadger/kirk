@@ -1,11 +1,7 @@
 package com.automation.remarks.kirk
 
-import com.automation.remarks.kirk.core.JsExecutor
-import com.automation.remarks.kirk.core.Navigable
-import com.automation.remarks.kirk.core.ScreenshotContainer
-import com.automation.remarks.kirk.core.SearchContext
+import com.automation.remarks.kirk.core.*
 import com.automation.remarks.kirk.ex.WrongUrlException
-import org.aeonbits.owner.ConfigFactory
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
@@ -14,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver
 
 class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable {
 
-    val config: Configuration = ConfigFactory.create(Configuration::class.java, System.getProperties())
+    var config: Configuration = loadConfig(Configuration::class)
 
     var baseUrl: String? = null
         get() {
