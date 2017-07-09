@@ -78,7 +78,7 @@ fun poolingInterval(): PoolingIntervalDelegate {
     return PoolingIntervalDelegate()
 }
 
-class StartMaximizedDelegate() {
+class StartMaximizedDelegate {
     private var prop: Boolean? = null
 
     operator fun getValue(browser: Browser, property: KProperty<*>): Boolean? {
@@ -97,7 +97,7 @@ fun startMaximized(): StartMaximizedDelegate {
     return StartMaximizedDelegate()
 }
 
-class ScreenSizeDelegate() {
+class ScreenSizeDelegate {
     private var prop: List<Int> = listOf()
 
     operator fun getValue(browser: Browser, property: KProperty<*>): List<Int> {
@@ -114,4 +114,23 @@ class ScreenSizeDelegate() {
 
 fun screenSize(): ScreenSizeDelegate {
     return ScreenSizeDelegate()
+}
+
+class AutoClosableDelegate{
+    private var prop: Boolean? = null
+
+    operator fun getValue(browser: Browser, property: KProperty<*>): Boolean? {
+        if (prop == null) {
+            return browser.config.holdOpened()
+        }
+        return prop
+    }
+
+    operator fun setValue(browser: Browser, property: KProperty<*>, value: Boolean?) {
+        prop = value
+    }
+}
+
+fun autoClosable(): AutoClosableDelegate {
+    return AutoClosableDelegate()
 }

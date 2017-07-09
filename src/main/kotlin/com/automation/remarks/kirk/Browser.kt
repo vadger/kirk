@@ -6,13 +6,15 @@ import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 
-class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable {
+class Browser(val driver: WebDriver=ChromeDriver()) : SearchContext, Navigable {
 
     var config: Configuration = loadConfig(Configuration::class)
 
     var baseUrl: String by baseUrl()
 
     var timeout: Int by timeout()
+
+    var autoClosable: Boolean? by autoClosable()
 
     var poolingInterval: Double by poolingInterval()
 
@@ -31,6 +33,7 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
     val js: JsExecutor = JsExecutor(driver)
 
     override fun open(url: String) {
+        driver.autoClose(autoClosable)
         if (screenSize.isNotEmpty()) {
             driver.manage().window().size = Dimension(screenSize[0], screenSize[1])
         } else if (startMaximized!!) {
@@ -61,15 +64,15 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
 
     override fun element(by: By): KElement {
         return KElement(by, driver).apply {
-            waitTimeout = timeout!!
-            waitPoolingInterval = poolingInterval!!
+            waitTimeout = timeout
+            waitPoolingInterval = poolingInterval
         }
     }
 
     override fun all(by: By): KElementCollection {
         return KElementCollection(by, driver).apply {
-            waitTimeout = timeout!!
-            waitPoolingInterval = poolingInterval!!
+            waitTimeout = timeout
+            waitPoolingInterval = poolingInterval
         }
     }
 
@@ -94,5 +97,19 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
 
     override fun quit() {
         driver.quit()
+    }
+
+    private fun addAutoCloseHook() {
+        Runtime.getRuntime().addShutdownHook(object : Thread() {
+            override fun run() = quit()
+        })
+    }
+}
+
+fun WebDriver.autoClose(enabled: Boolean? = true) {
+    if (enabled!!) {
+        Runtime.getRuntime().addShutdownHook(object : Thread() {
+            override fun run() = quit()
+        })
     }
 }

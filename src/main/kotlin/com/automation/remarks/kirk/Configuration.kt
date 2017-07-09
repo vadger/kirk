@@ -23,7 +23,7 @@ interface Configuration : Config {
 
     @Key("kirk.holdOpen")
     @DefaultValue("false")
-    fun holdOpen(): Boolean
+    fun holdOpened(): Boolean
 
     @DefaultValue("")
     @Key("kirk.screenSize")
