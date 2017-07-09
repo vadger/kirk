@@ -2,6 +2,7 @@ package com.automation.remarks.kirk.test.oop
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.ex.WrongUrlException
 import com.automation.remarks.kirk.test.BaseTest
 import me.tatarka.assertk.assert
 import me.tatarka.assertk.assertions.isEqualTo
@@ -50,5 +51,21 @@ class BrowserUsageTest : BaseTest() {
         chrome.open(url)
         assert(chrome.currentUrl).isEqualTo(url)
         chrome.quit()
+    }
+
+    @Test
+    fun testCanOpenCanonicalUrl() {
+        val chrome = Browser(baseUrl = url)
+
+        chrome.open("/")
+        chrome.all("li").should(have.size(3))
+        chrome.quit()
+    }
+
+    @Test
+    fun testCanOpenCanonicalUrl2() {
+        assertExceptionThrown(WrongUrlException::class) {
+            Browser().open("/")
+        }
     }
 }

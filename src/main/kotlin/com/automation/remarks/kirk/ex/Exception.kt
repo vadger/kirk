@@ -13,3 +13,5 @@ class ConditionMismatchException(actual: Any?, expected: Any?,
              """
 }
 }
+
+class WrongUrlException(message: String) : Exception(message)
