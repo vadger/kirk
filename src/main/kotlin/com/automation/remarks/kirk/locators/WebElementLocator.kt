@@ -7,7 +7,8 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sepi on 6/27/2017.
  */
-class WebElementLocator(private val by: By, private val driver: WebDriver) : ElementLocator<WebElement> {
+class WebElementLocator(private val by: By,
+                        private val driver: WebDriver) : ElementLocator<WebElement> {
     override fun find(): WebElement {
         return driver.findElement(by)
     }

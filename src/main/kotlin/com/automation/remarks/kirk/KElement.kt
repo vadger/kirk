@@ -2,7 +2,6 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
-import com.automation.remarks.kirk.core.waitFor
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator
@@ -11,17 +10,13 @@ import org.openqa.selenium.By
 import org.openqa.selenium.Keys
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
-import org.openqa.selenium.interactions.Actions
 
 
 /**
  * Created by sergey on 24.06.17.
  */
-class KElement(private val locator: ElementLocator<WebElement>,
-               private val driver: WebDriver) {
-
-    val actions: Actions = Actions(driver)
-    private val config = Browser.getConfig()
+class KElement(locator: ElementLocator<WebElement>,
+               driver: WebDriver) : Element<WebElement>(locator, driver) {
 
     constructor(locator: By, driver: WebDriver) :
             this(WebElementLocator(locator, driver), driver)
@@ -42,7 +37,7 @@ class KElement(private val locator: ElementLocator<WebElement>,
     }
 
     infix fun should(condition: ElementCondition) {
-        waitFor(driver, this.locator, condition, config.timeout(), config.poolingInterval())
+        super.should(condition)
     }
 
     fun setValue(value: String): KElement {
@@ -53,9 +48,7 @@ class KElement(private val locator: ElementLocator<WebElement>,
     }
 
     fun execute(commands: WebElement.() -> Unit): KElement {
-        waitFor(driver, this.locator, be.visible,
-                config.timeout(),
-                config.poolingInterval()).commands()
+        super.should(be.visible).commands()
         return this
     }
 
@@ -69,11 +62,6 @@ class KElement(private val locator: ElementLocator<WebElement>,
 
     fun pressEnter() {
         execute { sendKeys(Keys.ENTER) }
-    }
-
-    fun hover(): KElement {
-        actions.moveToElement(webElement).build().perform()
-        return this
     }
 
     fun element(byCss: String): KElement {

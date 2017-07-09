@@ -1,7 +1,6 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.CollectionCondition
-import com.automation.remarks.kirk.core.waitFor
 import com.automation.remarks.kirk.locators.CachedWebElementLocator
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.WebElementListLocator
@@ -12,20 +11,21 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sergey on 28.06.17.
  */
-class KElementCollection(private val locator: ElementLocator<List<WebElement>>, private val driver: WebDriver) : Collection<KElement> {
+class KElementCollection(locator: ElementLocator<List<WebElement>>,
+                         driver: WebDriver) :
+        Element<List<WebElement>>(locator, driver), Collection<KElement> {
 
     constructor(locator: By, driver: WebDriver)
             : this(WebElementListLocator(locator, driver), driver)
 
-    private val config = Browser.getConfig()
     val webElements: List<WebElement>
         get() = locator.find()
 
     override val size: Int
         get() = webElements.size
 
-    fun should(condition: CollectionCondition) {
-        waitFor(driver, this.locator, condition, config.timeout(), config.poolingInterval())
+    infix fun should(condition: CollectionCondition) {
+        super.should(condition)
     }
 
     override fun isEmpty(): Boolean {

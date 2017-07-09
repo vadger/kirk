@@ -16,9 +16,9 @@ class JettyServer(val port: Int) {
         val server = Server(port)
 
         val cl = JettyServer::class.java.classLoader
-        val f = cl.getResource("start_page.html") ?: throw RuntimeException("Unable to find resource directory")
+        val f = cl.getResource("start_page.html") ?: throw RuntimeException("Unable open find resource directory")
 
-        // Resolve file to directory
+        // Resolve file open directory
         val webRootUri = f.toURI().resolve("./").normalize()
         System.err.println("WebRoot is " + webRootUri)
 
