@@ -21,7 +21,7 @@ class BaseUrlDelegate {
     operator fun getValue(browser: Browser, property: KProperty<*>): String {
         if (prop.isBlank()) {
             val url = browser.config.baseUrl()
-            if (url.isBlank()) {
+            if (url == null) {
                 throw WrongUrlException("Can't navigate to url [$url]. " +
                         "Please use absolute or set the base url !!!")
             }

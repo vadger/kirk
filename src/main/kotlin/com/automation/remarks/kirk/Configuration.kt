@@ -30,5 +30,5 @@ interface Configuration : Config {
     fun screenSize(): List<Int>
 
     @Key("kirk.baseUrl")
-    fun baseUrl(): String
+    fun baseUrl(): String?
 }
