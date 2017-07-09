@@ -63,7 +63,7 @@ class BrowserUsageTest : BaseTest() {
     }
 
     @Test
-    fun testCanOpenCanonicalUrl2() {
+    fun testCanOpenCanonicalUrlWithoutSpecifiedBase() {
         assertExceptionThrown(WrongUrlException::class) {
             Browser().open("/")
         }
