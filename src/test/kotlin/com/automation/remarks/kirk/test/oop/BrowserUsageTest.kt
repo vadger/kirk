@@ -87,6 +87,7 @@ class BrowserUsageTest : BaseTest() {
 
 @Config.Sources("classpath:browser.properties")
 interface Cust : Configuration {
+    @Config.DefaultValue("4000")
     @Config.Key("firefox.timeout")
     override fun timeout(): Int
 }

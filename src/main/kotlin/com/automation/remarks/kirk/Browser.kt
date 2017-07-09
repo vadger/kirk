@@ -63,11 +63,12 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
     val js: JsExecutor = JsExecutor(driver)
 
     override fun open(url: String) {
-        if (screenSize == null) {
-            driver.manage().window().maximize()
-        } else {
+        if (screenSize != null) {
             driver.manage().window().size = Dimension(screenSize!![0], screenSize!![1])
+        } else if (startMaximized!!) {
+            driver.manage().window().maximize()
         }
+
         if (isAbsoluteUrl(url)) {
             driver.navigate().to(url)
         } else {
