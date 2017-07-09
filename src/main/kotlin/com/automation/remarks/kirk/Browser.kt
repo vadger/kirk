@@ -60,7 +60,9 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
     }
 
     fun <T : Page> at(pageClass: (Browser) -> T): T {
-        return pageClass(this)
+        val page = pageClass(this)
+        assert(page.at.invoke(this))
+        return page
     }
 
     override fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit) {
@@ -104,4 +106,7 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
     override fun quit() {
         driver.quit()
     }
+
+    val title: String
+        get() = driver.title
 }

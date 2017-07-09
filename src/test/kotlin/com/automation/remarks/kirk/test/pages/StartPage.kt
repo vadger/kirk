@@ -9,7 +9,9 @@ import com.automation.remarks.kirk.Page
 class StartPage(browser: Browser) : Page(browser) {
     override val url: String?
         get() = "/"
+
     val header = element("#header")
     val list = element(".list").all("li")
     val link = element(".paginator a")
 }
+

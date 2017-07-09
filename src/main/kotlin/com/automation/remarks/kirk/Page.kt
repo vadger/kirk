@@ -9,4 +9,5 @@ import com.automation.remarks.kirk.core.SearchContext
 abstract class Page(var browser: Browser) : SearchContext by browser {
 
     open val url: String? = null
+    open val at: Browser.() -> Boolean = { true }
 }
