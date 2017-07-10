@@ -41,7 +41,7 @@ dependencies {
     testCompile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: '9.4.6.v20170531'
 }
 
-test{
+test {
     useTestNG()
     testLogging {
         events "passed", "skipped", "failed"
@@ -112,15 +112,16 @@ asciidoctor {
     //backends 'pdf'
     sourceDir = file('docs/source')
     outputDir = file('build/docs')
-    attributes \
+    attributes  \
+            'VERSION': "$version",
             'source-highlighter': 'coderay',
             'imagesdir': './images',
             'toc': 'left',
-            'toclevels':'4',
+            'toclevels': '4',
             'icons': 'font',
             'setanchors': '',
             'idprefix': '',
-            'sectnums':'',
+            'sectnums': '',
             'idseparator': '-',
             'docinfo1': ''
 }

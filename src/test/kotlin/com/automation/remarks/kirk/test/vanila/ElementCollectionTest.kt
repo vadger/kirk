@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.core.drive
 import com.automation.remarks.kirk.test.BaseTest

@@ -2,7 +2,6 @@
 
 Doc Writer <http://automation-remarks.com>
 
-:VERSION: 0.7
 :TestVanillaBrowser: ../../src/test/kotlin/com/automation/remarks/kirk/test/vanila/TestVanillaBrowser.kt
 :BrowserUsageTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/oop/BrowserUsageTest.kt
 :ToDo: ../../src/test/kotlin/com/automation/remarks/kirk/test/example/TodoPage.kt
@@ -20,7 +19,7 @@ Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDr
 
 == Installation
 
-Kirk is available in Maven Central
+Kirk is available in Maven Central. The latest version is **{VERSION}**
 
 .Gradle
 [subs="attributes"]
@@ -105,7 +104,7 @@ val chrome = Browser(FirefoxDriver()).with {
 
 Any property set this way will override any settings coming from the config mechanism.
 
-=== The drive() method
+=== The `drive()` method
 
 The Browser class have a static method drive(), that makes process of writing tests a lot easies.
 
