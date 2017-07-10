@@ -298,7 +298,7 @@ element(By.tagName("footer"))
 IMPORTANT: Using CSS selectors is the preferred way to use in Kirk.
 For XPath selectors another convenience mechanism is provided.
 
-=== Using XPATH locators
+==== Using XPATH locators
 
 XPATH is a powerful element location mechanism that can be used in Kirk
 
@@ -315,6 +315,27 @@ or equivalent
 ----
 element(By.xpath("//div[@text()='name']"))
 ----
+
+==== Using `element()` composition
+
+It is also possible to locate element. To do this, simply call the **element()** function chain
+
+Let's look at example
+
+[source, html]
+----
+<div>
+  <a href='hext_page.html'>Next page<a>
+<div>
+----
+
+.find element a inside div
+[source, java]
+----
+assert element("div").element("a").text == "Next page"
+----
+
+NOTE: It's better to use CSS or Xpath locators to achieve the same result
 
 == Configuration
 
