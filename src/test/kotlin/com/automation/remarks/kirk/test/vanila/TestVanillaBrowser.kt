@@ -31,4 +31,15 @@ class TestVanillaBrowser : BaseTest() {
             }
         }
     }
+
+    // tag::testCanDriveScripts[]
+    @Test fun testCanDriveScripts(){
+        Browser.drive {
+            open(url)
+            element("#header").should(have.text("Kirk"))
+            element(".paginator a").click()
+            element("#header").should(have.text("Second page"))
+        }
+    }
+    // end::testCanDriveScripts[]
 }

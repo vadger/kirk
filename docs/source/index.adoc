@@ -1,6 +1,7 @@
 = Kirk - pragmatic UI test automation
 Doc Writer <automationremarks.com>
 
+:TestVanillaBrowser: ../../src/test/kotlin/com/automation/remarks/kirk/test/vanila/TestVanillaBrowser.kt
 :VERSION: 0.7
 
 Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDriver wrapper library inspired by Selenide and Geb.
@@ -11,6 +12,7 @@ Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDr
 - Informative error messages
 - Automatic Driver Management
 - Straightforward Page Objects
+- Chrome browser is a default
 
 == Installation
 
@@ -22,7 +24,6 @@ Kirk is available in Maven Central
 compile group: 'com.automation-remarks', name: 'kirk', version: '{VERSION}'
 ----
 
-
 .Maven
 [source, xml]
 ----
@@ -31,4 +32,11 @@ compile group: 'com.automation-remarks', name: 'kirk', version: '{VERSION}'
     <artifactId>kirk</artifactId>
     <version>{VERSION}</version>
 </dependency>
+----
+
+== Simple script example:
+
+[source, java]
+----
+include::{TestVanillaBrowser}[tags=testCanDriveScripts]
 ----
