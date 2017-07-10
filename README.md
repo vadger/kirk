@@ -25,9 +25,9 @@ Simple script example:
 
 Contributions:
 
-Fork project
-Create feature branch like feature/<name>
-Cover your feature with tests
-Create pull request
+- Fork project
+- Create feature branch like feature/<name>
+- Cover your feature with tests
+- Create pull request
 
 Pull request tests should be green to be merged
