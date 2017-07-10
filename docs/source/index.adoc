@@ -123,12 +123,67 @@ include::{BrowserUsageTest}[tags=testСanRunBrowser]
 The closure is evaluated against created browser instance.
 You can access all top level methods and properties declared in the Browser class.
 
-== Base url support
+== Base URL support
 
 Browser instances maintain a baseUrl property that is used to resolve all relative URLs.
 The value can be defined using configuration or can be explicitly set on the browser.
 
-For example you site url is `http://locahost:8086/`
+For example your site URL is `http://locahost:8086/`. You can use is as shown below
+
+.kirk.properties
+----
+kirk.baseUrl=http://localhost:8086/
+----
+
+And now method `open()` use relative path
+
+----
+Browser.drive {
+   open("/")
+   ...
+}
+----
+
+Or you can define base URL using browser instance
+
+----
+val browser = Browser().with{
+     baseUrl = "http://localhost:8086/"
+}
+
+browser.open("/")
+----
+
+=== Page object support
+
+Page objects is one of the pattern that is highly recommended to use in Test Automation projects.
+Kirk page can define an optional url variable that will be used to navigate to that page. This is done with the `to()` method.
+
+[source, java]
+----
+class StartPage(browser: Browser) : Page(browser) {
+    override val url: String?
+        get() = "/"
+}
+
+Browser.drive {
+    to(::StartPage).element("#header").should(have.text("Kirk"))
+}
+----
+
+The `to()` method makes a request to the resolved URL and navigates to the target page. Method `to()` is overloaded so it can accept
+lambda as a second parameter and points to the instance of that page.
+
+[source, java]
+----
+Browser.drive {
+    to(::StartPage) {
+       element("#header").should(have.text("Kirk"))
+    }
+}
+----
+
+Page lambda scope have access to all public methods and variable declared inside page object class.
 
 == Configuration
 

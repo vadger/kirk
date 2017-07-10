@@ -525,7 +525,11 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#the-browser">The Browser</a></li>
 <li><a href="#the-drive-method">The drive() method</a></li>
-<li><a href="#base-url-support">Base url support</a></li>
+<li><a href="#base-url-support">Base URL support</a>
+<ul class="sectlevel2">
+<li><a href="#page-object-support">Page object support</a></li>
+</ul>
+</li>
 <li><a href="#configuration">Configuration</a>
 <ul class="sectlevel2">
 <li><a href="#kirk-property-file">Kirk property file</a></li>
@@ -739,14 +743,78 @@ You can access all top level methods and properties declared in the Browser clas
 </div>
 </div>
 <div class="sect1">
-<h2 id="base-url-support">Base url support</h2>
+<h2 id="base-url-support">Base URL support</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Browser instances maintain a baseUrl property that is used to resolve all relative URLs.
 The value can be defined using configuration or can be explicitly set on the browser.</p>
 </div>
 <div class="paragraph">
-<p>For example you site url is <code><a href="http://locahost:8086/" class="bare">http://locahost:8086/</a></code></p>
+<p>For example your site URL is <code><a href="http://locahost:8086/" class="bare">http://locahost:8086/</a></code>. You can use is as shown below</p>
+</div>
+<div class="listingblock">
+<div class="title">kirk.properties</div>
+<div class="content">
+<pre>kirk.baseUrl=http://localhost:8086/</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And now method <code>open()</code> use relative path</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Browser.drive {
+   open("/")
+   ...
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or you can define base URL using browser instance</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>val browser = Browser().with{
+     baseUrl = "http://localhost:8086/"
+}
+
+browser.open("/")</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="page-object-support">Page object support</h3>
+<div class="paragraph">
+<p>Page objects is one of the pattern that is highly recommended to use in Test Automation projects.
+Kirk page can define an optional url variable that will be used to navigate to that page. This is done with the <code>to()</code> method.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">StartPage</span>(browser: Browser) : Page(browser) {
+    override val url: <span class="predefined-type">String</span>?
+        get() = <span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>
+}
+
+Browser.drive {
+    to(::StartPage).element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>).should(have.text(<span class="string"><span class="delimiter">&quot;</span><span class="content">Kirk</span><span class="delimiter">&quot;</span></span>))
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>to()</code> method makes a request to the resolved URL and navigates to the target page. Method <code>to()</code> is overloaded so it can accept
+lambda as a second parameter and points to the instance of that page.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Browser.drive {
+    to(::StartPage) {
+       element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>).should(have.text(<span class="string"><span class="delimiter">&quot;</span><span class="content">Kirk</span><span class="delimiter">&quot;</span></span>))
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Page lambda scope have access to all public methods and variable declared inside page object class.</p>
+</div>
 </div>
 </div>
 </div>
@@ -867,7 +935,7 @@ property you override value from property file
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-10 18:17:19 +03:00
+Last updated 2017-07-10 18:36:52 +03:00
 </div>
 </div>
 </body>
