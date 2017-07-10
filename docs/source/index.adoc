@@ -15,6 +15,7 @@ Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDr
 - Automatic Driver Management
 - Straightforward Page Objects
 - Chrome browser is a default
+- Automatic screenshots on fail
 
 == Installation
 
@@ -53,3 +54,16 @@ Straightforward OOP way
 ----
 include::{BrowserUsageTest}[tags=testСanRunBrowser]
 ----
+
+== Error messages
+
+```
+            failed while waiting 4 seconds
+            to assert text
+            for element located {By.cssSelector: #button}
+            reason: condition did not match
+                 expected: [K]irk
+                 actual: []irk
+
+            screenshot: file:///kirk/build/reports/screen_1499188301800.png
+```
