@@ -119,6 +119,7 @@ asciidoctor {
             'icons': 'font',
             'setanchors': '',
             'idprefix': '',
+            'sectnums':'',
             'idseparator': '-',
             'docinfo1': ''
 }

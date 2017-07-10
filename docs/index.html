@@ -515,27 +515,28 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#installation">Installation</a></li>
-<li><a href="#basic-usage">Basic usage</a>
+<li><a href="#installation">1. Installation</a></li>
+<li><a href="#basic-usage">2. Basic usage</a>
 <ul class="sectlevel2">
-<li><a href="#simple-script-example">Simple script example</a></li>
-<li><a href="#browser-instance-usage-example">Browser instance usage example</a></li>
-<li><a href="#error-messages">Error messages</a></li>
+<li><a href="#simple-script-example">2.1. Simple script example</a></li>
+<li><a href="#browser-instance-usage-example">2.2. Browser instance usage example</a></li>
+<li><a href="#error-messages">2.3. Error messages</a></li>
 </ul>
 </li>
-<li><a href="#the-browser">The Browser</a></li>
-<li><a href="#the-drive-method">The drive() method</a></li>
-<li><a href="#base-url-support">Base URL support</a>
+<li><a href="#the-browser">3. The Browser</a>
 <ul class="sectlevel2">
-<li><a href="#page-object-support">Page object support</a></li>
+<li><a href="#the-drive-method">3.1. The drive() method</a></li>
+<li><a href="#base-url-support">3.2. Base URL support</a></li>
+<li><a href="#page-object-support">3.3. Page object support</a></li>
 </ul>
 </li>
-<li><a href="#configuration">Configuration</a>
+<li><a href="#the-page">4. The Page</a></li>
+<li><a href="#configuration">5. Configuration</a>
 <ul class="sectlevel2">
-<li><a href="#kirk-property-file">Kirk property file</a></li>
-<li><a href="#system-properties">System properties</a></li>
-<li><a href="#custom-property-in-source-code">Custom property in source code</a></li>
-<li><a href="#custom-configuration-interface">Custom configuration interface</a></li>
+<li><a href="#kirk-property-file">5.1. Kirk property file</a></li>
+<li><a href="#system-properties">5.2. System properties</a></li>
+<li><a href="#custom-property-in-source-code">5.3. Custom property in source code</a></li>
+<li><a href="#custom-configuration-interface">5.4. Custom configuration interface</a></li>
 </ul>
 </li>
 </ul>
@@ -581,7 +582,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="installation">Installation</h2>
+<h2 id="installation">1. Installation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Kirk is available in Maven Central</p>
@@ -605,10 +606,10 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="basic-usage">Basic usage</h2>
+<h2 id="basic-usage">2. Basic usage</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="simple-script-example">Simple script example</h3>
+<h3 id="simple-script-example">2.1. Simple script example</h3>
 <div class="paragraph">
 <p>You are able to write tests using DSL</p>
 </div>
@@ -626,7 +627,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect2">
-<h3 id="browser-instance-usage-example">Browser instance usage example</h3>
+<h3 id="browser-instance-usage-example">2.2. Browser instance usage example</h3>
 <div class="paragraph">
 <p>Straightforward OOP way</p>
 </div>
@@ -643,7 +644,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect2">
-<h3 id="error-messages">Error messages</h3>
+<h3 id="error-messages">2.3. Error messages</h3>
 <div class="listingblock">
 <div class="content">
 <pre>      failed while waiting 4 seconds
@@ -660,7 +661,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="the-browser">The Browser</h2>
+<h2 id="the-browser">3. The Browser</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The entry point to Kirk is the Browser object.</p>
@@ -702,11 +703,8 @@ val browser = Browser(FirefoxDriver())</pre>
 <div class="paragraph">
 <p>Any property set this way will override any settings coming from the config mechanism.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="the-drive-method">The drive() method</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="the-drive-method">3.1. The drive() method</h3>
 <div class="paragraph">
 <p>The Browser class have a static method drive(), that makes process of writing tests a lot easies.</p>
 </div>
@@ -741,10 +739,8 @@ val browser = Browser(FirefoxDriver())</pre>
 You can access all top level methods and properties declared in the Browser class.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="base-url-support">Base URL support</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="base-url-support">3.2. Base URL support</h3>
 <div class="paragraph">
 <p>Browser instances maintain a baseUrl property that is used to resolve all relative URLs.
 The value can be defined using configuration or can be explicitly set on the browser.</p>
@@ -781,8 +777,9 @@ The value can be defined using configuration or can be explicitly set on the bro
 browser.open("/")</pre>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="page-object-support">Page object support</h3>
+<h3 id="page-object-support">3.3. Page object support</h3>
 <div class="paragraph">
 <p>Page objects is one of the pattern that is highly recommended to use in Test Automation projects.
 Kirk page can define an optional url variable that will be used to navigate to that page. This is done with the <code>to()</code> method.</p>
@@ -819,7 +816,15 @@ lambda as a second parameter and points to the instance of that page.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="configuration">Configuration</h2>
+<h2 id="the-page">4. The Page</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Page class description</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration">5. Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Configuration can be made using several ways:</p>
@@ -838,7 +843,7 @@ lambda as a second parameter and points to the instance of that page.</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="kirk-property-file">Kirk property file</h3>
+<h3 id="kirk-property-file">5.1. Kirk property file</h3>
 <div class="paragraph">
 <p>Just create file <strong>kirk.properties</strong> in <strong>src/main/resources</strong> or <strong>src/test/resources</strong> of the project
 It&#8217;s possible to set such variables:</p>
@@ -855,7 +860,7 @@ kirk.baseUrl = http://localhost:8086 // empty by default</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="system-properties">System properties</h3>
+<h3 id="system-properties">5.2. System properties</h3>
 <div class="paragraph">
 <p>As well as using property file, you can pass configuration via System properties</p>
 </div>
@@ -881,7 +886,7 @@ property you override value from property file
 </div>
 </div>
 <div class="sect2">
-<h3 id="custom-property-in-source-code">Custom property in source code</h3>
+<h3 id="custom-property-in-source-code">5.3. Custom property in source code</h3>
 <div class="paragraph">
 <p>You can define property directly in code</p>
 </div>
@@ -897,7 +902,7 @@ property you override value from property file
 </div>
 </div>
 <div class="sect2">
-<h3 id="custom-configuration-interface">Custom configuration interface</h3>
+<h3 id="custom-configuration-interface">5.4. Custom configuration interface</h3>
 <div class="paragraph">
 <p>Define custom interface of type <strong>Configuration</strong></p>
 </div>
@@ -935,7 +940,7 @@ property you override value from property file
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-10 18:36:52 +03:00
+Last updated 2017-07-10 20:39:46 +03:00
 </div>
 </div>
 </body>
