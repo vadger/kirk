@@ -524,6 +524,8 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#the-browser">The Browser</a></li>
+<li><a href="#the-drive-method">The drive() method</a></li>
+<li><a href="#base-url-support">Base url support</a></li>
 <li><a href="#configuration">Configuration</a>
 <ul class="sectlevel2">
 <li><a href="#kirk-property-file">Kirk property file</a></li>
@@ -693,6 +695,59 @@ val browser = Browser(FirefoxDriver())</pre>
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Any property set this way will override any settings coming from the config mechanism.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-drive-method">The drive() method</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Browser class have a static method drive(), that makes process of writing tests a lot easies.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="annotation">@Test</span> fun testCanDriveScripts(){
+        Browser.drive {
+            open(url)
+            element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>).should(have.text(<span class="string"><span class="delimiter">&quot;</span><span class="content">Kirk</span><span class="delimiter">&quot;</span></span>))
+            element(<span class="string"><span class="delimiter">&quot;</span><span class="content">.paginator a</span><span class="delimiter">&quot;</span></span>).click()
+            element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>).should(have.text(<span class="string"><span class="delimiter">&quot;</span><span class="content">Second page</span><span class="delimiter">&quot;</span></span>))
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is pretty much the same as</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="annotation">@Test</span>
+    fun test<span class="error">С</span>anRunBrowser() {
+        val browser = Browser(ChromeDriver())
+        browser.open(url)
+        browser.element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>).should(have.text(<span class="string"><span class="delimiter">&quot;</span><span class="content">Kirk</span><span class="delimiter">&quot;</span></span>))
+        browser.quit()
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The closure is evaluated against created browser instance.
+You can access all top level methods and properties declared in the Browser class.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="base-url-support">Base url support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Browser instances maintain a baseUrl property that is used to resolve all relative URLs.
+The value can be defined using configuration or can be explicitly set on the browser.</p>
+</div>
+<div class="paragraph">
+<p>For example you site url is <code><a href="http://locahost:8086/" class="bare">http://locahost:8086/</a></code></p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -812,7 +867,7 @@ property you override value from property file
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-10 16:46:16 +03:00
+Last updated 2017-07-10 18:17:19 +03:00
 </div>
 </div>
 </body>

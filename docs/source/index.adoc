@@ -104,6 +104,32 @@ val chrome = Browser(FirefoxDriver()).with {
 
 Any property set this way will override any settings coming from the config mechanism.
 
+== The drive() method
+
+The Browser class have a static method drive(), that makes process of writing tests a lot easies.
+
+[source, java]
+----
+include::{TestVanillaBrowser}[tags=testCanDriveScripts]
+----
+
+This is pretty much the same as
+
+[source, java]
+----
+include::{BrowserUsageTest}[tags=testСanRunBrowser]
+----
+
+The closure is evaluated against created browser instance.
+You can access all top level methods and properties declared in the Browser class.
+
+== Base url support
+
+Browser instances maintain a baseUrl property that is used to resolve all relative URLs.
+The value can be defined using configuration or can be explicitly set on the browser.
+
+For example you site url is `http://locahost:8086/`
+
 == Configuration
 
 Configuration can be made using several ways:
