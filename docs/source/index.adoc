@@ -137,6 +137,7 @@ kirk.baseUrl=http://localhost:8086/
 
 And now method `open()` use relative path
 
+[source, java]
 ----
 Browser.drive {
    open("/")
@@ -146,6 +147,7 @@ Browser.drive {
 
 Or you can define base URL using browser instance
 
+[source, java]
 ----
 val browser = Browser().with{
      baseUrl = "http://localhost:8086/"
