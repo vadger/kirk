@@ -5,6 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
+<meta name="author" content="Doc Writer">
 <title>Kirk - pragmatic UI test automation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -511,17 +512,24 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
+<h1>Kirk - pragmatic UI test automation</h1>
+<div class="details">
+<span id="author" class="author">Doc Writer</span><br>
+<span id="email" class="email">automationremarks.com</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#kirk-pragmatic-ui-test-automation">Kirk - pragmatic UI test automation</a></li>
+<li><a href="#installation">Installation</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="kirk-pragmatic-ui-test-automation">Kirk - pragmatic UI test automation</h2>
+<div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Kirk is a browser automation library for Kotlin. It&#8217;s basically a Selenium-WebDriver wrapper library inspired by Selenide and Geb.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -536,14 +544,44 @@ table.CodeRay td.code>pre{padding:0}
 <li>
 <p>Informative error messages</p>
 </li>
+<li>
+<p>Automatic Driver Management</p>
+</li>
+<li>
+<p>Straightforward Page Objects</p>
+</li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installation">Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kirk is available in Maven Central</p>
+</div>
+<div class="listingblock">
+<div class="title">Gradle</div>
+<div class="content">
+<pre>compile group: 'com.automation-remarks', name: 'kirk', version: '0.7'</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Maven</div>
+<div class="content">
+<pre><dependency>
+    <groupId>com.automation-remarks</groupId>
+    <artifactId>kirk</artifactId>
+    <version>0.7</version>
+</dependency></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-10 12:42:21 +03:00
+Last updated 2017-07-10 14:07:54 +03:00
 </div>
 </div>
 </body>
