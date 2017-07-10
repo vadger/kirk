@@ -7,6 +7,7 @@ import com.automation.remarks.kirk.core.byXpath
 /**
  * Created by sergey on 09.07.17.
  */
+// tag::TodoPage[]
 class TodoPage(browser: Browser) : Page(browser) {
     override val url: String?
         get() = "http://todomvc.com/examples/angularjs/"
@@ -38,3 +39,4 @@ class TodoPage(browser: Browser) : Page(browser) {
         element("#filters li:nth-child(3) a").click()
     }
 }
+// end::TodoPage[]

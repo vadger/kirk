@@ -16,7 +16,7 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
 
     var timeout: Int by timeout()
 
-    var autoClosable: Boolean? by autoClosable()
+    var holdOpen: Boolean? by autoClosable()
 
     var poolingInterval: Double by poolingInterval()
 
@@ -35,7 +35,7 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
     val js: JsExecutor = JsExecutor(driver)
 
     override fun open(url: String) {
-        driver.autoClose(autoClosable)
+        driver.autoClose(holdOpen)
         if (screenSize.isNotEmpty()) {
             driver.manage().window().size = Dimension(screenSize[0], screenSize[1])
         } else if (startMaximized!!) {
@@ -51,6 +51,10 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
 
     private fun isAbsoluteUrl(url: String): Boolean {
         return (url.startsWith("http://") || url.startsWith("https://"))
+    }
+
+    fun to(url: String) {
+        open(url)
     }
 
     override fun <T : Page> to(pageClass: (Browser) -> T): T {

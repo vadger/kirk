@@ -121,7 +121,7 @@ class AutoClosableDelegate{
 
     operator fun getValue(browser: Browser, property: KProperty<*>): Boolean? {
         if (prop == null) {
-            return browser.config.holdOpened()
+            return browser.config.holdOpen()
         }
         return prop
     }

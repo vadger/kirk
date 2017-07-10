@@ -527,16 +527,24 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#the-drive-method">3.1. The drive() method</a></li>
 <li><a href="#base-url-support">3.2. Base URL support</a></li>
-<li><a href="#page-object-support">3.3. Page object support</a></li>
+<li><a href="#absolute-url-support">3.3. Absolute URL support</a></li>
+<li><a href="#page-object-support">3.4. Page object support</a></li>
+<li><a href="#auto-close-browser-support">3.5. Auto close browser support</a></li>
 </ul>
 </li>
 <li><a href="#the-page">4. The Page</a></li>
-<li><a href="#configuration">5. Configuration</a>
+<li><a href="#web-page-interaction">5. Web page interaction</a>
 <ul class="sectlevel2">
-<li><a href="#kirk-property-file">5.1. Kirk property file</a></li>
-<li><a href="#system-properties">5.2. System properties</a></li>
-<li><a href="#custom-property-in-source-code">5.3. Custom property in source code</a></li>
-<li><a href="#custom-configuration-interface">5.4. Custom configuration interface</a></li>
+<li><a href="#the-code-element-code-function">5.1. The <code>element()</code> function</a></li>
+<li><a href="#using-xpath-locators">5.2. Using XPATH locators</a></li>
+</ul>
+</li>
+<li><a href="#configuration">6. Configuration</a>
+<ul class="sectlevel2">
+<li><a href="#kirk-property-file">6.1. Kirk property file</a></li>
+<li><a href="#system-properties">6.2. System properties</a></li>
+<li><a href="#custom-property-in-source-code">6.3. Custom property in source code</a></li>
+<li><a href="#custom-configuration-interface">6.4. Custom configuration interface</a></li>
 </ul>
 </li>
 </ul>
@@ -638,7 +646,6 @@ table.CodeRay td.code>pre{padding:0}
         val browser = Browser(ChromeDriver())
         browser.open(url)
         browser.element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>).should(have.text(<span class="string"><span class="delimiter">&quot;</span><span class="content">Kirk</span><span class="delimiter">&quot;</span></span>))
-        browser.quit()
     }</code></pre>
 </div>
 </div>
@@ -730,7 +737,6 @@ val browser = Browser(FirefoxDriver())</pre>
         val browser = Browser(ChromeDriver())
         browser.open(url)
         browser.element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>).should(have.text(<span class="string"><span class="delimiter">&quot;</span><span class="content">Kirk</span><span class="delimiter">&quot;</span></span>))
-        browser.quit()
     }</code></pre>
 </div>
 </div>
@@ -779,7 +785,49 @@ browser.open(<span class="string"><span class="delimiter">&quot;</span><span cla
 </div>
 </div>
 <div class="sect2">
-<h3 id="page-object-support">3.3. Page object support</h3>
+<h3 id="absolute-url-support">3.3. Absolute URL support</h3>
+<div class="paragraph">
+<p>As well as parent url, Kirk allows to navigate pages using absolute url</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Browser.drive {
+   open(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:8086/login</span><span class="delimiter">&quot;</span></span>)
+   at(::LoginPage).loginAs(<span class="string"><span class="delimiter">&quot;</span><span class="content">admin</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">admin</span><span class="delimiter">&quot;</span></span>)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Absolute url can be defined inside author &lt;email&gt; page object</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">StartPage</span>(browser: Browser) : Page(browser) {
+    override val url: <span class="predefined-type">String</span>?
+        get() = <span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:8086/login</span><span class="delimiter">&quot;</span></span>
+}
+
+Browser.drive {
+    to(::StartPage).element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>).should(have.text(<span class="string"><span class="delimiter">&quot;</span><span class="content">Kirk</span><span class="delimiter">&quot;</span></span>))
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It is better to use relative path, because of maintenance reason. For example
+you can easily manage properties for different environments Dev, QA, Stage etc.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="page-object-support">3.4. Page object support</h3>
 <div class="paragraph">
 <p>Page objects is one of the pattern that is highly recommended to use in Test Automation projects.
 Kirk page can define an optional url variable that will be used to navigate to that page. This is done with the <code>to()</code> method.</p>
@@ -813,18 +861,192 @@ lambda as a second parameter and points to the instance of that page.</p>
 <p>Page lambda scope have access to all public methods and variable declared inside page object class.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="auto-close-browser-support">3.5. Auto close browser support</h3>
+<div class="paragraph">
+<p>Browser will automatically close at the end of either single test execution or
+bunch of tests. This behaviour can be changed by setting property <strong>holdOpen=true</strong>
+in a config file or system property.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="the-page">4. The Page</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Page class description</p>
+<p>To use Page Object pattern, you create subclasses of Page that define with a help of powerful DSL that allows you to refer to content by meaningful names instead of tag names or CSS expressions.</p>
+</div>
+<div class="listingblock">
+<div class="title">Todo page example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">TodoPage</span>(browser: Browser) : Page(browser) {
+    override val url: <span class="predefined-type">String</span>?
+        get() = <span class="string"><span class="delimiter">&quot;</span><span class="content">http://todomvc.com/examples/angularjs/</span><span class="delimiter">&quot;</span></span>
+
+    val counter = element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#todo-count strong</span><span class="delimiter">&quot;</span></span>)
+    val taskList = all(<span class="string"><span class="delimiter">&quot;</span><span class="content">label.ng-binding</span><span class="delimiter">&quot;</span></span>)
+
+    fun addTasks(vararg tasks: <span class="predefined-type">String</span>) {
+        <span class="keyword">for</span> (task in tasks) {
+            element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#new-todo</span><span class="delimiter">&quot;</span></span>)
+                    .setValue(task)
+                    .pressEnter()
+        }
+    }
+
+    fun deleteTask(name: <span class="predefined-type">String</span>) {
+        element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#todo-list li div input</span><span class="delimiter">&quot;</span></span>).hover()
+        element(byXpath(<span class="string"><span class="delimiter">&quot;</span><span class="content">//label[text()='$name']/following-sibling::button</span><span class="delimiter">&quot;</span></span>))
+                .click()
+    }
+
+    fun deactivateTask(vararg tasks: <span class="predefined-type">String</span>) {
+        <span class="keyword">for</span> (task in tasks) {
+            element(byXpath(<span class="string"><span class="delimiter">&quot;</span><span class="content">//label[text()='$task']/preceding-sibling::input</span><span class="delimiter">&quot;</span></span>)).click()
+        }
+    }
+
+    fun goToCompletedTab() {
+        element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#filters li:nth-child(3) a</span><span class="delimiter">&quot;</span></span>).click()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Test class</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">TodoAngularTest</span>{
+    <span class="annotation">@Test</span> fun testCanAddNewTaskAndDelete() {
+        Browser.drive {
+            to(::TodoPage) {
+                addTasks(<span class="string"><span class="delimiter">&quot;</span><span class="content">Item0</span><span class="delimiter">&quot;</span></span>)
+                taskList.should(have.size(<span class="integer">1</span>))
+                deleteTask(<span class="string"><span class="delimiter">&quot;</span><span class="content">Item0</span><span class="delimiter">&quot;</span></span>)
+                taskList.should(have.size(<span class="integer">0</span>))
+            }
+        }
+    }
+
+    <span class="annotation">@Test</span> fun testCanDeactivateTask() {
+        Browser.drive {
+            to(::TodoPage) {
+                addTasks(<span class="string"><span class="delimiter">&quot;</span><span class="content">A</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">B</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">C</span><span class="delimiter">&quot;</span></span>)
+                deactivateTask(<span class="string"><span class="delimiter">&quot;</span><span class="content">A</span><span class="delimiter">&quot;</span></span>)
+                counter.should(have.text(<span class="string"><span class="delimiter">&quot;</span><span class="content">2</span><span class="delimiter">&quot;</span></span>))
+                goToCompletedTab()
+                taskList.should(have.exactText(<span class="string"><span class="delimiter">&quot;</span><span class="content">A</span><span class="delimiter">&quot;</span></span>))
+            }
+        }
+    }
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="configuration">5. Configuration</h2>
+<h2 id="web-page-interaction">5. Web page interaction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Test automation engineers spend a lot of time writing query
+selectors and element locators to find element on a given page.</p>
+</div>
+<div class="paragraph">
+<p>Kirk provides a set of methods that helps to interact with page elements.</p>
+</div>
+<div class="sect2">
+<h3 id="the-code-element-code-function">5.1. The <code>element()</code> function</h3>
+<div class="paragraph">
+<p>The element function is the access point to the page content.
+It returns a KElement object that is a representation of WebElement that we interact with.</p>
+</div>
+<div class="sect3">
+<h4 id="using-css-locators">5.1.1. Using CSS locators</h4>
+<div class="paragraph">
+<p>Function <code>element()</code> accepts a String parameter as a cssLocator</p>
+</div>
+<div class="listingblock">
+<div class="title">find element by id = header</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">find element by css class = .paginator</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">element(<span class="string"><span class="delimiter">&quot;</span><span class="content">.paginator</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">find element by tag = footer</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">element(<span class="string"><span class="delimiter">&quot;</span><span class="content">footer</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-webdriver-s-by-locator">5.1.2. Using Webdriver&#8217;s By locator</h4>
+<div class="paragraph">
+<p>For <code>element()</code> there is an equivalent signature where an instance of WebDriver’s By selector can be used instead of a String.</p>
+</div>
+<div class="listingblock">
+<div class="title">find element by id = header</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">element(By.id(<span class="string"><span class="delimiter">&quot;</span><span class="content">#header</span><span class="delimiter">&quot;</span></span>))</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">find element by css class = .paginator</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">element(By.className(<span class="string"><span class="delimiter">&quot;</span><span class="content">.paginator</span><span class="delimiter">&quot;</span></span>))</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">find element by tag = footer</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">element(By.tagName(<span class="string"><span class="delimiter">&quot;</span><span class="content">footer</span><span class="delimiter">&quot;</span></span>))</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Using CSS selectors is the preferred way to use in Kirk.
+For XPath selectors another convenience mechanism is provided.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-xpath-locators">5.2. Using XPATH locators</h3>
+<div class="paragraph">
+<p>XPATH is a powerful element location mechanism that can be used in Kirk</p>
+</div>
+<div class="listingblock">
+<div class="title">find element by xpath = //div[@text()='name']</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">element(byXpath(<span class="string"><span class="delimiter">&quot;</span><span class="content">//div[@text()='name']</span><span class="delimiter">&quot;</span></span>))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or equivalent</p>
+</div>
+<div class="listingblock">
+<div class="title">find element by xpath = //div[@text()='name']</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">element(By.xpath(<span class="string"><span class="delimiter">&quot;</span><span class="content">//div[@text()='name']</span><span class="delimiter">&quot;</span></span>))</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration">6. Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Configuration can be made using several ways:</p>
@@ -843,7 +1065,7 @@ lambda as a second parameter and points to the instance of that page.</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="kirk-property-file">5.1. Kirk property file</h3>
+<h3 id="kirk-property-file">6.1. Kirk property file</h3>
 <div class="paragraph">
 <p>Just create file <strong>kirk.properties</strong> in <strong>src/main/resources</strong> or <strong>src/test/resources</strong> of the project
 It&#8217;s possible to set such variables:</p>
@@ -860,7 +1082,7 @@ kirk.baseUrl = http://localhost:8086 // empty by default</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="system-properties">5.2. System properties</h3>
+<h3 id="system-properties">6.2. System properties</h3>
 <div class="paragraph">
 <p>As well as using property file, you can pass configuration via System properties</p>
 </div>
@@ -886,7 +1108,7 @@ property you override value from property file
 </div>
 </div>
 <div class="sect2">
-<h3 id="custom-property-in-source-code">5.3. Custom property in source code</h3>
+<h3 id="custom-property-in-source-code">6.3. Custom property in source code</h3>
 <div class="paragraph">
 <p>You can define property directly in code</p>
 </div>
@@ -902,7 +1124,7 @@ property you override value from property file
 </div>
 </div>
 <div class="sect2">
-<h3 id="custom-configuration-interface">5.4. Custom configuration interface</h3>
+<h3 id="custom-configuration-interface">6.4. Custom configuration interface</h3>
 <div class="paragraph">
 <p>Define custom interface of type <strong>Configuration</strong></p>
 </div>
@@ -914,9 +1136,9 @@ property you override value from property file
     <span class="annotation">@Key</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">firefox.timeout</span><span class="delimiter">&quot;</span></span>)
     override fun timeout(): Int
 
-    <span class="annotation">@Key</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">holdOpened</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@Key</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">holdOpen</span><span class="delimiter">&quot;</span></span>)
     <span class="annotation">@DefaultValue</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>)
-    override fun holdOpened(): <span class="predefined-type">Boolean</span>
+    override fun holdOpen(): <span class="predefined-type">Boolean</span>
 }</code></pre>
 </div>
 </div>
@@ -940,7 +1162,7 @@ property you override value from property file
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-10 20:44:01 +03:00
+Last updated 2017-07-10 22:12:15 +03:00
 </div>
 </div>
 </body>

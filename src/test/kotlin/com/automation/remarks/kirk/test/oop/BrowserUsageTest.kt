@@ -21,7 +21,6 @@ class BrowserUsageTest : BaseTest() {
         val browser = Browser(ChromeDriver())
         browser.open(url)
         browser.element("#header").should(have.text("Kirk"))
-        browser.quit()
     }
     // end::testСanRunBrowser[]
 

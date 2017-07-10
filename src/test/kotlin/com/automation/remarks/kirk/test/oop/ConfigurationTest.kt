@@ -26,7 +26,7 @@ class ConfigurationTest : BaseTest() {
         ChromeDriverManager.getInstance().setup()
         val browser = Browser().with {
             baseUrl = url
-            autoClosable = true
+            holdOpen = true
         }
 
         browser.open("/")
@@ -40,7 +40,7 @@ interface Cust : Configuration {
     @Key("firefox.timeout")
     override fun timeout(): Int
 
-    @Key("holdOpened")
+    @Key("holdOpen")
     @DefaultValue("true")
-    override fun holdOpened(): Boolean
+    override fun holdOpen(): Boolean
 }

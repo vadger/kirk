@@ -5,7 +5,8 @@ Doc Writer <http://automation-remarks.com>
 :VERSION: 0.7
 :TestVanillaBrowser: ../../src/test/kotlin/com/automation/remarks/kirk/test/vanila/TestVanillaBrowser.kt
 :BrowserUsageTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/oop/BrowserUsageTest.kt
-
+:ToDo: ../../src/test/kotlin/com/automation/remarks/kirk/test/example/TodoPage.kt
+:TodoAngularTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/example/TodoAngularTest.kt
 Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDriver wrapper library inspired by Selenide and Geb.
 
 - No Page Factory
@@ -156,6 +157,35 @@ val browser = Browser().with{
 browser.open("/")
 ----
 
+=== Absolute URL support
+
+As well as parent url, Kirk allows to navigate pages using absolute url
+
+[source, java]
+----
+Browser.drive {
+   open("http://localhost:8086/login")
+   at(::LoginPage).loginAs("admin","admin")
+}
+----
+
+Absolute url can be defined inside author <email> page object
+
+[source, java]
+----
+class StartPage(browser: Browser) : Page(browser) {
+    override val url: String?
+        get() = "http://localhost:8086/login"
+}
+
+Browser.drive {
+    to(::StartPage).element("#header").should(have.text("Kirk"))
+}
+----
+
+NOTE: It is better to use relative path, because of maintenance reason. For example
+you can easily manage properties for different environments Dev, QA, Stage etc.
+
 === Page object support
 
 Page objects is one of the pattern that is highly recommended to use in Test Automation projects.
@@ -187,9 +217,104 @@ Browser.drive {
 
 Page lambda scope have access to all public methods and variable declared inside page object class.
 
+=== Auto close browser support
+
+Browser will automatically close at the end of either single test execution or
+bunch of tests. This behaviour can be changed by setting property **holdOpen=true**
+in a config file or system property.
+
 == The Page
 
-The Page class description
+To use Page Object pattern, you create subclasses of Page that define with a help of powerful DSL that allows you to refer to content by meaningful names instead of tag names or CSS expressions.
+
+.Todo page example
+[source, java]
+----
+include::{ToDo}[tags=TodoPage]
+----
+
+.Test class
+[source, java]
+----
+include::{TodoAngularTest}[tags=TodoAngularTest]
+----
+
+== Web page interaction
+
+Test automation engineers spend a lot of time writing query
+selectors and element locators to find element on a given page.
+
+Kirk provides a set of methods that helps to interact with page elements.
+
+=== The `element()` function
+
+The element function is the access point to the page content.
+It returns a KElement object that is a representation of WebElement that we interact with.
+
+==== Using CSS locators
+
+Function `element()` accepts a String parameter as a cssLocator
+
+.find element by id = header
+[source, java]
+----
+element("#header")
+----
+
+.find element by css class = .paginator
+[source, java]
+----
+element(".paginator")
+----
+
+.find element by tag = footer
+[source, java]
+----
+element("footer")
+----
+
+==== Using Webdriver's By locator
+
+For `element()` there is an equivalent signature where an instance of WebDriver’s By selector can be used instead of a String.
+
+.find element by id = header
+[source, java]
+----
+element(By.id("#header"))
+----
+
+.find element by css class = .paginator
+[source, java]
+----
+element(By.className(".paginator"))
+----
+
+.find element by tag = footer
+[source, java]
+----
+element(By.tagName("footer"))
+----
+
+IMPORTANT: Using CSS selectors is the preferred way to use in Kirk.
+For XPath selectors another convenience mechanism is provided.
+
+=== Using XPATH locators
+
+XPATH is a powerful element location mechanism that can be used in Kirk
+
+.find element by xpath = //div[@text()='name']
+[source, java]
+----
+element(byXpath("//div[@text()='name']"))
+----
+
+or equivalent
+
+.find element by xpath = //div[@text()='name']
+[source, java]
+----
+element(By.xpath("//div[@text()='name']"))
+----
 
 == Configuration
 
@@ -252,9 +377,9 @@ interface CustomConfig : Configuration {
     @Key("firefox.timeout")
     override fun timeout(): Int
 
-    @Key("holdOpened")
+    @Key("holdOpen")
     @DefaultValue("true")
-    override fun holdOpened(): Boolean
+    override fun holdOpen(): Boolean
 }
 ----
 
