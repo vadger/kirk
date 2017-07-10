@@ -110,8 +110,8 @@ nexus {
 
 asciidoctor {
     //backends 'pdf'
-    sourceDir = file('docs')
-    outputDir = file('docs')
+    sourceDir = file('docs/source')
+    outputDir = file('build/docs')
     attributes \
             'source-highlighter': 'coderay',
             'imagesdir': './images',
@@ -121,4 +121,12 @@ asciidoctor {
             'idprefix': '',
             'idseparator': '-',
             'docinfo1': ''
+}
+
+asciidoctor.doLast {
+    copy {
+        from 'build/docs/html5'
+        into "$projectDir/docs"
+        include '*.html'
+    }
 }
