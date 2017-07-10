@@ -37,7 +37,9 @@ compile group: 'com.automation-remarks', name: 'kirk', version: '{VERSION}'
 </dependency>
 ----
 
-== Simple script example:
+== Basic usage
+
+=== Simple script example
 
 You are able to write tests using DSL
 
@@ -46,7 +48,7 @@ You are able to write tests using DSL
 include::{TestVanillaBrowser}[tags=testCanDriveScripts]
 ----
 
-== Browser instance usage example
+=== Browser instance usage example
 
 Straightforward OOP way
 
@@ -55,15 +57,27 @@ Straightforward OOP way
 include::{BrowserUsageTest}[tags=testСanRunBrowser]
 ----
 
-== Error messages
+=== Error messages
 
-```
-            failed while waiting 4 seconds
-            to assert text
-            for element located {By.cssSelector: #button}
-            reason: condition did not match
-                 expected: [K]irk
-                 actual: []irk
+----
+      failed while waiting 4 seconds
+      to assert text
+      for element located {By.cssSelector: #button}
+      reason: condition did not match
+            expected: [K]irk
+            actual: []irk
 
             screenshot: file:///kirk/build/reports/screen_1499188301800.png
-```
+----
+
+== Configuration
+
+Configuration can be made using several ways:
+
+- kirk.properties file
+- System properties
+- Custom property directly in code
+
+=== Kirk property file
+
+Just create file **kirk.properties** in src/main/resources of your project
