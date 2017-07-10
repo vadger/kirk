@@ -102,6 +102,8 @@ val chrome = Browser(FirefoxDriver()).with {
 }
 ----
 
+Any property set this way will override any settings coming from the config mechanism.
+
 == Configuration
 
 Configuration can be made using several ways:

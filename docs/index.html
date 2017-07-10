@@ -523,12 +523,13 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#error-messages">Error messages</a></li>
 </ul>
 </li>
+<li><a href="#the-browser">The Browser</a></li>
 <li><a href="#configuration">Configuration</a>
 <ul class="sectlevel2">
 <li><a href="#kirk-property-file">Kirk property file</a></li>
 <li><a href="#system-properties">System properties</a></li>
 <li><a href="#custom-property-in-source-code">Custom property in source code</a></li>
-<li><a href="#custom-configuration-class">Custom configuration class</a></li>
+<li><a href="#custom-configuration-interface">Custom configuration interface</a></li>
 </ul>
 </li>
 </ul>
@@ -653,6 +654,48 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
+<h2 id="the-browser">The Browser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The entry point to Kirk is the Browser object.</p>
+</div>
+<div class="paragraph">
+<p>The default constructor of Browser class instantiates ChromeDriver.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>import com.automation.remarks.kirk.Browser
+
+val browser = Browser()</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, if you prefer to specify the driver implementation,
+you can pass it using secondary constructor</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>import com.automation.remarks.kirk.Browser
+
+val browser = Browser(FirefoxDriver())</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Browser instance can be configured using code example below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">val chrome = Browser(FirefoxDriver()).with {
+            baseUrl = <span class="string"><span class="delimiter">&quot;</span><span class="content">http://local:8080</span><span class="delimiter">&quot;</span></span>
+            holdOpen = <span class="predefined-constant">true</span>
+            startMaximized = <span class="predefined-constant">false</span>
+            screenSize = listOf(<span class="integer">640</span>,<span class="integer">480</span>)
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="configuration">Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -731,9 +774,9 @@ property you override value from property file
 </div>
 </div>
 <div class="sect2">
-<h3 id="custom-configuration-class">Custom configuration class</h3>
+<h3 id="custom-configuration-interface">Custom configuration interface</h3>
 <div class="paragraph">
-<p>Define custom interface</p>
+<p>Define custom interface of type <strong>Configuration</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -769,7 +812,7 @@ property you override value from property file
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-10 15:54:45 +03:00
+Last updated 2017-07-10 16:46:16 +03:00
 </div>
 </div>
 </body>
