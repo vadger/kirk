@@ -119,9 +119,9 @@ val chrome = Browser(FirefoxDriver()).with {
 }
 ----
 
-=== Custom configuration class
+=== Custom configuration interface
 
-Define custom interface
+Define custom interface of type **Configuration**
 
 [source, java]
 ----
@@ -148,3 +148,25 @@ val browser = Browser().with {
 
 You can use it for single instance alongside with System properties and
 **kirk.properties** file
+
+== The Browser
+
+The entry point to Kirk is the Browser object.
+
+The default constructor of Browser class instantiates ChromeDriver.
+----
+import com.automation.remarks.kirk.Browser
+
+val browser = Browser()
+----
+
+However, if you prefer to specify the driver implementation,
+you can pass it using secondary constructor
+
+----
+import com.automation.remarks.kirk.Browser
+
+val browser = Browser(FirefoxDriver())
+----
+
+You
