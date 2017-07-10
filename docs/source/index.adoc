@@ -70,6 +70,38 @@ include::{BrowserUsageTest}[tags=testСanRunBrowser]
             screenshot: file:///kirk/build/reports/screen_1499188301800.png
 ----
 
+== The Browser
+
+The entry point to Kirk is the Browser object.
+
+The default constructor of Browser class instantiates ChromeDriver.
+----
+import com.automation.remarks.kirk.Browser
+
+val browser = Browser()
+----
+
+However, if you prefer to specify the driver implementation,
+you can pass it using secondary constructor
+
+----
+import com.automation.remarks.kirk.Browser
+
+val browser = Browser(FirefoxDriver())
+----
+
+Browser instance can be configured using code example below:
+
+[source, java]
+----
+val chrome = Browser(FirefoxDriver()).with {
+            baseUrl = "http://local:8080"
+            holdOpen = true
+            startMaximized = false
+            screenSize = listOf(640,480)
+}
+----
+
 == Configuration
 
 Configuration can be made using several ways:
@@ -148,25 +180,3 @@ val browser = Browser().with {
 
 You can use it for single instance alongside with System properties and
 **kirk.properties** file
-
-== The Browser
-
-The entry point to Kirk is the Browser object.
-
-The default constructor of Browser class instantiates ChromeDriver.
-----
-import com.automation.remarks.kirk.Browser
-
-val browser = Browser()
-----
-
-However, if you prefer to specify the driver implementation,
-you can pass it using secondary constructor
-
-----
-import com.automation.remarks.kirk.Browser
-
-val browser = Browser(FirefoxDriver())
-----
-
-You
