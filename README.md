@@ -22,3 +22,12 @@ Simple script example:
 ```
 
 [DOCUMENTATION](http://automation-remarks.com/kirk/)
+
+Contributions:
+
+Fork project
+Create feature branch like feature/<name>
+Cover your feature with tests
+Create pull request
+
+Pull request tests should be green to be merged
