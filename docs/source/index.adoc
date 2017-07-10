@@ -80,4 +80,71 @@ Configuration can be made using several ways:
 
 === Kirk property file
 
-Just create file **kirk.properties** in src/main/resources of your project
+Just create file **kirk.properties** in **src/main/resources** or **src/test/resources** of the project
+It's possible to set such variables:
+
+----
+kirk.timeout = 4000
+kirk.poolingInterval = 0.1
+kirk.startMaximized = true
+kirk.holdOpen = false
+kirk.screenSize = 1920,1080          // empty by default
+kirk.baseUrl = http://localhost:8086 // empty by default
+----
+
+=== System properties
+
+As well as using property file, you can pass configuration via System properties
+
+----
+System.setProperty("kirk.timeout","6000")
+System.setProperty("kirk.startMaximized","true")
+System.setProperty("kirk.baseUrl","http://192.168.0.1:8086")
+----
+
+IMPORTANT: System properties have higher priority, so that by setting system
+property you override value from property file
+
+=== Custom property in source code
+
+You can define property directly in code
+
+[source, java]
+----
+val chrome = Browser(FirefoxDriver()).with {
+            baseUrl = "http://local:8080"
+            holdOpen = true
+            startMaximized = false
+            screenSize = listOf(640,480)
+}
+----
+
+=== Custom configuration class
+
+Define custom interface
+
+[source, java]
+----
+@Sources("classpath:browser.properties")
+interface CustomConfig : Configuration {
+    @DefaultValue("2000")
+    @Key("firefox.timeout")
+    override fun timeout(): Int
+
+    @Key("holdOpened")
+    @DefaultValue("true")
+    override fun holdOpened(): Boolean
+}
+----
+
+Use it in your code
+
+[source, java]
+----
+val browser = Browser().with {
+     config = loadConfig(CustomConfig::class)
+}
+----
+
+You can use it for single instance alongside with System properties and
+**kirk.properties** file

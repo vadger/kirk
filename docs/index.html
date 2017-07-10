@@ -523,7 +523,14 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#error-messages">Error messages</a></li>
 </ul>
 </li>
-<li><a href="#configuration">Configuration</a></li>
+<li><a href="#configuration">Configuration</a>
+<ul class="sectlevel2">
+<li><a href="#kirk-property-file">Kirk property file</a></li>
+<li><a href="#system-properties">System properties</a></li>
+<li><a href="#custom-property-in-source-code">Custom property in source code</a></li>
+<li><a href="#custom-configuration-class">Custom configuration class</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -648,13 +655,121 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="configuration">Configuration</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Configuration can be made using several ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>kirk.properties file</p>
+</li>
+<li>
+<p>System properties</p>
+</li>
+<li>
+<p>Custom property directly in code</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="kirk-property-file">Kirk property file</h3>
+<div class="paragraph">
+<p>Just create file <strong>kirk.properties</strong> in <strong>src/main/resources</strong> or <strong>src/test/resources</strong> of the project
+It&#8217;s possible to set such variables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>kirk.timeout = 4000
+kirk.poolingInterval = 0.1
+kirk.startMaximized = true
+kirk.holdOpen = false
+kirk.screenSize = 1920,1080          // empty by default
+kirk.baseUrl = http://localhost:8086 // empty by default</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="system-properties">System properties</h3>
+<div class="paragraph">
+<p>As well as using property file, you can pass configuration via System properties</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>System.setProperty("kirk.timeout","6000")
+System.setProperty("kirk.startMaximized","true")
+System.setProperty("kirk.baseUrl","http://192.168.0.1:8086")</pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+System properties have higher priority, so that by setting system
+property you override value from property file
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="custom-property-in-source-code">Custom property in source code</h3>
+<div class="paragraph">
+<p>You can define property directly in code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">val chrome = Browser(FirefoxDriver()).with {
+            baseUrl = <span class="string"><span class="delimiter">&quot;</span><span class="content">http://local:8080</span><span class="delimiter">&quot;</span></span>
+            holdOpen = <span class="predefined-constant">true</span>
+            startMaximized = <span class="predefined-constant">false</span>
+            screenSize = listOf(<span class="integer">640</span>,<span class="integer">480</span>)
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="custom-configuration-class">Custom configuration class</h3>
+<div class="paragraph">
+<p>Define custom interface</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Sources</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">classpath:browser.properties</span><span class="delimiter">&quot;</span></span>)
+<span class="type">interface</span> <span class="class">CustomConfig</span> : <span class="predefined-type">Configuration</span> {
+    <span class="annotation">@DefaultValue</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">2000</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@Key</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">firefox.timeout</span><span class="delimiter">&quot;</span></span>)
+    override fun timeout(): Int
 
+    <span class="annotation">@Key</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">holdOpened</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@DefaultValue</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>)
+    override fun holdOpened(): <span class="predefined-type">Boolean</span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use it in your code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">val browser = Browser().with {
+     config = loadConfig(CustomConfig::<span class="type">class</span>)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use it for single instance alongside with System properties and
+<strong>kirk.properties</strong> file</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-10 14:51:08 +03:00
+Last updated 2017-07-10 15:54:45 +03:00
 </div>
 </div>
 </body>
