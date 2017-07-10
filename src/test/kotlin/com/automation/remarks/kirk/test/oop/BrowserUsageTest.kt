@@ -15,6 +15,7 @@ import org.testng.annotations.Test
  */
 class BrowserUsageTest : BaseTest() {
 
+    // tag::testСanRunBrowser[]
     @Test
     fun testСanRunBrowser() {
         val browser = Browser(ChromeDriver())
@@ -22,6 +23,7 @@ class BrowserUsageTest : BaseTest() {
         browser.element("#header").should(have.text("Kirk"))
         browser.quit()
     }
+    // end::testСanRunBrowser[]
 
     @Test
     fun testCanSetNewDriver() {
