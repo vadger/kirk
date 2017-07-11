@@ -111,6 +111,15 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
         driver.quit()
     }
 
+    fun acceptAlert(): Browser {
+        driver.switchTo().alert().accept()
+        return this
+    }
+    fun dismissAlert(): Browser {
+        driver.switchTo().alert().dismiss()
+        return this
+    }
+
     val title: String
         get() = driver.title
 }
