@@ -238,6 +238,37 @@ include::{ToDo}[tags=TodoPage]
 include::{TodoAngularTest}[tags=TodoAngularTest]
 ----
 
+== Alerts
+
+Nowadays alerts is not widely used in modern web applications, however Kirk allows to interact with alert windows
+
+.accept alert
+[source, java]
+----
+Browser.drive {
+    to(url)
+    alert.accept()
+}
+----
+
+.dismiss alert
+[source, java]
+----
+Browser.drive {
+    to(url)
+    alert.dismiss()
+}
+----
+
+.verify alert text
+[source, java]
+----
+Browser.drive {
+    to(url)
+    assert(alert.text == "Hello buddy")
+}
+----
+
 == Web page interaction
 
 Test automation engineers spend a lot of time writing query
