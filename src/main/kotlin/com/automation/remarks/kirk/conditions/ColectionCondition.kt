@@ -30,10 +30,22 @@ class CollectionExactText(val text: Array<out String>) : CollectionCondition() {
     override fun match(element: List<WebElement>): List<WebElement> {
         val actual = element.map { it.text }
         val expected = text.toList()
-        if (actual.equals(expected)) {
+        if (actual == expected) {
             return element
         }
         throw fail(expected, actual)
     }
+}
 
+class CollectionContainText(val text: String) : CollectionCondition() {
+    override fun match(element: List<WebElement>): List<WebElement> {
+        if (element.any { it.text == text }) {
+            return element
+        }
+        throw fail(text, element.map { it.text })
+    }
+
+    override fun toString(): String {
+        return "collection contains element with text"
+    }
 }

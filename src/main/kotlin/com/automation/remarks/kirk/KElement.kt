@@ -22,10 +22,25 @@ class KElement(locator: ElementLocator<WebElement>,
     constructor(locator: By, driver: WebDriver) :
             this(WebElementLocator(locator, driver), driver)
 
-    val actions = Actions(driver)
+    private val actions = Actions(driver)
 
     val webElement: WebElement
         get() = locator.find()
+
+    val text: String
+        get() = webElement.text
+
+    val tagName: String
+        get() = webElement.tagName
+
+    val isEnabled: Boolean
+        get() = webElement.isEnabled
+
+    val isDisplayed: Boolean
+        get() = webElement.isDisplayed
+
+    val isSelected: Boolean
+        get() = webElement.isSelected
 
     fun click() {
         execute { click() }
@@ -58,10 +73,6 @@ class KElement(locator: ElementLocator<WebElement>,
     override fun toString(): String {
         return locator.description
     }
-
-    val text: String
-        get() = webElement.text
-
 
     fun pressEnter() {
         execute { sendKeys(Keys.ENTER) }
