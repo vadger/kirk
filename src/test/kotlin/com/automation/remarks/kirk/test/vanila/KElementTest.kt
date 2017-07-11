@@ -11,9 +11,9 @@ import org.testng.annotations.Test
 /**
  * Created by sepi on 7/11/2017.
  */
-class KElementTest : BaseTest(){
+class KElementTest : BaseTest() {
 
-    @Test fun testCanFindFirstChild(){
+    @Test fun testCanFindFirstChild() {
         Browser.drive {
             to(url)
             s("ul").firstChild().should(have.text("Один"))
@@ -21,14 +21,14 @@ class KElementTest : BaseTest(){
         }
     }
 
-    @Test fun testCanFindLastChild(){
+    @Test fun testCanFindLastChild() {
         Browser.drive {
             to(url)
             s("ul").lastChild().should(have.text("Три"))
         }
     }
 
-    @Test fun testCanFindFirstParent(){
+    @Test fun testCanFindFirstParent() {
         Browser.drive {
             to(url)
             s("div.b").parent().should(have.cssClass("a"))
@@ -37,9 +37,10 @@ class KElementTest : BaseTest(){
 }
 
 
-fun Browser.s(cssLocator:String): KElement {
+fun Browser.s(cssLocator: String): KElement {
     return element(cssLocator)
 }
+
 fun KElement.firstChild(): KElement {
     return this.element(":first-child")
 }
