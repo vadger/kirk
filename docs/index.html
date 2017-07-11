@@ -533,24 +533,25 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#the-page">4. The Page</a></li>
-<li><a href="#web-page-interaction">5. Web page interaction</a>
+<li><a href="#alerts">5. Alerts</a></li>
+<li><a href="#web-page-interaction">6. Web page interaction</a>
 <ul class="sectlevel2">
-<li><a href="#the-code-element-code-function">5.1. The <code>element()</code> function</a>
+<li><a href="#the-code-element-code-function">6.1. The <code>element()</code> function</a>
 <ul class="sectlevel3">
-<li><a href="#using-css-locators">5.1.1. Using CSS locators</a></li>
-<li><a href="#using-webdriver-s-by-locator">5.1.2. Using Webdriver&#8217;s By locator</a></li>
-<li><a href="#using-xpath-locators">5.1.3. Using XPATH locators</a></li>
-<li><a href="#using-code-element-code-composition">5.1.4. Using <code>element()</code> composition</a></li>
+<li><a href="#using-css-locators">6.1.1. Using CSS locators</a></li>
+<li><a href="#using-webdriver-s-by-locator">6.1.2. Using Webdriver&#8217;s By locator</a></li>
+<li><a href="#using-xpath-locators">6.1.3. Using XPATH locators</a></li>
+<li><a href="#using-code-element-code-composition">6.1.4. Using <code>element()</code> composition</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#configuration">6. Configuration</a>
+<li><a href="#configuration">7. Configuration</a>
 <ul class="sectlevel2">
-<li><a href="#kirk-property-file">6.1. Kirk property file</a></li>
-<li><a href="#system-properties">6.2. System properties</a></li>
-<li><a href="#custom-property-in-source-code">6.3. Custom property in source code</a></li>
-<li><a href="#custom-configuration-interface">6.4. Custom configuration interface</a></li>
+<li><a href="#kirk-property-file">7.1. Kirk property file</a></li>
+<li><a href="#system-properties">7.2. System properties</a></li>
+<li><a href="#custom-property-in-source-code">7.3. Custom property in source code</a></li>
+<li><a href="#custom-configuration-interface">7.4. Custom configuration interface</a></li>
 </ul>
 </li>
 </ul>
@@ -951,7 +952,42 @@ in a config file or system property.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="web-page-interaction">5. Web page interaction</h2>
+<h2 id="alerts">5. Alerts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Nowadays alerts is not widely used in modern web applications, however Kirk allows to interact with alert windows</p>
+</div>
+<div class="listingblock">
+<div class="title">accept alert</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Browser.drive {
+    to(url)
+    alert.accept()
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">dismiss alert</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Browser.drive {
+    to(url)
+    alert.dismiss()
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">verify alert text</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">Browser.drive {
+    to(url)
+    <span class="keyword">assert</span>(alert.text == <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello buddy</span><span class="delimiter">&quot;</span></span>)
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="web-page-interaction">6. Web page interaction</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Test automation engineers spend a lot of time writing query
@@ -961,13 +997,13 @@ selectors and element locators to find element on a given page.</p>
 <p>Kirk provides a set of methods that helps to interact with page elements.</p>
 </div>
 <div class="sect2">
-<h3 id="the-code-element-code-function">5.1. The <code>element()</code> function</h3>
+<h3 id="the-code-element-code-function">6.1. The <code>element()</code> function</h3>
 <div class="paragraph">
 <p>The element function is the access point to the page content.
 It returns a KElement object that is a representation of WebElement that we interact with.</p>
 </div>
 <div class="sect3">
-<h4 id="using-css-locators">5.1.1. Using CSS locators</h4>
+<h4 id="using-css-locators">6.1.1. Using CSS locators</h4>
 <div class="paragraph">
 <p>Function <code>element()</code> accepts a String parameter as a cssLocator</p>
 </div>
@@ -991,7 +1027,7 @@ It returns a KElement object that is a representation of WebElement that we inte
 </div>
 </div>
 <div class="sect3">
-<h4 id="using-webdriver-s-by-locator">5.1.2. Using Webdriver&#8217;s By locator</h4>
+<h4 id="using-webdriver-s-by-locator">6.1.2. Using Webdriver&#8217;s By locator</h4>
 <div class="paragraph">
 <p>For <code>element()</code> there is an equivalent signature where an instance of WebDriver’s By selector can be used instead of a String.</p>
 </div>
@@ -1028,7 +1064,7 @@ For XPath selectors another convenience mechanism is provided.
 </div>
 </div>
 <div class="sect3">
-<h4 id="using-xpath-locators">5.1.3. Using XPATH locators</h4>
+<h4 id="using-xpath-locators">6.1.3. Using XPATH locators</h4>
 <div class="paragraph">
 <p>XPATH is a powerful element location mechanism that can be used in Kirk</p>
 </div>
@@ -1049,7 +1085,7 @@ For XPath selectors another convenience mechanism is provided.
 </div>
 </div>
 <div class="sect3">
-<h4 id="using-code-element-code-composition">5.1.4. Using <code>element()</code> composition</h4>
+<h4 id="using-code-element-code-composition">6.1.4. Using <code>element()</code> composition</h4>
 <div class="paragraph">
 <p>It is also possible to locate element. To do this, simply call the <strong>element()</strong> function chain</p>
 </div>
@@ -1064,7 +1100,7 @@ For XPath selectors another convenience mechanism is provided.
 </div>
 </div>
 <div class="listingblock">
-<div class="title">find element a inside div</div>
+<div class="title">find element "a" inside "div"</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">assert</span> element(<span class="string"><span class="delimiter">&quot;</span><span class="content">div</span><span class="delimiter">&quot;</span></span>).element(<span class="string"><span class="delimiter">&quot;</span><span class="content">a</span><span class="delimiter">&quot;</span></span>).text == <span class="string"><span class="delimiter">&quot;</span><span class="content">Next page</span><span class="delimiter">&quot;</span></span></code></pre>
 </div>
@@ -1086,7 +1122,7 @@ It&#8217;s better to use CSS or Xpath locators to achieve the same result
 </div>
 </div>
 <div class="sect1">
-<h2 id="configuration">6. Configuration</h2>
+<h2 id="configuration">7. Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Configuration can be made using several ways:</p>
@@ -1105,7 +1141,7 @@ It&#8217;s better to use CSS or Xpath locators to achieve the same result
 </ul>
 </div>
 <div class="sect2">
-<h3 id="kirk-property-file">6.1. Kirk property file</h3>
+<h3 id="kirk-property-file">7.1. Kirk property file</h3>
 <div class="paragraph">
 <p>Just create file <strong>kirk.properties</strong> in <strong>src/main/resources</strong> or <strong>src/test/resources</strong> of the project
 It&#8217;s possible to set such variables:</p>
@@ -1122,7 +1158,7 @@ kirk.baseUrl = http://localhost:8086 // empty by default</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="system-properties">6.2. System properties</h3>
+<h3 id="system-properties">7.2. System properties</h3>
 <div class="paragraph">
 <p>As well as using property file, you can pass configuration via System properties</p>
 </div>
@@ -1148,7 +1184,7 @@ property you override value from property file
 </div>
 </div>
 <div class="sect2">
-<h3 id="custom-property-in-source-code">6.3. Custom property in source code</h3>
+<h3 id="custom-property-in-source-code">7.3. Custom property in source code</h3>
 <div class="paragraph">
 <p>You can define property directly in code</p>
 </div>
@@ -1164,7 +1200,7 @@ property you override value from property file
 </div>
 </div>
 <div class="sect2">
-<h3 id="custom-configuration-interface">6.4. Custom configuration interface</h3>
+<h3 id="custom-configuration-interface">7.4. Custom configuration interface</h3>
 <div class="paragraph">
 <p>Define custom interface of type <strong>Configuration</strong></p>
 </div>
@@ -1202,7 +1238,7 @@ property you override value from property file
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-10 23:15:34 +03:00
+Last updated 2017-07-11 18:15:52 +03:00
 </div>
 </div>
 </body>
