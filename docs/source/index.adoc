@@ -328,7 +328,7 @@ Let's look at example
 <div>
 ----
 
-.find element a inside div
+.find element "a" inside "div"
 [source, java]
 ----
 assert element("div").element("a").text == "Next page"
