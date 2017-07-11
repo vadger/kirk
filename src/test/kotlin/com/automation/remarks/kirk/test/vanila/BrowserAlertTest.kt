@@ -20,7 +20,7 @@ class BrowserAlertTest : BaseTest() {
                 baseUrl = url
                 to(::StartPage) {
                     confirmBtn.click()
-                    acceptAlert()
+                    alert.accept()
                     driver.switchTo().alert()
                 }
             }
@@ -33,11 +33,20 @@ class BrowserAlertTest : BaseTest() {
                 baseUrl = url
                 to(::StartPage) {
                     confirmBtn.click()
-                    dismissAlert()
+                    alert.dismiss()
                     driver.switchTo().alert()
                 }
             }
         }
     }
 
+    @Test fun testCanGetAlertText() {
+            Browser.drive {
+                baseUrl = url
+                to(::StartPage) {
+                    confirmBtn.click()
+                    assert(alert.text == "Добрый день")
+                }
+            }
+        }
 }

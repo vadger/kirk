@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
+import org.openqa.selenium.Alert
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
@@ -111,14 +112,8 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
         driver.quit()
     }
 
-    fun acceptAlert(): Browser {
-        driver.switchTo().alert().accept()
-        return this
-    }
-    fun dismissAlert(): Browser {
-        driver.switchTo().alert().dismiss()
-        return this
-    }
+    val alert: Alert
+        get() = driver.switchTo().alert()
 
     val title: String
         get() = driver.title
