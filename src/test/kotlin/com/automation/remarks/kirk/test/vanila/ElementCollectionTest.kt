@@ -1,7 +1,6 @@
 package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.core.drive
 import com.automation.remarks.kirk.test.BaseTest
@@ -16,6 +15,13 @@ class ElementCollectionTest : BaseTest(){
         Browser.drive {
             to(url)
             all("li")[1].should(have.text("Два"))
+        }
+    }
+
+    @Test fun testCanSelectElementByCSS3(){
+        Browser.drive {
+            to(url)
+            element(":link").should(have.text("To 2 page"))
         }
     }
 
