@@ -5,6 +5,7 @@ import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.core.drive
 import com.automation.remarks.kirk.test.BaseTest
+import org.openqa.selenium.By
 import org.testng.annotations.Test
 
 /**
@@ -12,7 +13,7 @@ import org.testng.annotations.Test
  */
 class KElementTest : BaseTest(){
 
-    @Test fun testCanCombine(){
+    @Test fun testCanFindFirstChild(){
         Browser.drive {
             to(url)
             s("ul").firstChild().should(have.text("Один"))
@@ -20,6 +21,19 @@ class KElementTest : BaseTest(){
         }
     }
 
+    @Test fun testCanFindLastChild(){
+        Browser.drive {
+            to(url)
+            s("ul").lastChild().should(have.text("Три"))
+        }
+    }
+
+    @Test fun testCanFindFirstParent(){
+        Browser.drive {
+            to(url)
+            s("div.b").parent().should(have.cssClass("a"))
+        }
+    }
 }
 
 
@@ -32,4 +46,8 @@ fun KElement.firstChild(): KElement {
 
 fun KElement.lastChild(): KElement {
     return this.element(":last-child")
+}
+
+fun KElement.parent(): KElement {
+    return this.element(By.xpath(".."))
 }

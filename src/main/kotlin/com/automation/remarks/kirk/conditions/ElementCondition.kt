@@ -48,3 +48,17 @@ class AttributeValue(val attr: String, val expect: String) : ElementCondition() 
         return "attribute {$attr}"
     }
 }
+
+class CssClassValue(val cssClass: String) : ElementCondition() {
+    override fun match(element: WebElement): WebElement {
+        val cssValue = element.getAttribute("class").split(" ")
+        if (cssValue.contains(cssClass)) {
+            return element
+        }
+        throw fail(cssClass, cssValue, withDiff = false)
+    }
+
+    override fun toString(): String {
+        return "class value"
+    }
+}
