@@ -30,4 +30,4 @@ Contributions:
 - Cover your feature with tests
 - Create pull request
 
-Pull request tests should be green to be merged and docs be updated
+**Pull request tests should be green to be merged and docs be updated**
