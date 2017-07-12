@@ -36,8 +36,8 @@ class TestVanillaBrowser : BaseTest() {
             }
             interact {
                 keyDown(Keys.CONTROL)
-                click(element(By.name("genres")).firstChild().webElement)
-                click(element(By.name("genres")).lastChild().webElement)
+                click(element(By.name("genres")).firstChild())
+                click(element(By.name("genres")).lastChild())
                 keyUp(Keys.CONTROL)
             }
         }
@@ -57,4 +57,8 @@ class TestVanillaBrowser : BaseTest() {
 
 fun Actions.hover(element: KElement){
     this.moveToElement(element.webElement)
+}
+
+fun Actions.click(element: KElement){
+    this.click(element.webElement)
 }
