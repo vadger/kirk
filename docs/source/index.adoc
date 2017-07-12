@@ -375,6 +375,8 @@ Configuration can be made using several ways:
 - System properties
 - Custom property directly in code
 
+Configuration is made by using http://owner.aeonbits.org/docs/variables-expansion/[Java Owner library]
+
 === Kirk property file
 
 Just create file **kirk.properties** in **src/main/resources** or **src/test/resources** of the project
