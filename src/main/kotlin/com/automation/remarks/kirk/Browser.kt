@@ -61,7 +61,7 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
         open(url)
     }
 
-    fun interact(block: Actions.()->Unit){
+    fun interact(block: Actions.() -> Unit) {
         this.actions.apply(block).build().perform()
     }
 
@@ -73,12 +73,13 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
 
     fun <T : Page> at(pageClass: (Browser) -> T): T {
         val page = pageClass(this)
-        assert(page.at.invoke(this))
+        assert(page.at.invoke(this)) { "Page at condition check fail! " +
+                "Probably a wrong page" }
         return page
     }
 
     override fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit) {
-        val page = pageClass(this)
+        val page = at(pageClass)
         page.closure()
     }
 
