@@ -39,13 +39,16 @@ class KElementTest : BaseTest() {
     @Test fun testCanFindChildren() {
         Browser.drive {
             to(url)
-            element("ul#with_children").children("li").should(have.exactText("1","2","2.1","2.2","3","3.1","3.2"))
+            element("ul#with_children").children("li").should(have.exactText("1", "2", "2.1", "2.2", "3", "3.1", "3.2"))
         }
+
+
     }
 }
 
-private fun KElement.children(locator:String = "*"): KElementCollection {
-    return this.all(locator)
+
+private fun KElement.children(locator: String = "*"): KElementCollection {
+    return this.findAll(locator)
 }
 
 fun Browser.s(cssLocator: String): KElement {
@@ -53,13 +56,13 @@ fun Browser.s(cssLocator: String): KElement {
 }
 
 fun KElement.firstChild(): KElement {
-    return this.element(":first-child")
+    return this.find(":first-child")
 }
 
 fun KElement.lastChild(): KElement {
-    return this.element(":last-child")
+    return this.find(":last-child")
 }
 
 fun KElement.parent(): KElement {
-    return this.element(By.xpath(".."))
+    return this.find(By.xpath(".."))
 }

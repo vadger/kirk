@@ -903,7 +903,7 @@ in a config file or system property.</p>
     }
 
     fun deleteTask(name: <span class="predefined-type">String</span>) {
-        element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#todo-list li div input</span><span class="delimiter">&quot;</span></span>).hover()
+        browser.interact { hover(element(<span class="string"><span class="delimiter">&quot;</span><span class="content">#todo-list li div input</span><span class="delimiter">&quot;</span></span>)) }
         element(byXpath(<span class="string"><span class="delimiter">&quot;</span><span class="content">//label[text()='$name']/following-sibling::button</span><span class="delimiter">&quot;</span></span>))
                 .click()
     }
@@ -1238,7 +1238,7 @@ property you override value from property file
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-11 18:15:52 +03:00
+Last updated 2017-07-12 12:41:45 +03:00
 </div>
 </div>
 </body>

@@ -3,6 +3,7 @@ package com.automation.remarks.kirk.core
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Configuration
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement
 import kotlin.reflect.KClass
 
 /**
@@ -15,6 +16,9 @@ fun WebDriver.autoClose(enabled: Boolean? = true) {
         })
     }
 }
+
+val WebElement.classes: List<String>
+    get() = this.getAttribute("class").split(" ")
 
 val driverFactory = WebDriverFactory()
 

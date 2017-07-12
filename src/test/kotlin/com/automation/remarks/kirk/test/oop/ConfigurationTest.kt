@@ -30,7 +30,7 @@ class ConfigurationTest : BaseTest() {
         }
 
         browser.open("/")
-        browser.all("li").should(have.size(3))
+        browser.all("li").should(have.size(10))
     }
 }
 

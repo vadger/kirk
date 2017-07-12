@@ -2,6 +2,7 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
+import com.automation.remarks.kirk.core.classes
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator
@@ -10,7 +11,6 @@ import org.openqa.selenium.By
 import org.openqa.selenium.Keys
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
-import org.openqa.selenium.interactions.Actions
 
 
 /**
@@ -39,6 +39,9 @@ class KElement(locator: ElementLocator<WebElement>,
 
     val isSelected: Boolean
         get() = webElement.isSelected
+
+    val classes: List<String>
+        get() = webElement.classes
 
     fun click() {
         execute { click() }
@@ -76,19 +79,19 @@ class KElement(locator: ElementLocator<WebElement>,
         execute { sendKeys(Keys.ENTER) }
     }
 
-    fun element(byCss: String): KElement {
-        return element(By.cssSelector(byCss))
+    fun find(byCss: String): KElement {
+        return find(By.cssSelector(byCss))
     }
 
-    fun element(by: By): KElement {
+    fun find(by: By): KElement {
         return KElement(InnerWebElementLocator(by, this), driver)
     }
 
-    fun all(byCss: String): KElementCollection {
-        return all(By.cssSelector(byCss))
+    fun findAll(byCss: String): KElementCollection {
+        return findAll(By.cssSelector(byCss))
     }
 
-    fun all(by: By): KElementCollection {
+    fun findAll(by: By): KElementCollection {
         return KElementCollection(InnerListWebElementLocator(by, this), driver)
     }
 }

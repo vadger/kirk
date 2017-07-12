@@ -1,5 +1,6 @@
 package com.automation.remarks.kirk.conditions
 
+import com.automation.remarks.kirk.core.classes
 import com.automation.remarks.kirk.core.fail
 import org.openqa.selenium.WebElement
 
@@ -51,7 +52,7 @@ class AttributeValue(val attr: String, val expect: String) : ElementCondition() 
 
 class CssClassValue(val cssClass: String) : ElementCondition() {
     override fun match(element: WebElement): WebElement {
-        val cssValue = element.getAttribute("class").split(" ")
+        val cssValue = element.classes
         if (cssValue.contains(cssClass)) {
             return element
         }

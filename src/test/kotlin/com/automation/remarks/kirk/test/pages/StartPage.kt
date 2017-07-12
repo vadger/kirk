@@ -11,7 +11,7 @@ class StartPage(browser: Browser) : Page(browser) {
         get() = "/"
 
     val header = element("#header")
-    val list = element(".list").all("li")
+    val list = element(".list").findAll("li")
     val link = element(".paginator a")
     val confirmBtn = element("#confirm_btn")
 
