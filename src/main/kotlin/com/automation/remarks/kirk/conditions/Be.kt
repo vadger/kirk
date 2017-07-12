@@ -5,8 +5,8 @@ package com.automation.remarks.kirk.conditions
  */
 class Be {
 
-    val visible: Visible
-        get() = Visible()
+    val visible: ElementVisibility
+        get() = ElementVisibility()
 
 }
 

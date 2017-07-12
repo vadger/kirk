@@ -17,22 +17,14 @@ class Text(val text: String) : ElementCondition() {
         }
         throw fail(text, actual)
     }
-
-    override fun toString(): String {
-        return "text"
-    }
 }
 
-class Visible : ElementCondition() {
+class ElementVisibility : ElementCondition() {
     override fun match(element: WebElement): WebElement {
         if (element.isDisplayed) {
             return element
         }
         throw fail("visible", "invisible", withDiff = false)
-    }
-
-    override fun toString(): String {
-        return "execute visibility"
     }
 }
 

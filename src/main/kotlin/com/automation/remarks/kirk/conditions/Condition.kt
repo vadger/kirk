@@ -1,5 +1,7 @@
 package com.automation.remarks.kirk.conditions
 
+import org.apache.commons.lang3.StringUtils
+
 /**
  * Created by sergey on 24.06.17.
  */
@@ -11,6 +13,8 @@ abstract class Condition<T> {
 
     abstract fun match(element: T): T
 
-    abstract override fun toString(): String
+    override fun toString(): String {
+        return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(this.javaClass.simpleName), " ").toLowerCase()
+    }
 }
 
