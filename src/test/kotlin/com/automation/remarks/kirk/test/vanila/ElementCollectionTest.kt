@@ -21,7 +21,7 @@ class ElementCollectionTest : BaseTest() {
         }
     }
 
-    @Test fun testCanSelectElementByCSS3(){
+    @Test fun testCanSelectElementByCSS3() {
         Browser.drive {
             to(url)
             element(":link").should(have.text("To 2 page"))
@@ -31,7 +31,7 @@ class ElementCollectionTest : BaseTest() {
     @Test fun testCanCompareExactListText() {
         Browser.drive {
             to(url)
-            all("li").should(have.exactText("Один", "Два", "Три"))
+            all("li").should(have.exactText("Один", "Два", "Три", "1", "2", "2.1", "2.2", "3", "3.1", "3.2"))
         }
     }
 

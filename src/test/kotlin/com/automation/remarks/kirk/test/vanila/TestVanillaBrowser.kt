@@ -2,6 +2,7 @@ package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.KElement
+import com.automation.remarks.kirk.conditions.Text
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.core.drive
 import com.automation.remarks.kirk.test.BaseTest
@@ -54,6 +55,7 @@ class TestVanillaBrowser : BaseTest() {
     }
     // end::testCanDriveScripts[]
 }
+
 
 fun Actions.hover(element: KElement){
     this.moveToElement(element.webElement)

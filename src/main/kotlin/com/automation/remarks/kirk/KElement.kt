@@ -22,8 +22,6 @@ class KElement(locator: ElementLocator<WebElement>,
     constructor(locator: By, driver: WebDriver) :
             this(WebElementLocator(locator, driver), driver)
 
-    private val actions = Actions(driver)
-
     val webElement: WebElement
         get() = locator.find()
 
@@ -92,10 +90,5 @@ class KElement(locator: ElementLocator<WebElement>,
 
     fun all(by: By): KElementCollection {
         return KElementCollection(InnerListWebElementLocator(by, this), driver)
-    }
-
-    fun hover(): KElement {
-        actions.moveToElement(webElement).build().perform()
-        return this
     }
 }

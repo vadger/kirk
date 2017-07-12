@@ -42,7 +42,7 @@ class BrowserUsageTest : BaseTest() {
 
         val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
         firefox.open(url)
-        firefox.all("li").should(have.size(3))
+        firefox.all("li").should(have.size(10))
         firefox.quit()
     }
 
@@ -62,7 +62,7 @@ class BrowserUsageTest : BaseTest() {
         }
 
         chrome.open("/")
-        chrome.all("li").should(have.size(3))
+        chrome.all("li").should(have.size(10))
         chrome.quit()
     }
 

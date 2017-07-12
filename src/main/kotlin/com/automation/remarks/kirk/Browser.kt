@@ -26,6 +26,8 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
 
     var screenSize: List<Int> by screenSize()
 
+    val actions = Actions(driver)
+
     fun with(block: Browser.() -> Unit): Browser {
         return this.apply(block)
     }
@@ -59,8 +61,8 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
         open(url)
     }
 
-    fun interact(actions: Actions.()->Unit){
-        Actions(driver).apply(actions).build().perform()
+    fun interact(block: Actions.()->Unit){
+        this.actions.apply(block).build().perform()
     }
 
     override fun <T : Page> to(pageClass: (Browser) -> T): T {
