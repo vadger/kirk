@@ -4,7 +4,7 @@ import com.automation.remarks.kirk.test.helpers.JettyServer
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
 import me.tatarka.assertk.assertions.hasClass
-import org.testng.annotations.AfterMethod
+import org.openqa.selenium.net.PortProber
 import org.testng.annotations.AfterSuite
 import org.testng.annotations.BeforeSuite
 import kotlin.reflect.KClass
@@ -14,9 +14,10 @@ import kotlin.reflect.KClass
  */
 abstract class BaseTest {
 
-    val url: String = "http://localhost:32943/"
+    val jetty = JettyServer(PortProber.findFreePort())
+    val url: String
+        get() = jetty.server.uri.toASCIIString()
 
-    val jetty = JettyServer(32943)
 
     @BeforeSuite
     fun runServer() {

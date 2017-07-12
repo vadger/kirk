@@ -1,13 +1,14 @@
 package com.automation.remarks.kirk.locators
 
 import com.automation.remarks.kirk.KElement
+import org.openqa.selenium.WebElement
 
 /**
  * Created by sepi on 12.07.17.
  */
-class CachedElementCollectionLocator(private val list: List<KElement>) : ElementLocator<List<KElement>> {
-    override fun find(): List<KElement> {
-        return list
+class CachedElementCollectionLocator(private val list: List<KElement>) : ElementLocator<List<WebElement>> {
+    override fun find(): List<WebElement> {
+        return list.map { it.webElement }
     }
 
     override val description: String
