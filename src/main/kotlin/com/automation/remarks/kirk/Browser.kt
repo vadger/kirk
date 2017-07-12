@@ -6,6 +6,7 @@ import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.interactions.Actions
 
 class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable {
 
@@ -56,6 +57,10 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
 
     fun to(url: String) {
         open(url)
+    }
+
+    fun interact(actions: Actions.()->Unit){
+        Actions(driver).apply(actions).build().perform()
     }
 
     override fun <T : Page> to(pageClass: (Browser) -> T): T {
