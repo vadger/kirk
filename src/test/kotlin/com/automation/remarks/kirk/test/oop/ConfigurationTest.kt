@@ -26,7 +26,7 @@ class ConfigurationTest : BaseTest() {
         ChromeDriverManager.getInstance().setup()
         val browser = Browser().with {
             baseUrl = url
-            holdOpen = true
+            holdOpen = false
         }
 
         browser.open("/")
