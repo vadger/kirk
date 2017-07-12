@@ -13,6 +13,8 @@ class JettyServer(val port: Int) {
 
     val server = Server(port)
 
+    val url = "http://localhost:$port/"
+
     fun runServer(): Int {
 
         val cl = JettyServer::class.java.classLoader
