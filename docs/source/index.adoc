@@ -464,7 +464,15 @@ You can use it for single instance alongside with System properties and
 
 === Changelog
 
+==== v0.7.1
+
+- Internal refactoring
+- Driver factory added
+
 ==== v0.7
 
-Current
+- Main features added
+- Docs added
 
+==== v0.6
+First public release
