@@ -41,8 +41,14 @@ class KElementTest : BaseTest() {
             to(url)
             element("ul#with_children").children("li").should(have.exactText("1", "2", "2.1", "2.2", "3", "3.1", "3.2"))
         }
+    }
 
-
+    @Test fun testCanCompose() {
+        val browser = Browser().apply { to(url) }
+        // tag::composition[]
+        browser.element("ul.list").all("li").should(have.size(3))
+        // end::composition[]
+        browser.quit()
     }
 }
 
