@@ -1,4 +1,4 @@
-= Kirk - pragmatic UI test automation
+= **Kirk** - pragmatic UI test automation
 
 Doc Writer <http://automation-remarks.com>
 
@@ -18,8 +18,6 @@ Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDr
 - Straightforward Page Objects
 - Chrome browser is a default
 - Automatic screenshots on fail
-
-Project repo https://github.com/SergeyPirogov/kirk
 
 == Installation
 
@@ -464,15 +462,12 @@ You can use it for single instance alongside with System properties and
 
 === Changelog
 
-==== v0.7.1
-
-- Internal refactoring
-- Driver factory added
-
 ==== v0.7
 
-- Main features added
-- Docs added
+- Browser factory added
+- Configuration support added
+- Element variables added: title, text etc.
 
 ==== v0.6
-First public release
+
+- First public release
