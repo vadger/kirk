@@ -48,7 +48,7 @@ class KElementTest : BaseTest() {
 
 
 private fun KElement.children(locator: String = "*"): KElementCollection {
-    return this.findAll(locator)
+    return this.all(locator)
 }
 
 fun Browser.s(cssLocator: String): KElement {
@@ -56,13 +56,13 @@ fun Browser.s(cssLocator: String): KElement {
 }
 
 fun KElement.firstChild(): KElement {
-    return this.find(":first-child")
+    return this.element(":first-child")
 }
 
 fun KElement.lastChild(): KElement {
-    return this.find(":last-child")
+    return this.element(":last-child")
 }
 
 fun KElement.parent(): KElement {
-    return this.find(By.xpath(".."))
+    return this.element(By.xpath(".."))
 }
