@@ -79,19 +79,19 @@ class KElement(locator: ElementLocator<WebElement>,
         execute { sendKeys(Keys.ENTER) }
     }
 
-    fun find(byCss: String): KElement {
-        return find(By.cssSelector(byCss))
+    fun element(byCss: String): KElement {
+        return element(By.cssSelector(byCss))
     }
 
-    fun find(by: By): KElement {
+    fun element(by: By): KElement {
         return KElement(InnerWebElementLocator(by, this), driver)
     }
 
-    fun findAll(byCss: String): KElementCollection {
-        return findAll(By.cssSelector(byCss))
+    fun all(byCss: String): KElementCollection {
+        return all(By.cssSelector(byCss))
     }
 
-    fun findAll(by: By): KElementCollection {
+    fun all(by: By): KElementCollection {
         return KElementCollection(InnerListWebElementLocator(by, this), driver)
     }
 }

@@ -6,6 +6,8 @@ Doc Writer <http://automation-remarks.com>
 :BrowserUsageTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/oop/BrowserUsageTest.kt
 :ToDo: ../../src/test/kotlin/com/automation/remarks/kirk/test/example/TodoPage.kt
 :TodoAngularTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/example/TodoAngularTest.kt
+:KElementTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/vanila/KElementTest.kt
+
 Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDriver wrapper library inspired by Selenide and Geb.
 
 - No Page Factory
@@ -355,14 +357,18 @@ Let's look at example
 [source, html]
 ----
 <div>
-  <a href='hext_page.html'>Next page<a>
-<div>
+    <ul class="list">
+        <li>Один</li>
+        <li>Два</li>
+        <li>Три</li>
+    </ul>
+</div>
 ----
 
 .find element "a" inside "div"
 [source, java]
 ----
-assert element("div").element("a").text == "Next page"
+include::{KElementTest}[tags=composition]
 ----
 
 NOTE: It's better to use CSS or Xpath locators to achieve the same result
@@ -374,6 +380,8 @@ Configuration can be made using several ways:
 - kirk.properties file
 - System properties
 - Custom property directly in code
+
+Configuration is made by using http://owner.aeonbits.org/docs/variables-expansion/[Java Owner library]
 
 === Kirk property file
 

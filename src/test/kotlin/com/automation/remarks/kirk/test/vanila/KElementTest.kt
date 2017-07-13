@@ -41,14 +41,20 @@ class KElementTest : BaseTest() {
             to(url)
             element("ul#with_children").children("li").should(have.exactText("1", "2", "2.1", "2.2", "3", "3.1", "3.2"))
         }
+    }
 
-
+    @Test fun testCanCompose() {
+        val browser = Browser().apply { to(url) }
+        // tag::composition[]
+        browser.element("ul.list").all("li").should(have.size(3))
+        // end::composition[]
+        browser.quit()
     }
 }
 
 
 private fun KElement.children(locator: String = "*"): KElementCollection {
-    return this.findAll(locator)
+    return this.all(locator)
 }
 
 fun Browser.s(cssLocator: String): KElement {
@@ -56,13 +62,13 @@ fun Browser.s(cssLocator: String): KElement {
 }
 
 fun KElement.firstChild(): KElement {
-    return this.find(":first-child")
+    return this.element(":first-child")
 }
 
 fun KElement.lastChild(): KElement {
-    return this.find(":last-child")
+    return this.element(":last-child")
 }
 
 fun KElement.parent(): KElement {
-    return this.find(By.xpath(".."))
+    return this.element(By.xpath(".."))
 }
