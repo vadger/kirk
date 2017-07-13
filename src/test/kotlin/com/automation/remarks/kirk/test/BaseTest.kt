@@ -1,7 +1,6 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.test.helpers.JettyServer
-import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
 import me.tatarka.assertk.assertions.hasClass
 import org.testng.annotations.AfterSuite
@@ -20,7 +19,6 @@ abstract class BaseTest {
 
     @BeforeSuite
     fun runServer() {
-        ChromeDriverManager.getInstance().setup()
         FirefoxDriverManager.getInstance().setup()
         jetty.runServer()
     }
