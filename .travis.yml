@@ -2,6 +2,8 @@ language: java
 dist: trusty
 addons:
   firefox: "latest"
+  chrome: stable
+
 cache:
   directories:
   - $HOME/.gradle
@@ -11,13 +13,8 @@ jdk:
 
 before_install:
   - chmod +x gradlew
-  - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sudo apt-get update
-  - sudo apt-get install -y libappindicator1 fonts-liberation
-  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  - sudo dpkg -i google-chrome*.deb
 
 script:
   - ./gradlew clean build jacocoTestReport asciidoctor
