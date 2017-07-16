@@ -405,7 +405,7 @@ element("#selector").pressEnter()
 
 ==== Upload file
 
-KElement have useful methods that helps to write tests. Example file upload
+KElement has useful methods that help to write tests. Example file upload
 
 .upload file
 [source, java]
@@ -425,7 +425,7 @@ Configuration is made by using http://owner.aeonbits.org/docs/variables-expansio
 
 === Kirk property file
 
-Just create file **kirk.properties** in **src/main/resources** or **src/test/resources** of the project
+Just create file **kirk.properties** in **src/main/resources** or **src/test/resources** of the project.
 It's possible to set such variables:
 
 ----
