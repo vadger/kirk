@@ -3,7 +3,7 @@ package com.automation.remarks.kirk.test.vanila
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.core.*
+import com.automation.remarks.kirk.ext.*
 import com.automation.remarks.kirk.test.BaseTest
 import org.testng.annotations.Test
 

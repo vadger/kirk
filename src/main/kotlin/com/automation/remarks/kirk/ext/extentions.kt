@@ -1,9 +1,11 @@
-package com.automation.remarks.kirk.core
+package com.automation.remarks.kirk.ext
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Configuration
 import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.KElementCollection
+import com.automation.remarks.kirk.core.WebDriverFactory
+import com.automation.remarks.kirk.core.loadConfig
 import org.openqa.selenium.By
 import org.openqa.selenium.Keys
 import org.openqa.selenium.WebDriver
@@ -67,5 +69,5 @@ fun KElement.lastChild(): KElement {
 }
 
 fun KElement.parent(): KElement {
-    return this.element(By.xpath(".."))
+    return this.element(By.xpath(""))
 }

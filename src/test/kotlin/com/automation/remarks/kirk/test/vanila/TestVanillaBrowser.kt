@@ -2,9 +2,10 @@ package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.KElement
-import com.automation.remarks.kirk.conditions.Text
 import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.core.drive
+import com.automation.remarks.kirk.ext.drive
+import com.automation.remarks.kirk.ext.firstChild
+import com.automation.remarks.kirk.ext.lastChild
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.SecondPage
 import com.automation.remarks.kirk.test.pages.StartPage

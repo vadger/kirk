@@ -1,7 +1,7 @@
 package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.core.drive
+import com.automation.remarks.kirk.ext.drive
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.StartPage
 import org.openqa.selenium.NoAlertPresentException

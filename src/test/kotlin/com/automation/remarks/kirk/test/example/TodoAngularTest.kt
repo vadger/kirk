@@ -2,7 +2,7 @@ package com.automation.remarks.kirk.test.example
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.core.drive
+import com.automation.remarks.kirk.ext.drive
 import org.testng.annotations.Test
 
 /**

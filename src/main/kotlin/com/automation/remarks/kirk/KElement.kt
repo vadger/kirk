@@ -2,7 +2,7 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
-import com.automation.remarks.kirk.core.classes
+import com.automation.remarks.kirk.ext.classes
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator

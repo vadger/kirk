@@ -1,6 +1,6 @@
 package com.automation.remarks.kirk.conditions
 
-import com.automation.remarks.kirk.core.classes
+import com.automation.remarks.kirk.ext.classes
 import com.automation.remarks.kirk.core.fail
 import org.openqa.selenium.WebElement
 

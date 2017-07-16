@@ -1,5 +1,6 @@
 package com.automation.remarks.kirk.core
 
+import com.automation.remarks.kirk.ext.configuration
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager

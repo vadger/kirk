@@ -3,6 +3,7 @@ package com.automation.remarks.kirk.test.example
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Page
 import com.automation.remarks.kirk.core.byXpath
+import com.automation.remarks.kirk.ext.pressEnter
 import com.automation.remarks.kirk.test.vanila.hover
 
 /**
