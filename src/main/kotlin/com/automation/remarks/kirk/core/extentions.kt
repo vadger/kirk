@@ -2,8 +2,13 @@ package com.automation.remarks.kirk.core
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Configuration
+import com.automation.remarks.kirk.KElement
+import com.automation.remarks.kirk.KElementCollection
+import org.openqa.selenium.By
+import org.openqa.selenium.Keys
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
+import java.io.File
 import kotlin.reflect.KClass
 
 /**
@@ -38,4 +43,29 @@ fun Browser.Companion.drive(block: Browser.() -> Unit) {
     Browser(getDriver()).with {
         config = configuration
     }.block()
+}
+
+fun KElement.uploadFile(name: String) {
+    val resource = Thread.currentThread().contextClassLoader.getResource(name)
+    this.setValue(File(resource.toURI()).canonicalPath)
+}
+
+fun KElement.pressEnter() {
+    sendKeys(Keys.ENTER)
+}
+
+fun KElement.children(locator: String = "*"): KElementCollection {
+    return this.all(locator)
+}
+
+fun KElement.firstChild(): KElement {
+    return this.element(":first-child")
+}
+
+fun KElement.lastChild(): KElement {
+    return this.element(":last-child")
+}
+
+fun KElement.parent(): KElement {
+    return this.element(By.xpath(".."))
 }

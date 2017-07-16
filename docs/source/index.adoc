@@ -371,7 +371,47 @@ Let's look at example
 include::{KElementTest}[tags=composition]
 ----
 
+Also there are some additional useful methods
+
+- firstChild
+- lastChild
+- parent
+- children
+
+[source, java]
+----
+include::{KElementTest}[tags=child]
+----
+
+[source, java]
+----
+include::{KElementTest}[tags=parent]
+----
+
+
+
 NOTE: It's better to use CSS or Xpath locators to achieve the same result
+
+== The `KElement`
+
+The KElement class is a representation of WebElement, we want to interact with.
+
+==== Press enter
+
+[source, java]
+----
+element("#selector").pressEnter()
+----
+
+==== Upload file
+
+KElement have useful methods that helps to write tests. Example file upload
+
+.upload file
+[source, java]
+----
+include::{KElementTest}[tags=uploadFile]
+----
 
 == Configuration
 
@@ -456,7 +496,7 @@ You can use it for single instance alongside with System properties and
 
 == About
 
-=== Committers
+=== Contributors
 
 - Sergey Pirogov
 

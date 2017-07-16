@@ -8,7 +8,6 @@ import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator
 import com.automation.remarks.kirk.locators.WebElementLocator
 import org.openqa.selenium.By
-import org.openqa.selenium.Keys
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 
@@ -73,10 +72,6 @@ class KElement(locator: ElementLocator<WebElement>,
 
     override fun toString(): String {
         return locator.description
-    }
-
-    fun pressEnter() {
-        execute { sendKeys(Keys.ENTER) }
     }
 
     fun element(byCss: String): KElement {

@@ -1,8 +1,6 @@
 package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.KElement
-import com.automation.remarks.kirk.conditions.CollectionCondition
 import com.automation.remarks.kirk.conditions.contain
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.core.drive
