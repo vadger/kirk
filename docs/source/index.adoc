@@ -2,11 +2,11 @@
 
 Doc Writer <http://automation-remarks.com>
 
-:TestVanillaBrowser: ../../src/test/kotlin/com/automation/remarks/kirk/test/vanila/TestVanillaBrowser.kt
-:BrowserUsageTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/oop/BrowserUsageTest.kt
-:ToDo: ../../src/test/kotlin/com/automation/remarks/kirk/test/example/TodoPage.kt
-:TodoAngularTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/example/TodoAngularTest.kt
-:KElementTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/vanila/KElementTest.kt
+:TestVanillaBrowser: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/vanila/TestVanillaBrowser.kt
+:BrowserUsageTest: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/oop/BrowserUsageTest.kt
+:ToDo: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/example/TodoPage.kt
+:TodoAngularTest: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/example/TodoAngularTest.kt
+:KElementTest: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/vanila/KElementTest.kt
 
 Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDriver wrapper library inspired by Selenide and Geb.
 
@@ -78,7 +78,7 @@ The entry point to Kirk is the Browser object.
 
 The default constructor of Browser class instantiates ChromeDriver.
 ----
-import com.automation.remarks.kirk.Browser
+import Browser
 
 val browser = Browser()
 ----
@@ -87,7 +87,7 @@ However, if you prefer to specify the driver implementation,
 you can pass it using secondary constructor
 
 ----
-import com.automation.remarks.kirk.Browser
+import Browser
 
 val browser = Browser(FirefoxDriver())
 ----

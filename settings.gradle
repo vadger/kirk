@@ -1,2 +1,4 @@
 rootProject.name = 'kirk'
+include 'kirk-core'
+findProject(':kirk-core')?.name = 'kirk'
 
