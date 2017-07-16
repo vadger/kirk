@@ -13,6 +13,8 @@ import org.testng.annotations.Test;
  */
 public class TestJavaBrowser extends BaseTest {
 
+  private Have have = new Have();
+
   @BeforeMethod
   public void setUp() throws Exception {
     ChromeDriverManager.getInstance().setup();
@@ -22,7 +24,7 @@ public class TestJavaBrowser extends BaseTest {
   public void testName() {
     Browser chrome = new Browser(new ChromeDriver());
     chrome.open(getUrl());
-    chrome.element("#header").should(new Have().text("Kirk"));
+    chrome.element("#header").should(have.text("Kirk"));
     chrome.quit();
   }
 }
