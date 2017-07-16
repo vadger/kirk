@@ -26,11 +26,11 @@ class ConfigurationTest : BaseTest() {
         ChromeDriverManager.getInstance().setup()
         val browser = Browser().with {
             baseUrl = url
-            holdOpen = true
+            holdOpen = false
         }
 
         browser.open("/")
-        browser.all("li").should(have.size(3))
+        browser.all("li").should(have.size(10))
     }
 }
 

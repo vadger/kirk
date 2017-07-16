@@ -60,6 +60,6 @@ class KElementCollection(locator: ElementLocator<List<WebElement>>,
 
     operator fun get(index: Int): KElement {
         return KElement(CachedWebElementLocator(webElements[index],
-                String.format("(%s)[%s]", webElements, index)), driver)
+                "($webElements)[$index]"), driver)
     }
 }

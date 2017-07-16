@@ -9,6 +9,10 @@ import org.aeonbits.owner.Config.*
 @Sources("classpath:kirk.properties")
 interface Configuration : Config {
 
+    @Key("kirk.browser")
+    @DefaultValue("chrome")
+    fun browser(): String
+
     @Key("kirk.timeout")
     @DefaultValue("4000")
     fun timeout(): Int

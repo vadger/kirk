@@ -11,9 +11,11 @@ import org.eclipse.jetty.util.resource.Resource
  */
 class JettyServer(val port: Int) {
 
-    fun runServer(): Int {
+    val server = Server(port)
 
-        val server = Server(port)
+    val url = "http://localhost:$port/"
+
+    fun runServer(): Int {
 
         val cl = JettyServer::class.java.classLoader
         val f = cl.getResource("start_page.html") ?: throw RuntimeException("Unable open find resource directory")
@@ -37,5 +39,9 @@ class JettyServer(val port: Int) {
 
         server.start()
         return port
+    }
+
+    fun stop(){
+        server.stop()
     }
 }

@@ -1,11 +1,9 @@
 package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.KElement
-import com.automation.remarks.kirk.conditions.CollectionCondition
 import com.automation.remarks.kirk.conditions.contain
 import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.core.drive
+import com.automation.remarks.kirk.ext.drive
 import com.automation.remarks.kirk.test.BaseTest
 import org.testng.annotations.Test
 
@@ -21,10 +19,17 @@ class ElementCollectionTest : BaseTest() {
         }
     }
 
+    @Test fun testCanSelectElementByCSS3() {
+        Browser.drive {
+            to(url)
+            element(":link").should(have.text("To 2 page"))
+        }
+    }
+
     @Test fun testCanCompareExactListText() {
         Browser.drive {
             to(url)
-            all("li").should(have.exactText("Один", "Два", "Три"))
+            all("li").should(have.exactText("Один", "Два", "Три", "1", "2", "2.1", "2.2", "3", "3.1", "3.2"))
         }
     }
 

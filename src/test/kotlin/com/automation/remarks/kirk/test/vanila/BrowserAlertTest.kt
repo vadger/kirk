@@ -1,10 +1,9 @@
 package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.core.drive
+import com.automation.remarks.kirk.ext.drive
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.StartPage
-import me.tatarka.assertk.fail
 import org.openqa.selenium.NoAlertPresentException
 import org.testng.annotations.Test
 
@@ -41,12 +40,14 @@ class BrowserAlertTest : BaseTest() {
     }
 
     @Test fun testCanGetAlertText() {
-            Browser.drive {
-                baseUrl = url
-                to(::StartPage) {
-                    confirmBtn.click()
-                    assert(alert.text == "Добрый день")
-                }
+        Browser.drive {
+            baseUrl = url
+            to(::StartPage) {
+                confirmBtn.click()
+                val alertText = alert.text
+                alert.dismiss()
+                assert(alertText == "Добрый день")
             }
         }
+    }
 }

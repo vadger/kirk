@@ -2,15 +2,14 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
+import com.automation.remarks.kirk.ext.classes
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator
 import com.automation.remarks.kirk.locators.WebElementLocator
 import org.openqa.selenium.By
-import org.openqa.selenium.Keys
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
-import org.openqa.selenium.interactions.Actions
 
 
 /**
@@ -21,8 +20,6 @@ class KElement(locator: ElementLocator<WebElement>,
 
     constructor(locator: By, driver: WebDriver) :
             this(WebElementLocator(locator, driver), driver)
-
-    private val actions = Actions(driver)
 
     val webElement: WebElement
         get() = locator.find()
@@ -41,6 +38,9 @@ class KElement(locator: ElementLocator<WebElement>,
 
     val isSelected: Boolean
         get() = webElement.isSelected
+
+    val classes: List<String>
+        get() = webElement.classes
 
     fun click() {
         execute { click() }
@@ -74,10 +74,6 @@ class KElement(locator: ElementLocator<WebElement>,
         return locator.description
     }
 
-    fun pressEnter() {
-        execute { sendKeys(Keys.ENTER) }
-    }
-
     fun element(byCss: String): KElement {
         return element(By.cssSelector(byCss))
     }
@@ -92,10 +88,5 @@ class KElement(locator: ElementLocator<WebElement>,
 
     fun all(by: By): KElementCollection {
         return KElementCollection(InnerListWebElementLocator(by, this), driver)
-    }
-
-    fun hover(): KElement {
-        actions.moveToElement(webElement).build().perform()
-        return this
     }
 }

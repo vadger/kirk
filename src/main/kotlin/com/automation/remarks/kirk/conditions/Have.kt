@@ -21,6 +21,10 @@ class Have {
     fun attr(name: String, value: String): AttributeValue {
         return AttributeValue(name, value)
     }
+
+    fun cssClass(cssClass: String): ElementCondition {
+        return CssClassValue(cssClass)
+    }
 }
 
 val have = Have()

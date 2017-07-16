@@ -1,4 +1,4 @@
-= Kirk - pragmatic UI test automation
+= **Kirk** - pragmatic UI test automation
 
 Doc Writer <http://automation-remarks.com>
 
@@ -6,6 +6,8 @@ Doc Writer <http://automation-remarks.com>
 :BrowserUsageTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/oop/BrowserUsageTest.kt
 :ToDo: ../../src/test/kotlin/com/automation/remarks/kirk/test/example/TodoPage.kt
 :TodoAngularTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/example/TodoAngularTest.kt
+:KElementTest: ../../src/test/kotlin/com/automation/remarks/kirk/test/vanila/KElementTest.kt
+
 Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDriver wrapper library inspired by Selenide and Geb.
 
 - No Page Factory
@@ -355,17 +357,61 @@ Let's look at example below:
 [source, html]
 ----
 <div>
-  <a href='hext_page.html'>Next page<a>
-<div>
+    <ul class="list">
+        <li>Один</li>
+        <li>Два</li>
+        <li>Три</li>
+    </ul>
+</div>
 ----
 
 .find element "a" inside "div"
 [source, java]
 ----
-assert element("div").element("a").text == "Next page"
+include::{KElementTest}[tags=composition]
 ----
 
+Also there are some additional useful methods
+
+- firstChild
+- lastChild
+- parent
+- children
+
+[source, java]
+----
+include::{KElementTest}[tags=child]
+----
+
+[source, java]
+----
+include::{KElementTest}[tags=parent]
+----
+
+
+
 NOTE: It's better to use CSS or Xpath locators to achieve the same result
+
+== The `KElement`
+
+The KElement class is a representation of WebElement, we want to interact with.
+
+==== Press enter
+
+[source, java]
+----
+element("#selector").pressEnter()
+----
+
+==== Upload file
+
+KElement have useful methods that helps to write tests. Example file upload
+
+.upload file
+[source, java]
+----
+include::{KElementTest}[tags=uploadFile]
+----
 
 == Configuration
 
@@ -374,6 +420,8 @@ Configuration can be made using several ways:
 - kirk.properties file
 - System properties
 - Custom property directly in code
+
+Configuration is made by using http://owner.aeonbits.org/docs/variables-expansion/[Java Owner library]
 
 === Kirk property file
 
@@ -445,3 +493,21 @@ val browser = Browser().with {
 
 You can use it for single instance alongside with System properties and
 **kirk.properties** file
+
+== About
+
+=== Contributors
+
+- Sergey Pirogov
+
+=== Changelog
+
+==== v0.7
+
+- Browser factory added
+- Configuration support added
+- Element variables added: title, text etc.
+
+==== v0.6
+
+- First public release

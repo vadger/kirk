@@ -1,11 +1,13 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
+import com.automation.remarks.kirk.ext.autoClose
 import org.openqa.selenium.Alert
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.interactions.Actions
 
 class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable {
 
@@ -24,6 +26,8 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
     var startMaximized: Boolean? by startMaximized()
 
     var screenSize: List<Int> by screenSize()
+
+    val actions = Actions(driver)
 
     fun with(block: Browser.() -> Unit): Browser {
         return this.apply(block)
@@ -56,6 +60,10 @@ class Browser(val driver: WebDriver = ChromeDriver()) : SearchContext, Navigable
 
     fun to(url: String) {
         open(url)
+    }
+
+    fun interact(block: Actions.()->Unit){
+        this.actions.apply(block).build().perform()
     }
 
     override fun <T : Page> to(pageClass: (Browser) -> T): T {

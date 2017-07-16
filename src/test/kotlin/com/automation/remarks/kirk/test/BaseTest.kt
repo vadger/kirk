@@ -1,9 +1,9 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.test.helpers.JettyServer
-import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
 import me.tatarka.assertk.assertions.hasClass
+import org.testng.annotations.AfterSuite
 import org.testng.annotations.BeforeSuite
 import kotlin.reflect.KClass
 
@@ -12,16 +12,21 @@ import kotlin.reflect.KClass
  */
 abstract class BaseTest {
 
-    val url: String = "http://localhost:32943/"
+    val jetty = JettyServer(32941)
+    val url: String
+        get() = jetty.url
+
 
     @BeforeSuite
     fun runServer() {
-        ChromeDriverManager.getInstance().setup()
         FirefoxDriverManager.getInstance().setup()
-        JettyServer(32943).runServer()
-        FirefoxDriverManager.getInstance().setup()
+        jetty.runServer()
     }
 
+    @AfterSuite
+    fun tearDown() {
+        jetty.stop()
+    }
 
     fun <T : Any> assertExceptionThrown(kclass: KClass<out T>, closure: () -> Unit) {
         me.tatarka.assertk.assert {

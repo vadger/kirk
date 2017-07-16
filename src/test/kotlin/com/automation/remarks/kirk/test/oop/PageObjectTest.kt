@@ -22,7 +22,7 @@ class PageObjectTest : BaseTest() {
     }
 
     @AfterMethod
-    fun tearDown() {
+    fun tearDownBrowser() {
         chrome.quit()
     }
 

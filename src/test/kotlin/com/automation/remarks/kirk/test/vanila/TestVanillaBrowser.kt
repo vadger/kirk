@@ -1,11 +1,17 @@
 package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.core.drive
+import com.automation.remarks.kirk.ext.drive
+import com.automation.remarks.kirk.ext.firstChild
+import com.automation.remarks.kirk.ext.lastChild
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.SecondPage
 import com.automation.remarks.kirk.test.pages.StartPage
+import org.openqa.selenium.By
+import org.openqa.selenium.Keys
+import org.openqa.selenium.interactions.Actions
 import org.testng.annotations.Test
 
 /**
@@ -24,10 +30,17 @@ class TestVanillaBrowser : BaseTest() {
     @Test fun testCanDriverPage() {
         Browser.drive {
             baseUrl = url
+            holdOpen = true
             to(::StartPage) {
                 list should(have.size(3))
                 link.click()
                 at(::SecondPage).header.should(have.text("Second page"))
+            }
+            interact {
+                keyDown(Keys.CONTROL)
+                click(element(By.name("genres")).firstChild())
+                click(element(By.name("genres")).lastChild())
+                keyUp(Keys.CONTROL)
             }
         }
     }
@@ -42,4 +55,13 @@ class TestVanillaBrowser : BaseTest() {
         }
     }
     // end::testCanDriveScripts[]
+}
+
+
+fun Actions.hover(element: KElement){
+    this.moveToElement(element.webElement)
+}
+
+fun Actions.click(element: KElement){
+    this.click(element.webElement)
 }

@@ -26,7 +26,7 @@ class BrowserUsageTest : BaseTest() {
 
     @Test
     fun testCanSetNewDriver() {
-        val firefox = Browser(FirefoxDriver())
+        val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
         firefox.open(url)
         firefox.element(".paginator a").click()
         firefox.element("#header").should(have.text("Second page"))
@@ -40,9 +40,9 @@ class BrowserUsageTest : BaseTest() {
         chrome.element("#header").should(have.text("Kirk"))
         chrome.quit()
 
-        val firefox = Browser(FirefoxDriver())
+        val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
         firefox.open(url)
-        firefox.all("li").should(have.size(3))
+        firefox.all("li").should(have.size(10))
         firefox.quit()
     }
 
@@ -58,10 +58,11 @@ class BrowserUsageTest : BaseTest() {
     fun testCanOpenCanonicalUrl() {
         val chrome = Browser(FirefoxDriver()).with {
             baseUrl = url
+            startMaximized = false
         }
 
         chrome.open("/")
-        chrome.all("li").should(have.size(3))
+        chrome.all("li").should(have.size(10))
         chrome.quit()
     }
 

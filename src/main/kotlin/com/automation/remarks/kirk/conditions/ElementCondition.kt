@@ -1,5 +1,6 @@
 package com.automation.remarks.kirk.conditions
 
+import com.automation.remarks.kirk.ext.classes
 import com.automation.remarks.kirk.core.fail
 import org.openqa.selenium.WebElement
 
@@ -16,22 +17,14 @@ class Text(val text: String) : ElementCondition() {
         }
         throw fail(text, actual)
     }
-
-    override fun toString(): String {
-        return "text"
-    }
 }
 
-class Visible : ElementCondition() {
+class ElementVisibility : ElementCondition() {
     override fun match(element: WebElement): WebElement {
         if (element.isDisplayed) {
             return element
         }
         throw fail("visible", "invisible", withDiff = false)
-    }
-
-    override fun toString(): String {
-        return "execute visibility"
     }
 }
 
@@ -46,5 +39,19 @@ class AttributeValue(val attr: String, val expect: String) : ElementCondition() 
 
     override fun toString(): String {
         return "attribute {$attr}"
+    }
+}
+
+class CssClassValue(val cssClass: String) : ElementCondition() {
+    override fun match(element: WebElement): WebElement {
+        val cssValue = element.classes
+        if (cssValue.contains(cssClass)) {
+            return element
+        }
+        throw fail(cssClass, cssValue, withDiff = false)
+    }
+
+    override fun toString(): String {
+        return "class value"
     }
 }
