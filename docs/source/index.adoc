@@ -106,7 +106,7 @@ Any property set this way will override any settings coming from the config mech
 
 === The `drive()` method
 
-The Browser class have a static method drive(), that makes process of writing tests a lot easies.
+The Browser class has a static method drive(), that makes a process of writing tests much easier.
 
 [source, java]
 ----
@@ -214,7 +214,7 @@ Browser.drive {
 }
 ----
 
-Page lambda scope have access to all public methods and variable declared inside page object class.
+Page lambda scope has access to all public methods and variable declared inside page object class.
 
 === Auto close browser support
 
@@ -350,7 +350,7 @@ element(By.xpath("//div[@text()='name']"))
 
 It is also possible to locate element. To do this, simply call the **element()** function chain
 
-Let's look at example
+Let's look at example below:
 
 [source, html]
 ----
