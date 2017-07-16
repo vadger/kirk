@@ -69,5 +69,5 @@ fun KElement.lastChild(): KElement {
 }
 
 fun KElement.parent(): KElement {
-    return this.element(By.xpath(""))
+    return this.element(By.xpath(".."))
 }
