@@ -240,6 +240,36 @@ Browser.drive{
 }
 ----
 
+=== `Select` element support
+
+The Browser class has only one method `select()` that returns element type Select.
+
+For example you have list on your page:
+
+[source, html]
+----
+<select ng-model="operator" class="span1 ng-pristine ng-valid ng-touched" ng-options="value for (key, value) in operators">
+    <option value="ADDITION" selected="selected">+</option>
+    <option value="DIVISION">/</option>
+    <option value="MODULO">%</option>
+    <option value="MULTIPLICATION">*</option>
+    <option value="SUBTRACTION">-</option>
+</select>
+----
+
+Than you are able to write:
+
+[source, java]
+----
+Browser.drive {
+     to(url)
+     select("select[ng-model='operator']").selectByVisibleText("+")
+}
+---
+
+NOTE: `select()` method return lazy element, so interaction with the real webElement
+start as soon as you call some method ex select("#select").selectByIndex(1)
+
 == The Page
 
 To use Page Object pattern, you create subclasses of Page that define with a help of powerful DSL that allows you to refer to content by meaningful names instead of tag names or CSS expressions.
