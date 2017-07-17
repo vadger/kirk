@@ -2,16 +2,19 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
 import com.automation.remarks.kirk.ext.autoClose
-import com.automation.remarks.kirk.ext.driverFactory
 import org.openqa.selenium.Alert
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.interactions.Actions
 
-class Browser(val driver: WebDriver = driverFactory.getDriver()) : SearchContext, Navigable {
+class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
 
-    companion object
+    companion object {
+        fun drive(block: Browser.() -> Unit) {
+            Browser().with { config = configuration }.block()
+        }
+    }
 
     var config: Configuration = loadConfig(Configuration::class)
 
@@ -37,7 +40,7 @@ class Browser(val driver: WebDriver = driverFactory.getDriver()) : SearchContext
         driver.currentUrl
     }
 
-    val js: JsExecutor = JsExecutor(driver)
+    val js: JsExecutor by lazy { JsExecutor(driver) }
 
     override fun open(url: String) {
         driver.autoClose(holdOpen)
@@ -62,7 +65,7 @@ class Browser(val driver: WebDriver = driverFactory.getDriver()) : SearchContext
         open(url)
     }
 
-    fun interact(block: Actions.()->Unit){
+    fun interact(block: Actions.() -> Unit) {
         this.actions.apply(block).build().perform()
     }
 

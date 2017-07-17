@@ -1,6 +1,6 @@
 package com.automation.remarks.kirk.core
 
-import com.automation.remarks.kirk.ext.configuration
+import com.automation.remarks.kirk.Configuration
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager
@@ -59,4 +59,12 @@ class WebDriverFactory {
         }
         return setWebDriver(createDriver())
     }
+}
+
+val driverFactory = WebDriverFactory()
+
+var configuration: Configuration = loadConfig(Configuration::class)
+
+fun getDriver(): WebDriver {
+    return driverFactory.getDriver()
 }

@@ -1,4 +1,4 @@
-package com.automation.remarks.kirk.test.example
+package com.automation.remarks.kirk.test.example.todo
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Page

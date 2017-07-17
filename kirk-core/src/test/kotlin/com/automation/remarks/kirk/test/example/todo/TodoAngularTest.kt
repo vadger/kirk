@@ -1,15 +1,14 @@
-package com.automation.remarks.kirk.test.example
+package com.automation.remarks.kirk.test.example.todo
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.ext.drive
 import org.testng.annotations.Test
 
 /**
  * Created by sergey on 09.07.17.
  */
 // tag::TodoAngularTest[]
-class TodoAngularTest{
+class TodoAngularTest {
     @Test fun testCanAddNewTaskAndDelete() {
         Browser.drive {
             to(::TodoPage) {

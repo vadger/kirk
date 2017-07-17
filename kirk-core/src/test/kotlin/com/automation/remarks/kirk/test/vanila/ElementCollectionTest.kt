@@ -3,7 +3,6 @@ package com.automation.remarks.kirk.test.vanila
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.contain
 import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.ext.drive
 import com.automation.remarks.kirk.test.BaseTest
 import org.testng.annotations.Test
 

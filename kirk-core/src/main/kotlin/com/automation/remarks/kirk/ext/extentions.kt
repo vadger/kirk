@@ -4,7 +4,8 @@ import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Configuration
 import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.KElementCollection
-import com.automation.remarks.kirk.core.WebDriverFactory
+import com.automation.remarks.kirk.core.Select
+import com.automation.remarks.kirk.core.configuration
 import com.automation.remarks.kirk.core.loadConfig
 import org.openqa.selenium.By
 import org.openqa.selenium.Keys
@@ -27,24 +28,17 @@ fun WebDriver.autoClose(enabled: Boolean? = true) {
 val WebElement.classes: List<String>
     get() = this.getAttribute("class").split(" ")
 
-val driverFactory = WebDriverFactory()
-
-var configuration: Configuration = loadConfig(Configuration::class)
-
 fun <T : Configuration> Browser.Companion.withConfig(klazz: KClass<T>): Browser.Companion {
     configuration = loadConfig(klazz)
     return this
 }
 
-fun Browser.Companion.drive(block: Browser.() -> Unit) {
+fun Browser.select(cssLocator: String): Select {
+    return select(By.cssSelector(cssLocator))
+}
 
-    fun getDriver(): WebDriver {
-        return driverFactory.getDriver()
-    }
-
-    Browser(getDriver()).with {
-        config = configuration
-    }.block()
+fun Browser.select(by: By): Select {
+    return Select(element(by))
 }
 
 fun KElement.uploadFile(name: String) {
