@@ -442,6 +442,20 @@ NOTE: It's better to use CSS or Xpath locators to achieve the same result
 
 The KElement class is a representation of WebElement, we want to interact with.
 
+IMPORTANT: The `element()` method returns lazy initialized element, so interaction with
+the real webElement starts when you call some mentod:
+
+Example
+
+[source, java]
+----
+val header = element("#header") // <1>
+
+element.click() // <2>
+----
+<1> element initialization, browser doesn't pool the web page
+<2> element interaction, browser starts pooling the page
+
 ==== Press enter
 
 [source, java]
