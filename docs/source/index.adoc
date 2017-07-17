@@ -224,6 +224,22 @@ Browser will automatically close at the end of either single test execution or
 bunch of tests. This behaviour can be changed by setting property **holdOpen=true**
 in a config file or system property.
 
+=== Complex element interaction support
+
+In case if you need to perform some complex operations on the page
+
+[source, java]
+----
+Browser.drive{
+  interact {
+     keyDown(Keys.CONTROL)
+     click(element(By.name("genres")).firstChild())
+     click(element(By.name("genres")).lastChild())
+     keyUp(Keys.CONTROL)
+  }
+}
+----
+
 == The Page
 
 To use Page Object pattern, you create subclasses of Page that define with a help of powerful DSL that allows you to refer to content by meaningful names instead of tag names or CSS expressions.
