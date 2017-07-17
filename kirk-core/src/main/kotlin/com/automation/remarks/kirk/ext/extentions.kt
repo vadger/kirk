@@ -7,10 +7,8 @@ import com.automation.remarks.kirk.KElementCollection
 import com.automation.remarks.kirk.core.Select
 import com.automation.remarks.kirk.core.configuration
 import com.automation.remarks.kirk.core.loadConfig
-import org.openqa.selenium.By
-import org.openqa.selenium.Keys
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.WebElement
+import org.openqa.selenium.*
+import org.openqa.selenium.remote.UnreachableBrowserException
 import java.io.File
 import kotlin.reflect.KClass
 
@@ -22,6 +20,19 @@ fun WebDriver.autoClose(enabled: Boolean? = true) {
         Runtime.getRuntime().addShutdownHook(object : Thread() {
             override fun run() = quit()
         })
+    }
+}
+
+fun WebDriver.isAlive(): Boolean {
+    try {
+        title
+        return true
+    } catch (e: UnreachableBrowserException) {
+        return false
+    } catch (e: NoSuchWindowException) {
+        return false
+    } catch (e: NoSuchSessionException) {
+        return false
     }
 }
 
