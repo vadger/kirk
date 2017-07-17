@@ -268,7 +268,7 @@ Browser.drive {
 ---
 
 NOTE: `select()` method return lazy element, so interaction with the real webElement
-start as soon as you call some method ex select("#select").selectByIndex(1)
+starts as soon as you call some method ex select("#select").selectByIndex(1)
 
 == The Page
 
