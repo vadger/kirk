@@ -9,7 +9,7 @@ import com.automation.remarks.kirk.Page
 class Calculator(browser: Browser) : Page(browser) {
 
     override val url: String?
-        get() = "/"
+        get() = "http://juliemr.github.io/protractor-demo/"
 
     val first = element("input[ng-model='first']")
     val second = element("input[ng-model='second']")

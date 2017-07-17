@@ -3,17 +3,12 @@ package com.automation.remarks.kirk.test.example.calculator
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.ext.select
-import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
 
 /**
  * Created by sergey on 17.07.17.
  */
 class CalculatorTest {
-    @BeforeClass
-    fun setUp() {
-        System.setProperty("kirk.baseUrl", "http://juliemr.github.io/protractor-demo/")
-    }
 
     @Test fun testCanAddTwoNumbers() {
         Browser.drive {
