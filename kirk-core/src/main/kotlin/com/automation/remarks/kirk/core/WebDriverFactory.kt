@@ -22,13 +22,13 @@ class WebDriverFactory {
     private val INTERNET_EXPLORER = "ie"
 
     private fun createDriver(): WebDriver {
-        val browser = configuration.browser()
+        val browser = configuration.browserName()
         when (browser) {
             CHROME -> return createChromeDriver()
             FIREFOX -> return createFireFoxDriver()
             INTERNET_EXPLORER -> return createInternetExplorerDriver()
 
-            else -> throw IllegalArgumentException("$browser browser doesn't support!")
+            else -> throw IllegalArgumentException("$browser browserName doesn't support!")
         }
     }
 

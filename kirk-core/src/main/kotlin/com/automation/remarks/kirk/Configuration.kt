@@ -11,7 +11,7 @@ interface Configuration : Config {
 
     @Key("kirk.browser")
     @DefaultValue("chrome")
-    fun browser(): String
+    fun browserName(): String
 
     @Key("kirk.timeout")
     @DefaultValue("4000")
