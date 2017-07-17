@@ -265,7 +265,7 @@ Browser.drive {
      to(url)
      select("select[ng-model='operator']").selectByVisibleText("+")
 }
----
+----
 
 NOTE: `select()` method return lazy element, so interaction with the real webElement
 starts when you call some method ex select("#select").selectByIndex(1)
@@ -433,8 +433,6 @@ include::{KElementTest}[tags=child]
 ----
 include::{KElementTest}[tags=parent]
 ----
-
-
 
 NOTE: It's better to use CSS or Xpath locators to achieve the same result
 
