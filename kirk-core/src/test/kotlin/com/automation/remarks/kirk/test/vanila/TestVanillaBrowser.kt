@@ -1,6 +1,6 @@
 package com.automation.remarks.kirk.test.vanila
 
-import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.Browser.Companion.drive
 import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.ext.firstChild
@@ -19,7 +19,7 @@ import org.testng.annotations.Test
 class TestVanillaBrowser : BaseTest() {
 
     @Test fun testCanDriverBrowser() {
-        Browser.drive {
+        drive {
             screenSize = listOf(640, 480)
             open(url)
             element("#header").should(have.text("Kirk"))
@@ -27,11 +27,11 @@ class TestVanillaBrowser : BaseTest() {
     }
 
     @Test fun testCanDriverPage() {
-        Browser.drive {
+        drive {
             baseUrl = url
             holdOpen = true
             to(::StartPage) {
-                list should(have.size(3))
+                list should (have.size(3))
                 link.click()
                 at(::SecondPage).header.should(have.text("Second page"))
             }
@@ -45,8 +45,8 @@ class TestVanillaBrowser : BaseTest() {
     }
 
     // tag::testCanDriveScripts[]
-    @Test fun testCanDriveScripts(){
-        Browser.drive {
+    @Test fun testCanDriveScripts() {
+        drive {
             open(url)
             element("#header").should(have.text("Kirk"))
             element(".paginator a").click()
@@ -56,11 +56,10 @@ class TestVanillaBrowser : BaseTest() {
     // end::testCanDriveScripts[]
 }
 
-
-fun Actions.hover(element: KElement){
+fun Actions.hover(element: KElement) {
     this.moveToElement(element.webElement)
 }
 
-fun Actions.click(element: KElement){
+fun Actions.click(element: KElement) {
     this.click(element.webElement)
 }
