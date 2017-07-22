@@ -16,4 +16,8 @@ abstract class Page(var browser: Browser) : SearchContext by browser {
     fun select(cssLocator: String): Select {
         return browser.select(cssLocator)
     }
+
+    fun <T : Page> to(pageClass: (Browser) -> T): T {
+        return browser.at(pageClass)
+    }
 }

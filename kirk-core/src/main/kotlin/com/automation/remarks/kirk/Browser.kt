@@ -11,8 +11,25 @@ import org.openqa.selenium.interactions.Actions
 class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
 
     companion object {
-        fun drive(block: Browser.() -> Unit) {
-            Browser().with { config = configuration }.block()
+
+        private val browser = Browser().with { config = configuration }
+
+        fun <T : Page> open(pageClass: (Browser) -> T): T {
+            return browser.to(pageClass)
+        }
+
+        fun <T : Page> open(pageClass: (Browser) -> T, block: T.() -> Unit) {
+            open(pageClass).block()
+        }
+
+        fun <T : Page> at(pageClass: (Browser) -> T): T {
+            return browser.at(pageClass)
+        }
+
+        fun drive(driver: WebDriver = getDriver(), block: Browser.() -> Unit): Browser {
+            val browser = Browser(driver).with { config = configuration }
+            browser.block()
+            return browser
         }
     }
 

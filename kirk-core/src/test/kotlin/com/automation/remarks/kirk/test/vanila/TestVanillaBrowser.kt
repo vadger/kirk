@@ -1,6 +1,8 @@
 package com.automation.remarks.kirk.test.vanila
 
+import com.automation.remarks.kirk.Browser.Companion.at
 import com.automation.remarks.kirk.Browser.Companion.drive
+import com.automation.remarks.kirk.Browser.Companion.open
 import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.ext.firstChild
@@ -10,6 +12,7 @@ import com.automation.remarks.kirk.test.pages.SecondPage
 import com.automation.remarks.kirk.test.pages.StartPage
 import org.openqa.selenium.By
 import org.openqa.selenium.Keys
+import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.interactions.Actions
 import org.testng.annotations.Test
 
@@ -54,6 +57,30 @@ class TestVanillaBrowser : BaseTest() {
         }
     }
     // end::testCanDriveScripts[]
+
+    @Test fun testCanOpenPage() {
+        System.setProperty("kirk.baseUrl", url)
+        open(::StartPage) { link.click() }
+        at(::SecondPage).header.should(have.text("Second page"))
+    }
+
+    @Test fun testDriverCanOpenSecondDriver() {
+        val firstBrowser = drive {
+            baseUrl = url
+            startMaximized = false
+            open("/")
+            element("#header").should(have.text("Kirk"))
+        }
+        drive(ChromeDriver()) {
+            startMaximized = false
+            open(url)
+            element(".paginator a").click()
+            at(::SecondPage).header.should(have.text("Second page"))
+        }
+
+        firstBrowser.to(::StartPage).link.click()
+        firstBrowser.at(::SecondPage).header.should(have.text("Second page"))
+    }
 }
 
 fun Actions.hover(element: KElement) {
