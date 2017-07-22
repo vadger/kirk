@@ -14,10 +14,5 @@ class StartPage(browser: Browser) : Page(browser) {
     val list = element(".list").all("li")
     val link = element(".paginator a")
     val confirmBtn = element("#confirm_btn")
-
-    fun toSecondPage(): SecondPage {
-        link.click()
-        return to(::SecondPage)
-    }
 }
 
