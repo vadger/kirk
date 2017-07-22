@@ -14,7 +14,7 @@ class Kirk {
         private val browser = Browser().with { config = configuration }
 
         @JvmStatic
-        fun goTo(url: String) {
+        fun open(url: String) {
             browser.to(url)
         }
 
