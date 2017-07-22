@@ -26,6 +26,10 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
             return browser.at(pageClass)
         }
 
+        fun <T : Page> at(pageClass: (Browser) -> T, block: T.() -> Unit) {
+            at(pageClass).block()
+        }
+
         fun drive(driver: WebDriver = getDriver(), block: Browser.() -> Unit): Browser {
             val browser = Browser(driver).with { config = configuration }
             browser.block()
