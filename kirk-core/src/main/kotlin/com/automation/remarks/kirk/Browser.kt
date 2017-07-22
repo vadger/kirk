@@ -10,40 +10,6 @@ import org.openqa.selenium.interactions.Actions
 
 class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
 
-    companion object {
-
-        private val browser = Browser().with { config = configuration }
-
-        @JvmStatic
-        fun goTo(url: String) {
-            browser.to(url)
-        }
-
-        @JvmStatic
-        fun <T : Page> open(pageClass: (Browser) -> T): T {
-            return browser.to(pageClass)
-        }
-
-        fun <T : Page> open(pageClass: (Browser) -> T, block: T.() -> Unit) {
-            open(pageClass).block()
-        }
-
-        @JvmStatic
-        fun <T : Page> at(pageClass: (Browser) -> T): T {
-            return pageClass(browser)
-        }
-
-        fun <T : Page> at(pageClass: (Browser) -> T, block: T.() -> Unit) {
-            at(pageClass).block()
-        }
-
-        fun drive(driver: WebDriver = getDriver(), block: Browser.() -> Unit): Browser {
-            val browser = Browser(driver).with { config = configuration }
-            browser.block()
-            return browser
-        }
-    }
-
     var config: Configuration = loadConfig(Configuration::class)
 
     var baseUrl: String by baseUrl()
@@ -103,12 +69,11 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
         return page
     }
 
-    //TODO Consider to delete
-//    fun <T : Page> at(pageClass: (Browser) -> T): T {
-//        val page = pageClass(this)
-//        assert(page.at.invoke(this))
-//        return page
-//    }
+    fun <T : Page> at(pageClass: (Browser) -> T): T {
+        val page = pageClass(this)
+        assert(page.at.invoke(this))
+        return page
+    }
 
     override fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit): T {
         val page = pageClass(this)

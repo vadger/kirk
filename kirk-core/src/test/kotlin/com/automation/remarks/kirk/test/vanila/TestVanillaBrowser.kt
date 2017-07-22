@@ -1,9 +1,7 @@
 package com.automation.remarks.kirk.test.vanila
 
-import com.automation.remarks.kirk.Browser.Companion.at
-import com.automation.remarks.kirk.Browser.Companion.drive
-import com.automation.remarks.kirk.Browser.Companion.open
 import com.automation.remarks.kirk.KElement
+import com.automation.remarks.kirk.Kirk
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.ext.firstChild
 import com.automation.remarks.kirk.ext.lastChild
@@ -22,7 +20,7 @@ import org.testng.annotations.Test
 class TestVanillaBrowser : BaseTest() {
 
     @Test fun testCanDriverBrowser() {
-        drive {
+        Kirk.drive {
             screenSize = listOf(640, 480)
             open(url)
             element("#header").should(have.text("Kirk"))
@@ -30,7 +28,7 @@ class TestVanillaBrowser : BaseTest() {
     }
 
     @Test fun testCanDriverPage() {
-        drive {
+        Kirk.drive {
             baseUrl = url
             holdOpen = true
             to(::StartPage) {
@@ -49,7 +47,7 @@ class TestVanillaBrowser : BaseTest() {
 
     // tag::testCanDriveScripts[]
     @Test fun testCanDriveScripts() {
-        drive {
+        Kirk.drive {
             open(url)
             element("#header").should(have.text("Kirk"))
             element(".paginator a").click()
@@ -60,20 +58,20 @@ class TestVanillaBrowser : BaseTest() {
 
     @Test fun testCanOpenPage() {
         System.setProperty("kirk.baseUrl", url)
-        open(::StartPage) { link.click() }
-        at(::SecondPage){
+        Kirk.open(::StartPage) { link.click() }
+        Kirk.at(::SecondPage){
             header.should(have.text("Second page"))
         }
     }
 
     @Test fun testDriverCanOpenSecondDriver() {
-        val firstBrowser = drive {
+        val firstBrowser = Kirk.drive {
             baseUrl = url
             startMaximized = false
             open("/")
             element("#header").should(have.text("Kirk"))
         }
-        drive(ChromeDriver()) {
+        Kirk.drive(ChromeDriver()) {
             startMaximized = false
             open(url)
             element(".paginator a").click()
