@@ -61,7 +61,9 @@ class TestVanillaBrowser : BaseTest() {
     @Test fun testCanOpenPage() {
         System.setProperty("kirk.baseUrl", url)
         open(::StartPage) { link.click() }
-        at(::SecondPage).header.should(have.text("Second page"))
+        at(::SecondPage){
+            header.should(have.text("Second page"))
+        }
     }
 
     @Test fun testDriverCanOpenSecondDriver() {

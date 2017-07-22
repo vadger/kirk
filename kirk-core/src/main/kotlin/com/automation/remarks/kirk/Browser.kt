@@ -14,6 +14,12 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
 
         private val browser = Browser().with { config = configuration }
 
+        @JvmStatic
+        fun goTo(url: String) {
+            browser.to(url)
+        }
+
+        @JvmStatic
         fun <T : Page> open(pageClass: (Browser) -> T): T {
             return browser.to(pageClass)
         }
@@ -22,8 +28,9 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
             open(pageClass).block()
         }
 
+        @JvmStatic
         fun <T : Page> at(pageClass: (Browser) -> T): T {
-            return browser.at(pageClass)
+            return pageClass(browser)
         }
 
         fun <T : Page> at(pageClass: (Browser) -> T, block: T.() -> Unit) {
@@ -96,15 +103,17 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
         return page
     }
 
-    fun <T : Page> at(pageClass: (Browser) -> T): T {
-        val page = pageClass(this)
-        assert(page.at.invoke(this))
-        return page
-    }
+    //TODO Consider to delete
+//    fun <T : Page> at(pageClass: (Browser) -> T): T {
+//        val page = pageClass(this)
+//        assert(page.at.invoke(this))
+//        return page
+//    }
 
-    override fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit) {
+    override fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit): T {
         val page = pageClass(this)
         page.closure()
+        return page
     }
 
     override fun element(by: By): KElement {

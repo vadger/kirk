@@ -10,4 +10,5 @@ class Contain {
     }
 }
 
+@JvmField
 val contain = Contain()

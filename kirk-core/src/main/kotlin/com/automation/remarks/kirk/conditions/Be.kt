@@ -10,4 +10,5 @@ class Be {
 
 }
 
+@JvmField
 val be = Be()

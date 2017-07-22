@@ -3,19 +3,18 @@ package com.automation.remarks.java.test;
 import com.automation.remarks.kirk.Browser;
 import com.automation.remarks.kirk.KElement;
 import com.automation.remarks.kirk.Page;
-import com.automation.remarks.kirk.conditions.Have;
 import com.automation.remarks.kirk.core.Select;
 import com.automation.remarks.kirk.test.BaseTest;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.testng.annotations.Test;
+
+import static com.automation.remarks.kirk.Browser.at;
+import static com.automation.remarks.kirk.Browser.goTo;
+import static com.automation.remarks.kirk.conditions.HaveKt.have;
 
 /**
  * Created by sergey on 09.07.17.
  */
 public class TestJavaBrowser extends BaseTest {
-
-  private Have have = new Have();
 
   @Test
   public void testName() {
@@ -26,19 +25,19 @@ public class TestJavaBrowser extends BaseTest {
 
   @Test
   public void testCalculator() {
-    Browser.Companion.open(CalculatorPage::new)
+    goTo(getUrl());
+    at(CalculatorPage::new)
         .calculate("10", "/", "2")
         .result.should(have.text("5"));
   }
 }
 
+
 class CalculatorPage extends Page {
-  public CalculatorPage(@NotNull Browser browser) {
+  public CalculatorPage(Browser browser) {
     super(browser);
   }
 
-  @Nullable
-  @Override
   public String getUrl() {
     return "http://juliemr.github.io/protractor-demo/";
   }

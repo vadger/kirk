@@ -27,4 +27,5 @@ class Have {
     }
 }
 
+@JvmField
 val have = Have()

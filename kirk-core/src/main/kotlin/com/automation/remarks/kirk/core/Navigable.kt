@@ -17,7 +17,7 @@ interface Navigable {
         page.block()
     }
 
-    fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit)
+    fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit = {}): T
 
     fun back(): Browser
 
