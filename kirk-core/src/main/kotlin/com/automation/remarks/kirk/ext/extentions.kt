@@ -1,9 +1,6 @@
 package com.automation.remarks.kirk.ext
 
-import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.Configuration
-import com.automation.remarks.kirk.KElement
-import com.automation.remarks.kirk.KElementCollection
+import com.automation.remarks.kirk.*
 import com.automation.remarks.kirk.core.Select
 import com.automation.remarks.kirk.core.configuration
 import com.automation.remarks.kirk.core.loadConfig
@@ -39,7 +36,7 @@ fun WebDriver.isAlive(): Boolean {
 val WebElement.classes: List<String>
     get() = this.getAttribute("class").split(" ")
 
-fun <T : Configuration> Browser.Companion.withConfig(klazz: KClass<T>): Browser.Companion {
+fun <T : Configuration> Kirk.Companion.withConfig(klazz: KClass<T>): Kirk.Companion {
     configuration = loadConfig(klazz)
     return this
 }
