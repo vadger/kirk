@@ -2,6 +2,8 @@ package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.KElement
+import com.automation.remarks.kirk.Kirk
+import com.automation.remarks.kirk.Kirk.Companion.drive
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.ext.*
 import com.automation.remarks.kirk.test.BaseTest
@@ -14,7 +16,7 @@ class KElementTest : BaseTest() {
 
     @Test fun testCanFindFirstChild() {
         // tag::child[]
-        Browser.drive {
+        drive {
             to(url)
             s("ul").firstChild().should(have.text("Один"))
             s("ul").lastChild().should(have.text("Три"))
@@ -23,7 +25,7 @@ class KElementTest : BaseTest() {
     }
 
     @Test fun testCanFindLastChild() {
-        Browser.drive {
+        drive {
             to(url)
             s("ul").lastChild().should(have.text("Три"))
         }
@@ -31,7 +33,7 @@ class KElementTest : BaseTest() {
 
     @Test fun testCanFindFirstParent() {
         // tag::parent[]
-        Browser.drive {
+        drive {
             to(url)
             s("div.b").parent().should(have.cssClass("a"))
         }
@@ -39,7 +41,7 @@ class KElementTest : BaseTest() {
     }
 
     @Test fun testCanFindChildren() {
-        Browser.drive {
+        drive {
             to(url)
             element("ul#with_children").children("li").should(have.exactText("1", "2", "2.1", "2.2", "3", "3.1", "3.2"))
         }
@@ -47,7 +49,7 @@ class KElementTest : BaseTest() {
 
     @Test fun testCanUploadFile() {
         // tag::uploadFile[]
-        Browser.drive {
+        drive {
             element("input").uploadFile("")
         }
         // end::uploadFile[]

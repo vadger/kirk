@@ -1,6 +1,6 @@
 package com.automation.remarks.kirk.test.example.todo
 
-import com.automation.remarks.kirk.Browser.Companion.open
+import com.automation.remarks.kirk.Kirk.Companion.open
 import com.automation.remarks.kirk.conditions.have
 import org.testng.annotations.Test
 

@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk.test.example.calculator
 
-import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.Kirk.Companion.drive
+import com.automation.remarks.kirk.Kirk.Companion.open
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.ext.select
 import org.testng.annotations.Test
@@ -11,7 +12,7 @@ import org.testng.annotations.Test
 class CalculatorTest {
 
     @Test fun testCanAddTwoNumbers() {
-        Browser.drive {
+        drive {
             to("http://juliemr.github.io/protractor-demo/")
             element("input[ng-model='first']").setValue("1")
             element("input[ng-model='second']").setValue("2")
@@ -22,14 +23,12 @@ class CalculatorTest {
     }
 
     @Test fun testCanDivide() {
-        Browser.drive {
-            to(::Calculator) {
-                first.setValue("10")
-                second.setValue("2")
-                select.selectByVisibleText("/")
-                goBtn.click()
-                result.should(have.text("5"))
-            }
+        open(::Calculator) {
+            first.setValue("10")
+            second.setValue("2")
+            select.selectByVisibleText("/")
+            goBtn.click()
+            result.should(have.text("5"))
         }
     }
 }

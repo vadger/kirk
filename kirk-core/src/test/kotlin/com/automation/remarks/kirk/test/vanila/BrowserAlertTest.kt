@@ -1,6 +1,6 @@
 package com.automation.remarks.kirk.test.vanila
 
-import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.Kirk
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.StartPage
 import org.openqa.selenium.NoAlertPresentException
@@ -14,7 +14,7 @@ class BrowserAlertTest : BaseTest() {
     @Test
     fun testCanAcceptAlert() {
         assertExceptionThrown(NoAlertPresentException::class) {
-            Browser.drive {
+            Kirk.drive {
                 baseUrl = url
                 to(::StartPage) {
                     confirmBtn.click()
@@ -27,7 +27,7 @@ class BrowserAlertTest : BaseTest() {
 
     @Test fun testCanDismissAlertAlert() {
         assertExceptionThrown(NoAlertPresentException::class) {
-            Browser.drive {
+            Kirk.drive {
                 baseUrl = url
                 to(::StartPage) {
                     confirmBtn.click()
@@ -39,7 +39,7 @@ class BrowserAlertTest : BaseTest() {
     }
 
     @Test fun testCanGetAlertText() {
-        Browser.drive {
+        Kirk.drive {
             baseUrl = url
             to(::StartPage) {
                 confirmBtn.click()

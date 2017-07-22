@@ -2,6 +2,7 @@ package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.Kirk
+import com.automation.remarks.kirk.Kirk.Companion.drive
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.ext.firstChild
 import com.automation.remarks.kirk.ext.lastChild
@@ -20,7 +21,7 @@ import org.testng.annotations.Test
 class TestVanillaBrowser : BaseTest() {
 
     @Test fun testCanDriverBrowser() {
-        Kirk.drive {
+        drive {
             screenSize = listOf(640, 480)
             open(url)
             element("#header").should(have.text("Kirk"))
@@ -28,7 +29,7 @@ class TestVanillaBrowser : BaseTest() {
     }
 
     @Test fun testCanDriverPage() {
-        Kirk.drive {
+        drive {
             baseUrl = url
             holdOpen = true
             to(::StartPage) {
@@ -47,7 +48,7 @@ class TestVanillaBrowser : BaseTest() {
 
     // tag::testCanDriveScripts[]
     @Test fun testCanDriveScripts() {
-        Kirk.drive {
+        drive {
             open(url)
             element("#header").should(have.text("Kirk"))
             element(".paginator a").click()
@@ -65,13 +66,13 @@ class TestVanillaBrowser : BaseTest() {
     }
 
     @Test fun testDriverCanOpenSecondDriver() {
-        val firstBrowser = Kirk.drive {
+        val firstBrowser = drive {
             baseUrl = url
             startMaximized = false
             open("/")
             element("#header").should(have.text("Kirk"))
         }
-        Kirk.drive(ChromeDriver()) {
+        drive(ChromeDriver()) {
             startMaximized = false
             open(url)
             element(".paginator a").click()
