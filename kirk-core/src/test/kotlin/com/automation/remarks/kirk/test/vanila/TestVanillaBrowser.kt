@@ -1,9 +1,7 @@
 package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.KElement
-import com.automation.remarks.kirk.Kirk.Companion.at
 import com.automation.remarks.kirk.Kirk.Companion.drive
-import com.automation.remarks.kirk.Kirk.Companion.open
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.ext.firstChild
 import com.automation.remarks.kirk.ext.lastChild
@@ -58,13 +56,13 @@ class TestVanillaBrowser : BaseTest() {
     }
     // end::testCanDriveScripts[]
 
-    @Test fun testCanOpenPage() {
-        open(url)
-        at(::StartPage) { link.click() }
-        at(::SecondPage){
-            header.should(have.text("Second page"))
-        }
-    }
+//    @Test fun testCanOpenPage() {
+//        open(url)
+//        at(::StartPage) { link.click() }
+//        at(::SecondPage){
+//            header.should(have.text("Second page"))
+//        }
+//    }
 
     @Test fun testDriverCanOpenSecondDriver() {
         val firstBrowser = drive {

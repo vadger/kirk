@@ -16,8 +16,8 @@ class TodoAngularTest {
             deleteTask("Item0")
             taskList.should(have.size(0))
         }
-    }
 
+    }
 
     @Test fun testCanDeactivateTask() {
         open(::TodoPage) {

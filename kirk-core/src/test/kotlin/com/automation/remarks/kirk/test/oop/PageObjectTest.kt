@@ -4,7 +4,6 @@ import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.StartPage
-import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
@@ -21,11 +20,6 @@ class PageObjectTest : BaseTest() {
         chrome.open(url)
     }
 
-    @AfterMethod
-    fun tearDownBrowser() {
-        chrome.quit()
-    }
-
     @Test
     fun testCanOpenStartPage() {
         val startPage = chrome.to(::StartPage)
@@ -34,8 +28,6 @@ class PageObjectTest : BaseTest() {
 
     @Test
     fun testCanOpenStartPageAndUseClosure() {
-        chrome.at(::StartPage) {
-            list.should(have.size(3))
-        }
+        chrome.at(::StartPage).list should have.size(3)
     }
 }
