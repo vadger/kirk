@@ -141,7 +141,7 @@ And now method `open()` use relative path
 
 [source, java]
 ----
-Browser.drive {
+Kirk.drive {
    open("/")
    ...
 }
@@ -164,7 +164,7 @@ As well as parent url, Kirk allows to navigate pages using absolute url
 
 [source, java]
 ----
-Browser.drive {
+Kirk.drive {
    open("http://localhost:8086/login")
    at(::LoginPage).loginAs("admin","admin")
 }
@@ -179,13 +179,22 @@ class StartPage(browser: Browser) : Page(browser) {
         get() = "http://localhost:8086/login"
 }
 
-Browser.drive {
+Kirk.drive {
     to(::StartPage).element("#header").should(have.text("Kirk"))
 }
 ----
 
 NOTE: It is better to use relative path, because of maintenance reason. For example
 you can easily manage properties for different environments Dev, QA, Stage etc.
+
+or
+
+[source, java]
+----
+Kirk.open(::StartPage).element("#header") should have.text("Kirk")
+----
+
+NOTE: method `should` is infix, so you can call it like in example above
 
 === Page object support
 
@@ -199,7 +208,7 @@ class StartPage(browser: Browser) : Page(browser) {
         get() = "/"
 }
 
-Browser.drive {
+Kirk.drive {
     to(::StartPage).element("#header").should(have.text("Kirk"))
 }
 ----
@@ -209,7 +218,7 @@ lambda as a second parameter and points to the instance of that page.
 
 [source, java]
 ----
-Browser.drive {
+drive {
     to(::StartPage) {
        element("#header").should(have.text("Kirk"))
     }
@@ -230,7 +239,7 @@ In case if you need to perform some complex operations on the page
 
 [source, java]
 ----
-Browser.drive{
+drive{
   interact {
      keyDown(Keys.CONTROL)
      click(element(By.name("genres")).firstChild())
@@ -261,7 +270,7 @@ Than you are able to write:
 
 [source, java]
 ----
-Browser.drive {
+drive {
      to(url)
      select("select[ng-model='operator']").selectByVisibleText("+")
 }
@@ -293,7 +302,7 @@ Nowadays alerts is not widely used in modern web applications, however Kirk allo
 .accept alert
 [source, java]
 ----
-Browser.drive {
+drive {
     to(url)
     alert.accept()
 }
@@ -302,7 +311,7 @@ Browser.drive {
 .dismiss alert
 [source, java]
 ----
-Browser.drive {
+drive {
     to(url)
     alert.dismiss()
 }
@@ -311,7 +320,7 @@ Browser.drive {
 .verify alert text
 [source, java]
 ----
-Browser.drive {
+drive {
     to(url)
     assert(alert.text == "Hello buddy")
 }
