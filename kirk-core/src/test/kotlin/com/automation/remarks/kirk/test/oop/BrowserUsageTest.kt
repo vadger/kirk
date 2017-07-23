@@ -30,7 +30,6 @@ class BrowserUsageTest : BaseTest() {
         firefox.open(url)
         firefox.element(".paginator a").click()
         firefox.element("#header").should(have.text("Second page"))
-        firefox.quit()
     }
 
     @Test
@@ -38,12 +37,10 @@ class BrowserUsageTest : BaseTest() {
         val chrome = Browser(ChromeDriver())
         chrome.open(url)
         chrome.element("#header").should(have.text("Kirk"))
-        chrome.quit()
 
         val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
         firefox.open(url)
         firefox.all("li").should(have.size(10))
-        firefox.quit()
     }
 
     @Test
@@ -51,7 +48,6 @@ class BrowserUsageTest : BaseTest() {
         val chrome = Browser()
         chrome.open(url)
         assert(chrome.currentUrl).isEqualTo(url)
-        chrome.quit()
     }
 
     @Test
@@ -63,7 +59,6 @@ class BrowserUsageTest : BaseTest() {
 
         chrome.open("/")
         chrome.all("li").should(have.size(10))
-        chrome.quit()
     }
 
     @Test
