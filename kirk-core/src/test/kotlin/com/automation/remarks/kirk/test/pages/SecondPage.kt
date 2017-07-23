@@ -8,7 +8,7 @@ import com.automation.remarks.kirk.Page
  */
 class SecondPage(browser: Browser) : Page(browser) {
 
-    override val at: Browser.() -> Boolean = { title == "Kirk Test Page 2" }
+    override val isAt: Browser.() -> Boolean = { title == "Kirk Test Page 2" }
 
     val header = element("#header")
 }

@@ -71,7 +71,7 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
 
     fun <T : Page> at(pageClass: (Browser) -> T): T {
         val page = pageClass(this)
-        assert(page.at.invoke(this))
+        assert(page.isAt(this))
         return page
     }
 

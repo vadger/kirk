@@ -11,7 +11,7 @@ import com.automation.remarks.kirk.ext.select
 abstract class Page(var browser: Browser) : SearchContext by browser {
 
     open val url: String? = null
-    open val at: Browser.() -> Boolean = { true }
+    open val isAt: Browser.() -> Boolean = { true }
 
     fun select(cssLocator: String): Select {
         return browser.select(cssLocator)
