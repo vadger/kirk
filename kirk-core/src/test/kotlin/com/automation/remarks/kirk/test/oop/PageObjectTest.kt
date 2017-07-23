@@ -4,7 +4,7 @@ import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.StartPage
-import org.testng.annotations.BeforeMethod
+import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
 
 /**
@@ -14,7 +14,7 @@ class PageObjectTest : BaseTest() {
 
     lateinit var chrome: Browser
 
-    @BeforeMethod
+    @BeforeClass
     fun setUp() {
         chrome = Browser().with { baseUrl = url }
         chrome.open(url)

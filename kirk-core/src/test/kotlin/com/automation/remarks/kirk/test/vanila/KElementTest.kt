@@ -2,7 +2,6 @@ package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.KElement
-import com.automation.remarks.kirk.Kirk
 import com.automation.remarks.kirk.Kirk.Companion.drive
 import com.automation.remarks.kirk.conditions.have
 import com.automation.remarks.kirk.ext.*
@@ -60,7 +59,6 @@ class KElementTest : BaseTest() {
         // tag::composition[]
         browser.element("ul.list").all("li").should(have.size(3))
         // end::composition[]
-        browser.quit()
     }
 }
 
