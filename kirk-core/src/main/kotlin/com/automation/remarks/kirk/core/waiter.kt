@@ -31,8 +31,7 @@ fun <T> waitFor(driver: WebDriver,
             failed while waiting ${timeout / 1000} seconds
             to assert $condition
             for element located {${locator.description}}
-            ${ex.message}
-
+            reason: ${ex.message}
             screenshot: file://${screen.takeScreenshotAsFile()?.absolutePath}
                         """
                 throw TimeoutException(message)

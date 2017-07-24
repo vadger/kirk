@@ -9,12 +9,13 @@ import org.openqa.selenium.WebElement
 abstract class ElementCondition : Condition<WebElement>()
 
 class Text(val text: String) : ElementCondition() {
+
     override fun matches(item: WebElement): Boolean {
         return item.text == text
     }
 
-    override fun description(item: WebElement): String {
-        return describe(item.text, text)
+    override fun description(item: WebElement): Description {
+        return Description(item.text, text)
     }
 }
 
@@ -23,8 +24,8 @@ class ElementVisibility : ElementCondition() {
         return item.isDisplayed
     }
 
-    override fun description(item: WebElement): String {
-        return describe("invisible", "visible", withDiff = false)
+    override fun description(item: WebElement): Description {
+        return Description("invisible", "visible", diff = false)
     }
 }
 
