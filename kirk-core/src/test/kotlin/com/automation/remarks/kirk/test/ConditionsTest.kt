@@ -1,6 +1,9 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.KElement
+import com.automation.remarks.kirk.conditions.ElementCondition
+import com.automation.remarks.kirk.conditions.Not
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
 import me.tatarka.assertk.assertions.hasClass
@@ -24,8 +27,12 @@ class ConditionsTest : BaseTest() {
         chrome.open(url)
     }
 
-    @Test fun testTextCondition() {
+    @Test fun testTextConditionPositive() {
         chrome.element("#header").should(have.text("Kirk"))
+    }
+
+    @Test fun testNotCondition() {
+        chrome.element("#input_invisible").shouldNot(be.visible)
     }
 
     @Test fun testTextConditionFailMassage() {
@@ -75,5 +82,8 @@ class ConditionsTest : BaseTest() {
             """)
         }
     }
+}
 
+fun KElement.shouldNot(condition: ElementCondition) {
+    this.should(Not(condition))
 }
