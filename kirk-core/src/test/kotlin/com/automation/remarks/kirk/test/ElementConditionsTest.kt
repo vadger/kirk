@@ -1,8 +1,8 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.KElement
-import com.automation.remarks.kirk.conditions.*
+import com.automation.remarks.kirk.conditions.be
+import com.automation.remarks.kirk.conditions.have
 import me.tatarka.assertk.assertions.hasClass
 import me.tatarka.assertk.assertions.hasMessageStartingWith
 import org.openqa.selenium.TimeoutException
@@ -12,7 +12,7 @@ import org.testng.annotations.Test
 /**
  * Created by sepi on 7/12/2017.
  */
-class ConditionsTest : BaseTest() {
+class ElementConditionsTest : BaseTest() {
 
     lateinit var chrome: Browser
 
@@ -30,6 +30,10 @@ class ConditionsTest : BaseTest() {
 
     @Test fun testNotCondition() {
         chrome.element("#input_invisible").shouldNot(be.visible)
+    }
+
+    @Test fun testNotConditionText() {
+        chrome.element("#header").shouldNot(have.text("Kirk"))
     }
 
     @Test fun testTextConditionFailMassage() {
