@@ -1,20 +1,21 @@
 package com.automation.remarks.kirk.conditions
 
-import org.openqa.selenium.WebElement
-
 /**
  * Created by sepi on 24.07.17.
  */
-class Not(val condition: Condition<WebElement>) : ElementCondition() {
-    override fun matches(item: WebElement): Boolean {
+
+abstract class BaseCondition<in T> : Condition<T>()
+
+class Not<in T>(val condition: Condition<T>) : Condition<T>() {
+    override fun matches(item: T): Boolean {
         return !condition.matches(item)
     }
 
-    override fun description(item: WebElement): String {
+    override fun description(item: T): String {
         return condition.description(item)
     }
 }
 
-fun not(condition: Condition<WebElement>): Not {
+fun <T> not(condition: Condition<T>): Condition<T> {
     return Not(condition)
 }

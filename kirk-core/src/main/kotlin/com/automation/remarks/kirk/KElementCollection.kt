@@ -1,6 +1,8 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.CollectionCondition
+import com.automation.remarks.kirk.conditions.ElementCondition
+import com.automation.remarks.kirk.conditions.not
 import com.automation.remarks.kirk.locators.CachedWebElementLocator
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.WebElementListLocator
@@ -26,6 +28,10 @@ class KElementCollection(locator: ElementLocator<List<WebElement>>,
 
     infix fun should(condition: CollectionCondition) {
         super.should(condition)
+    }
+
+    infix fun shouldNot(condition: CollectionCondition) {
+        super.shouldNot(condition)
     }
 
     override fun isEmpty(): Boolean {

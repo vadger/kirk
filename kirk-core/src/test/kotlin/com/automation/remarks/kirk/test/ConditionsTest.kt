@@ -80,7 +80,3 @@ class ConditionsTest : BaseTest() {
         }
     }
 }
-
-fun KElement.shouldNot(condition: ElementCondition) {
-    this.should(not(condition))
-}
