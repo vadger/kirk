@@ -14,5 +14,5 @@ class WebElementLocator(private val by: By,
     }
 
     override val description: String
-        get() = by.toString()
+        get() = "element located {$by}"
 }

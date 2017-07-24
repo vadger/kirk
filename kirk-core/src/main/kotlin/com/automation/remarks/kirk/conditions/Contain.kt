@@ -5,9 +5,7 @@ package com.automation.remarks.kirk.conditions
  */
 class Contain {
 
-    fun elementWithText(text: String): CollectionContainText {
-        return CollectionContainText(text)
-    }
+
 }
 
 @JvmField

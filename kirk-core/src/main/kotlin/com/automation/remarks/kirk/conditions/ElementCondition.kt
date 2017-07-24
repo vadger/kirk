@@ -19,7 +19,7 @@ class Text(val text: String) : ElementCondition() {
     }
 }
 
-class ElementVisibility : ElementCondition() {
+class Visibility : ElementCondition() {
     override fun matches(item: WebElement): Boolean {
         return item.isDisplayed
     }
@@ -34,8 +34,8 @@ class AttributeValue(val attr: String, val expect: String) : ElementCondition() 
         return item.getAttribute(attr) == expect
     }
 
-    override fun description(item: WebElement): String {
-        return describe(item.getAttribute(attr), expect)
+    override fun description(item: WebElement): Description {
+        return Description(item.getAttribute(attr), expect)
     }
 
     override fun toString(): String {
@@ -48,7 +48,7 @@ class CssClassValue(val cssClass: String) : ElementCondition() {
         return item.classes.contains(cssClass)
     }
 
-    override fun description(item: WebElement): String {
-        return describe(item.classes, cssClass, withDiff = false)
+    override fun description(item: WebElement): Description {
+        return Description(item.classes, cssClass, diff = false)
     }
 }

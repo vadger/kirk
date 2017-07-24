@@ -12,7 +12,7 @@ class ConditionAssert {
     companion object {
         fun <T> evaluate(item: T, matcher: Condition<T>) {
             if (!matcher.matches(item)) {
-                throw ConditionMismatchException(matcher.description(item))
+                throw ConditionMismatchException(matcher.description(item).toString())
             }
         }
     }

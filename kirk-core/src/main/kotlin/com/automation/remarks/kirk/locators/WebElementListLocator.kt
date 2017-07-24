@@ -13,5 +13,5 @@ class WebElementListLocator(private val by: By, private val driver: WebDriver) :
     }
 
     override val description: String
-        get() = this.by.toString()
+        get() = "collection located {$by}"
 }

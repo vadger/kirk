@@ -8,11 +8,11 @@ import com.automation.remarks.kirk.ex.DiffExtractor
  */
 open class Description(val actual: Any,
                        val expected: Any,
-                       val diff: Boolean = true) {
+                       var diff: Boolean = true) {
 
     open val reason: String? = "condition did not match"
 
-    open val message = """%s
+    open var message = """%s
                 expected: %s
                 actual: %s
             """

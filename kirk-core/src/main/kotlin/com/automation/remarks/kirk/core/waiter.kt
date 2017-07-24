@@ -30,7 +30,7 @@ fun <T> waitFor(driver: WebDriver,
                 val message = """
             failed while waiting ${timeout / 1000} seconds
             to assert $condition
-            for element located {${locator.description}}
+            for ${locator.description}
             reason: ${ex.message}
             screenshot: file://${screen.takeScreenshotAsFile()?.absolutePath}
                         """
@@ -41,7 +41,7 @@ fun <T> waitFor(driver: WebDriver,
             if (System.currentTimeMillis() > endTime) {
                 val message = """
             failed while waiting ${timeout / 1000} seconds
-            for existence of element {${locator.description}}
+            for existence of ${locator.description}
             reason: no such element
                 either wrong locator
                 or did not have time open load

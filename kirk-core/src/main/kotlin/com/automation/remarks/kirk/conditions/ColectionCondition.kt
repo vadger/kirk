@@ -12,18 +12,18 @@ class CollectionSize(val size: Int) : CollectionCondition() {
         return item.size == size
     }
 
-    override fun description(item: List<WebElement>): String {
-        return describe(item.size, size)
+    override fun description(item: List<WebElement>): Description {
+        return Description(item.size, size)
     }
 }
 
 class CollectionExactText(val text: Array<out String>) : CollectionCondition() {
     override fun matches(item: List<WebElement>): Boolean {
-        return item.map { it.text } == text.toList()
+        return item.isNotEmpty() && item.map { it.text } == text.toList()
     }
 
-    override fun description(item: List<WebElement>): String {
-        return describe(item.map { it.text }, text.toList())
+    override fun description(item: List<WebElement>): Description {
+        return Description(item.map { it.text }, text.toList())
     }
 }
 
@@ -32,11 +32,11 @@ class CollectionContainText(val text: String) : CollectionCondition() {
         return item.any { it.text == text }
     }
 
-    override fun description(item: List<WebElement>): String {
-        return describe(item.map { it.text }, text)
+    override fun description(item: List<WebElement>): Description {
+        return Description(item.map { it.text }, text)
     }
 
     override fun toString(): String {
-        return "collection contains element with text"
+        return "collection have element with text"
     }
 }

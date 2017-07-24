@@ -6,11 +6,11 @@ package com.automation.remarks.kirk.conditions
 
 abstract class BaseCondition<in T> : Condition<T>()
 
-class Not<in T>(val condition: Condition<T>) : Condition<T>() {
+class Not<in T>(val condition: Condition<T>) : BaseCondition<T>() {
 
-    override var message: String =
+    val msg: String =
             """%s
-                expected: is not %s
+                expected not: %s
                 actual: %s
                 """
 
@@ -18,9 +18,11 @@ class Not<in T>(val condition: Condition<T>) : Condition<T>() {
         return !condition.matches(item)
     }
 
-    override fun description(item: T): String {
-        condition.message = message
-        return condition.description(item)
+    override fun description(item: T): Description {
+        return condition.description(item).apply {
+            diff = false
+            message = msg
+        }
     }
 
     override fun toString(): String {
