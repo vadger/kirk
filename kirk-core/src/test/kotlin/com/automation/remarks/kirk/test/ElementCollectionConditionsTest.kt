@@ -14,6 +14,7 @@ class ElementCollectionConditionsTest : BaseTest() {
         Kirk.drive {
             to(url)
             all(".l").shouldNot(have.elementWithText("Один"))
+            //TODO this is BUG
         }
     }
 }
