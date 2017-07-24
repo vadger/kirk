@@ -5,13 +5,6 @@ package com.automation.remarks.kirk.ex
  */
 
 
-class ConditionMismatchException(actual: Any?, expected: Any?,
-                                 override var message: String) : Exception() {init {
-    message += """
-                 expected: $expected
-                 actual: $actual
-             """
-}
-}
+class ConditionMismatchException(message: String) : Exception(message)
 
 class WrongUrlException(message: String) : Exception(message)

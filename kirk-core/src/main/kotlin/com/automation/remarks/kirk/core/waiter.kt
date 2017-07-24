@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk.core
 
 import com.automation.remarks.kirk.conditions.Condition
+import com.automation.remarks.kirk.conditions.ConditionAssert
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.locators.ElementLocator
 import org.openqa.selenium.TimeoutException
@@ -15,13 +16,13 @@ fun <T> waitFor(driver: WebDriver,
                 locator: ElementLocator<T>,
                 condition: Condition<T>,
                 timeout: Int,
-                poolingInterval: Double): T {
+                poolingInterval: Double) {
 
     val endTime = System.currentTimeMillis() + timeout
     val screen = ScreenshotContainer(driver)
     while (true) {
         try {
-            return condition.evaluate(locator.find())
+            return ConditionAssert.evaluate(locator.find(), condition)
         } catch (ex: ConditionMismatchException) {
             if (System.currentTimeMillis() > endTime) {
                 highlightElement(driver, locator)
@@ -30,7 +31,8 @@ fun <T> waitFor(driver: WebDriver,
             failed while waiting ${timeout / 1000} seconds
             to assert $condition
             for element located {${locator.description}}
-            reason: ${ex.message}
+            ${ex.message}
+
             screenshot: file://${screen.takeScreenshotAsFile()?.absolutePath}
                         """
                 throw TimeoutException(message)

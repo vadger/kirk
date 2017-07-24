@@ -5,9 +5,9 @@ package com.automation.remarks.kirk.conditions
  */
 class Be {
 
-    val visible: ElementVisibility
-        get() = ElementVisibility()
+    val visible = ElementVisibility()
 
+    val invisible = Not(ElementVisibility())
 }
 
 @JvmField
