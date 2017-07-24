@@ -2,10 +2,7 @@ package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.KElement
-import com.automation.remarks.kirk.conditions.ElementCondition
-import com.automation.remarks.kirk.conditions.Not
-import com.automation.remarks.kirk.conditions.be
-import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.conditions.*
 import me.tatarka.assertk.assertions.hasClass
 import me.tatarka.assertk.assertions.hasMessageStartingWith
 import org.openqa.selenium.TimeoutException
@@ -85,5 +82,5 @@ class ConditionsTest : BaseTest() {
 }
 
 fun KElement.shouldNot(condition: ElementCondition) {
-    this.should(Not(condition))
+    this.should(not(condition))
 }

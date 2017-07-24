@@ -14,3 +14,7 @@ class Not(val condition: Condition<WebElement>) : ElementCondition() {
         return condition.description(item)
     }
 }
+
+fun not(condition: Condition<WebElement>): Not {
+    return Not(condition)
+}
