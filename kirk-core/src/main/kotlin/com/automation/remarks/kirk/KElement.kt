@@ -66,7 +66,8 @@ class KElement(locator: ElementLocator<WebElement>,
     }
 
     fun execute(commands: WebElement.() -> Unit): KElement {
-        super.should(be.visible).commands()
+        super.should(be.visible)
+        webElement.commands()
         return this
     }
 

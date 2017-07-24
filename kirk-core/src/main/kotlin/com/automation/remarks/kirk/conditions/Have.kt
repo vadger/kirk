@@ -6,25 +6,15 @@ package com.automation.remarks.kirk.conditions
 
 class Have {
 
-    fun text(text: String): Text {
-        return Text(text)
-    }
+    fun text(text: String) = Text(text)
 
-    fun size(size: Int): CollectionSize {
-        return CollectionSize(size)
-    }
+    fun size(size: Int) = CollectionSize(size)
 
-    fun exactText(vararg text: String): CollectionExactText {
-        return CollectionExactText(text)
-    }
+    fun exactText(vararg text: String) = CollectionExactText(text)
 
-    fun attr(name: String, value: String): AttributeValue {
-        return AttributeValue(name, value)
-    }
+    fun attr(name: String, value: String) = AttributeValue(name, value)
 
-    fun cssClass(cssClass: String): ElementCondition {
-        return CssClassValue(cssClass)
-    }
+    fun cssClass(cssClass: String) = CssClassValue(cssClass)
 }
 
 @JvmField

@@ -1,7 +1,6 @@
 package com.automation.remarks.kirk.conditions
 
 import com.automation.remarks.kirk.ext.classes
-import com.automation.remarks.kirk.core.fail
 import org.openqa.selenium.WebElement
 
 /**
@@ -10,48 +9,45 @@ import org.openqa.selenium.WebElement
 abstract class ElementCondition : Condition<WebElement>()
 
 class Text(val text: String) : ElementCondition() {
-    override fun match(element: WebElement): WebElement {
-        val actual = element.text
-        if (actual == text) {
-            return element
-        }
-        throw fail(text, actual)
+    override fun matches(item: WebElement): Boolean {
+        return item.text == text
+    }
+
+    override fun description(item: WebElement): String {
+        return describe(item.text, text)
     }
 }
 
 class ElementVisibility : ElementCondition() {
-    override fun match(element: WebElement): WebElement {
-        if (element.isDisplayed) {
-            return element
-        }
-        throw fail("visible", "invisible", withDiff = false)
+    override fun matches(item: WebElement): Boolean {
+        return item.isDisplayed
+    }
+
+    override fun description(item: WebElement): String {
+        return describe("invisible", "visible", withDiff = false)
     }
 }
 
 class AttributeValue(val attr: String, val expect: String) : ElementCondition() {
-    override fun match(element: WebElement): WebElement {
-        val actual = element.getAttribute(attr)
-        if (actual == expect) {
-            return element
-        }
-        throw fail(expect, actual)
+    override fun matches(item: WebElement): Boolean {
+        return item.getAttribute(attr) == expect
+    }
+
+    override fun description(item: WebElement): String {
+        return describe(item.getAttribute(attr), expect)
     }
 
     override fun toString(): String {
-        return "attribute {$attr}"
+        return "attribute value {$attr}"
     }
 }
 
 class CssClassValue(val cssClass: String) : ElementCondition() {
-    override fun match(element: WebElement): WebElement {
-        val cssValue = element.classes
-        if (cssValue.contains(cssClass)) {
-            return element
-        }
-        throw fail(cssClass, cssValue, withDiff = false)
+    override fun matches(item: WebElement): Boolean {
+        return item.classes.contains(cssClass)
     }
 
-    override fun toString(): String {
-        return "class value"
+    override fun description(item: WebElement): String {
+        return describe(item.classes, cssClass, withDiff = false)
     }
 }

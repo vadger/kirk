@@ -1,6 +1,5 @@
 package com.automation.remarks.kirk.conditions
 
-import com.automation.remarks.kirk.core.fail
 import org.openqa.selenium.WebElement
 
 /**
@@ -9,40 +8,32 @@ import org.openqa.selenium.WebElement
 abstract class CollectionCondition : Condition<List<WebElement>>()
 
 class CollectionSize(val size: Int) : CollectionCondition() {
-    override fun toString(): String {
-        return "size"
+    override fun matches(item: List<WebElement>): Boolean {
+        return item.size == size
     }
 
-    override fun match(element: List<WebElement>): List<WebElement> {
-        val actual = element.size
-        if (actual == size) {
-            return element
-        }
-        throw fail(size, actual)
+    override fun description(item: List<WebElement>): String {
+        return describe(item.size, size)
     }
 }
 
 class CollectionExactText(val text: Array<out String>) : CollectionCondition() {
-    override fun toString(): String {
-        return "exact text"
+    override fun matches(item: List<WebElement>): Boolean {
+        return item.map { it.text } == text.toList()
     }
 
-    override fun match(element: List<WebElement>): List<WebElement> {
-        val actual = element.map { it.text }
-        val expected = text.toList()
-        if (actual == expected) {
-            return element
-        }
-        throw fail(expected, actual)
+    override fun description(item: List<WebElement>): String {
+        return describe(item.map { it.text }, text.toList())
     }
 }
 
 class CollectionContainText(val text: String) : CollectionCondition() {
-    override fun match(element: List<WebElement>): List<WebElement> {
-        if (element.any { it.text == text }) {
-            return element
-        }
-        throw fail(text, element.map { it.text })
+    override fun matches(item: List<WebElement>): Boolean {
+        return item.any { it.text == text }
+    }
+
+    override fun description(item: List<WebElement>): String {
+        return describe(item.map { it.text }, text)
     }
 
     override fun toString(): String {
