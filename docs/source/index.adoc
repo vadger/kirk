@@ -47,7 +47,14 @@ You are able to write tests using DSL
 
 [source, java]
 ----
-include::{TestVanillaBrowser}[tags=testCanDriveScripts]
+@Test fun testCanDriveScripts() {
+     drive {
+        open(url)
+        element("#header").should(have.text("Kirk"))
+        element(".paginator a").click()
+        element("#header").should(have.text("Second page"))
+     }
+}
 ----
 
 === Browser instance usage example
@@ -56,20 +63,24 @@ Straightforward OOP way
 
 [source, java]
 ----
-include::{BrowserUsageTest}[tags=testСanRunBrowser]
+@Test fun testСanRunBrowser() {
+    val browser = Browser(ChromeDriver())
+    browser.open(url)
+    browser.element("#header").should(have.text("Kirk"))
+}
 ----
 
 === Error messages
 
 ----
-      failed while waiting 4 seconds
-      to assert text
-      for element located {By.cssSelector: #button}
-      reason: condition did not match
-            expected: [K]irk
-            actual: []irk
+failed while waiting 4 seconds
+to assert text
+for element located {By.cssSelector: #button}
+reason: condition did not match
+   expected: [K]irk
+   actual: []irk
 
-            screenshot: file:///kirk/build/reports/screen_1499188301800.png
+   screenshot: file:///kirk/build/reports/screen_1499188301800.png
 ----
 
 == The Browser
@@ -112,14 +123,25 @@ The Browser class has a static method drive(), that makes a process of writing t
 
 [source, java]
 ----
-include::{TestVanillaBrowser}[tags=testCanDriveScripts]
+@Test fun testCanDriveScripts() {
+    drive {
+       open(url)
+       element("#header").should(have.text("Kirk"))
+       element(".paginator a").click()
+       element("#header").should(have.text("Second page"))
+    }
+}
 ----
 
 This is pretty much the same as
 
 [source, java]
 ----
-include::{BrowserUsageTest}[tags=testСanRunBrowser]
+@Test fun testСanRunBrowser() {
+      val browser = Browser(ChromeDriver())
+      browser.open(url)
+      browser.element("#header").should(have.text("Kirk"))
+}
 ----
 
 The closure is evaluated against created browser instance.
@@ -286,13 +308,62 @@ To use Page Object pattern, you create subclasses of Page that define with a hel
 .Todo page example
 [source, java]
 ----
-include::{ToDo}[tags=TodoPage]
+class TodoPage(browser: Browser) : Page(browser) {
+    override val url: String?
+        get() = "http://todomvc.com/examples/angularjs/"
+
+    val counter = element("#todo-count strong")
+    val taskList = all("label.ng-binding")
+
+    fun addTasks(vararg tasks: String) {
+        for (task in tasks) {
+            element("#new-todo")
+                    .setValue(task)
+                    .pressEnter()
+        }
+    }
+
+    fun deleteTask(name: String) {
+        browser.interact { hover(element("#todo-list li div input")) }
+        element(byXpath("//label[text()='$name']/following-sibling::button"))
+                .click()
+    }
+
+    fun deactivateTask(vararg tasks: String) {
+        for (task in tasks) {
+            element(byXpath("//label[text()='$task']/preceding-sibling::input")).click()
+        }
+    }
+
+    fun goToCompletedTab() {
+        element("#filters li:nth-child(3) a").click()
+    }
+}
 ----
 
 .Test class
 [source, java]
 ----
-include::{TodoAngularTest}[tags=TodoAngularTest]
+class TodoAngularTest {
+    @Test fun testCanAddNewTaskAndDelete() {
+        open(::TodoPage) {
+            addTasks("Item0")
+            taskList.should(have.size(1))
+            deleteTask("Item0")
+            taskList.should(have.size(0))
+        }
+    }
+
+    @Test fun testCanDeactivateTask() {
+        open(::TodoPage) {
+            addTasks("A", "B", "C")
+            deactivateTask("A")
+            counter.should(have.text("2"))
+            goToCompletedTab()
+            taskList.should(have.exactText("A"))
+        }
+    }
+}
 ----
 
 == Alerts
@@ -413,9 +484,9 @@ Let's look at example below:
 ----
 <div>
     <ul class="list">
-        <li>Один</li>
-        <li>Два</li>
-        <li>Три</li>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
     </ul>
 </div>
 ----
@@ -423,7 +494,7 @@ Let's look at example below:
 .find element "a" inside "div"
 [source, java]
 ----
-include::{KElementTest}[tags=composition]
+element("ul.list").all("li").should(have.size(3))
 ----
 
 Also there are some additional useful methods
@@ -435,12 +506,16 @@ Also there are some additional useful methods
 
 [source, java]
 ----
-include::{KElementTest}[tags=child]
+drive {
+    to(url)
+    element("ul").firstChild().should(have.text("One"))
+    element("ul").lastChild().should(have.text("Three"))
+}
 ----
 
 [source, java]
 ----
-include::{KElementTest}[tags=parent]
+element("div.b").parent().should(have.cssClass("a"))
 ----
 
 NOTE: It's better to use CSS or Xpath locators to achieve the same result
@@ -477,7 +552,9 @@ KElement has useful methods that help to write tests. Example file upload
 .upload file
 [source, java]
 ----
-include::{KElementTest}[tags=uploadFile]
+drive {
+   element("input").uploadFile("/home/user/file.pdf")
+}
 ----
 
 == Configuration
@@ -568,6 +645,15 @@ You can use it for single instance alongside with System properties and
 - Sergey Pirogov
 
 === Changelog
+
+==== v0.7.2
+- Conditions refactoring
+- Kirk class added
+
+==== v0.7.1
+
+- Internal refactoring
+- Element extensions added
 
 ==== v0.7
 
