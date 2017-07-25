@@ -1,4 +1,4 @@
-package com.automation.remarks.kirk.test.example
+package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Kirk.Companion.drive
 import com.automation.remarks.kirk.conditions.BaseCondition
@@ -6,7 +6,6 @@ import com.automation.remarks.kirk.conditions.ConditionAssert
 import com.automation.remarks.kirk.conditions.Description
 import com.automation.remarks.kirk.core.Select
 import com.automation.remarks.kirk.ext.select
-import com.automation.remarks.kirk.test.BaseTest
 import me.tatarka.assertk.assert
 import me.tatarka.assertk.assertions.isEqualTo
 import org.testng.annotations.Test
@@ -34,7 +33,7 @@ class SelectListTest : BaseTest() {
             to(secondPage)
             val select = select(".genres")
             select.selectOption(3)
-            assert(select.allSelectedOptions.map { it.text }).isEqualTo(listOf("Electroclash"))
+            assert(select.allSelectedOptions.map { it.text }).isEqualTo(listOf("G-Funk"))
         }
     }
 

@@ -8,7 +8,6 @@ import com.automation.remarks.kirk.ext.lastChild
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.SecondPage
 import com.automation.remarks.kirk.test.pages.StartPage
-import org.openqa.selenium.By
 import org.openqa.selenium.Keys
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.interactions.Actions
@@ -38,8 +37,8 @@ class TestVanillaBrowser : BaseTest() {
             }
             interact {
                 keyDown(Keys.CONTROL)
-                click(element(By.name("genres")).firstChild())
-                click(element(By.name("genres")).lastChild())
+                click(element(".genres").firstChild())
+                click(element(".genres").lastChild())
                 keyUp(Keys.CONTROL)
             }
         }
