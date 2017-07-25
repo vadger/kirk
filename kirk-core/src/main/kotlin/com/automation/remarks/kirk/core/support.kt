@@ -1,6 +1,8 @@
 package com.automation.remarks.kirk.core
 
 import com.automation.remarks.kirk.KElement
+import com.automation.remarks.kirk.conditions.ConditionAssert
+import com.automation.remarks.kirk.conditions.SelectCondition
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.Select
 
@@ -33,6 +35,14 @@ class Select(private val element: KElement) {
     fun deselectOptionByValue(value: String?) = select.deselectByValue(value)
 
     fun deselectAll() = select.deselectAll()
+
+    fun shouldBe(condition: SelectCondition) {
+        shouldHave(condition)
+    }
+
+    fun shouldHave(condition: SelectCondition) {
+        ConditionAssert.evaluate(this, condition)
+    }
 
     override fun toString(): String {
         return element.toString()
