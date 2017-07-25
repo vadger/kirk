@@ -1,6 +1,5 @@
 package com.automation.remarks.kirk.conditions
 
-import com.automation.remarks.kirk.core.display
 import com.automation.remarks.kirk.ex.DiffExtractor
 
 /**
@@ -28,5 +27,16 @@ open class Description(val actual: Any,
 
         return message.format(reason, "$prefix${extractor.expectedDiff()}$suffix",
                 "$prefix${extractor.actualDiff()}$suffix")
+    }
+}
+
+fun display(value: Any?): String {
+    return when (value) {
+        null -> "null"
+        is String -> "$value"
+        is Class<*> -> value.name
+        is Array<*> -> value.joinToString(prefix = "[", postfix = "]", transform = ::display)
+        is Regex -> "/$value/"
+        else -> value.toString()
     }
 }
