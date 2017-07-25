@@ -1,5 +1,7 @@
-language: java
+dist: trusty
 sudo: required
+
+language: java
 addons:
   firefox: "latest"
   chrome: stable
