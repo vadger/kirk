@@ -16,7 +16,7 @@ class CalculatorTest {
             to("http://juliemr.github.io/protractor-demo/")
             element("input[ng-model='first']").setValue("1")
             element("input[ng-model='second']").setValue("2")
-            select("select[ng-model='operator']").selectByVisibleText("+")
+            select("select[ng-model='operator']").selectOption("+")
             element("#gobutton").click()
             element("h2.ng-binding").should(have.text("3"))
         }
@@ -26,7 +26,7 @@ class CalculatorTest {
         open(::Calculator) {
             first.setValue("10")
             second.setValue("2")
-            select.selectByVisibleText("/")
+            select.selectOption("/")
             goBtn.click()
             result.should(have.text("5"))
         }

@@ -46,52 +46,30 @@ fun display(value: Any?): String {
 //    }
 //}
 
-class Select(private val element: KElement) : ISelect {
+class Select(private val element: KElement) {
 
     private val select: Select
         get() = Select(element.webElement)
 
-    override fun selectByVisibleText(text: String?) {
-        select.selectByVisibleText(text)
-    }
+    val options get() = select.options
 
-    override fun deselectByIndex(index: Int) {
-        select.deselectByIndex(index)
-    }
+    val isMultiple get() = select.isMultiple
 
-    override fun getFirstSelectedOption(): WebElement {
-        return select.firstSelectedOption
-    }
+    val firstSelectedOption get() = select.firstSelectedOption
 
-    override fun getAllSelectedOptions(): MutableList<WebElement> {
-        return select.allSelectedOptions
-    }
+    val allSelectedOptions get() = select.allSelectedOptions
 
-    override fun selectByValue(value: String?) {
-        select.selectByValue(value)
-    }
+    fun selectOption(text: String) = select.selectByVisibleText(text)
 
-    override fun selectByIndex(index: Int) {
-        select.selectByIndex(index)
-    }
+    fun selectOption(index: Int) = select.selectByIndex(index)
 
-    override fun getOptions(): MutableList<WebElement> {
-        return select.options
-    }
+    fun deselect(index: Int) = select.deselectByIndex(index)
 
-    override fun deselectByVisibleText(text: String?) {
-        select.deselectByVisibleText(text)
-    }
+    fun selectOptionByValue(value: String?) = select.selectByValue(value)
 
-    override fun deselectByValue(value: String?) {
-        select.deselectByValue(value)
-    }
+    fun deselect(text: String) = select.deselectByVisibleText(text)
 
-    override fun deselectAll() {
-        select.deselectAll()
-    }
+    fun deselectOptionByValue(value: String?) = select.deselectByValue(value)
 
-    override fun isMultiple(): Boolean {
-        return select.isMultiple
-    }
+    fun deselectAll() = select.deselectAll()
 }
