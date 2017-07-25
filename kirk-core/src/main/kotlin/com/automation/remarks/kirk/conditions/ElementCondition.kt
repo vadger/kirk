@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sergey on 28.06.17.
  */
-abstract class ElementCondition : Condition<WebElement>()
+abstract class ElementCondition : BaseCondition<WebElement>()
 
 class Text(val text: String) : ElementCondition() {
 

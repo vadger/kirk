@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sergey on 28.06.17.
  */
-abstract class CollectionCondition : Condition<List<WebElement>>()
+abstract class CollectionCondition : BaseCondition<List<WebElement>>()
 
 class CollectionSize(val size: Int) : CollectionCondition() {
     override fun matches(item: List<WebElement>): Boolean {
