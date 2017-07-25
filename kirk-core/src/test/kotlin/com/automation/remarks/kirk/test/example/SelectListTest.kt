@@ -1,6 +1,10 @@
 package com.automation.remarks.kirk.test.example
 
 import com.automation.remarks.kirk.Kirk.Companion.drive
+import com.automation.remarks.kirk.conditions.BaseCondition
+import com.automation.remarks.kirk.conditions.ConditionAssert
+import com.automation.remarks.kirk.conditions.Description
+import com.automation.remarks.kirk.core.Select
 import com.automation.remarks.kirk.ext.select
 import com.automation.remarks.kirk.test.BaseTest
 import me.tatarka.assertk.assert
@@ -20,6 +24,7 @@ class SelectListTest : BaseTest() {
             to(secondPage)
             val select = select(".genres")
             select.selectOption("Alt folk")
+            select.should(options("asd", "asd"))
             assert(select.allSelectedOptions.map { it.text }).isEqualTo(listOf("Alt folk"))
         }
     }
@@ -50,4 +55,30 @@ class SelectListTest : BaseTest() {
             assert(options.map { it.text }).isEqualTo(listOf("Alt folk", "Chiptunes", "Electroclash", "G-Funk", "Hair metal"))
         }
     }
+}
+
+abstract class SelectCondition : BaseCondition<Select>()
+
+class SelectedOptions(val options: List<String>) : SelectCondition() {
+    override fun matches(item: Select): Boolean {
+        return item.allSelectedOptions.map { it.text } == options
+    }
+
+    override fun description(item: Select): Description {
+        return Description(item.allSelectedOptions.map { it.text }, options).apply {
+            message = """
+            failed to assert ${this@SelectedOptions}
+            for $item
+            reason: $message
+                    """
+        }
+    }
+}
+
+fun options(vararg options: String): SelectedOptions {
+    return SelectedOptions(options.toList())
+}
+
+fun Select.should(condition: SelectCondition) {
+    ConditionAssert.evaluate(this, condition)
 }
