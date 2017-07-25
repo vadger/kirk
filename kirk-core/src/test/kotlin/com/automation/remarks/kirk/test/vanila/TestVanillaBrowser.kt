@@ -56,14 +56,6 @@ class TestVanillaBrowser : BaseTest() {
     }
     // end::testCanDriveScripts[]
 
-//    @Test fun testCanOpenPage() {
-//        open(url)
-//        at(::StartPage) { link.click() }
-//        at(::SecondPage){
-//            header.should(have.text("Second page"))
-//        }
-//    }
-
     @Test fun testDriverCanOpenSecondDriver() {
         val firstBrowser = drive {
             baseUrl = url

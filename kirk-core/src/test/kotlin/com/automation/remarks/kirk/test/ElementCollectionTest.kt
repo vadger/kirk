@@ -1,4 +1,4 @@
-package com.automation.remarks.kirk.test.vanila
+package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Kirk.Companion.drive
 import com.automation.remarks.kirk.conditions.have

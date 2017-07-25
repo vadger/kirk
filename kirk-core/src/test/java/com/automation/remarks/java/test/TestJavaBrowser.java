@@ -49,7 +49,7 @@ class CalculatorPage extends Page {
   public CalculatorPage calculate(String first, String operation, String second) {
     this.first.setValue(first);
     this.second.setValue(second);
-    this.select.selectByVisibleText(operation);
+    this.select.selectOption(operation);
     goBtn.click();
     return this;
   }
