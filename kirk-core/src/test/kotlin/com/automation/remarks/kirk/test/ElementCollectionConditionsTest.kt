@@ -13,7 +13,7 @@ class ElementCollectionConditionsTest : BaseTest() {
     fun testNotCondition() {
         Kirk.drive {
             to(url)
-            all(".l").shouldNot(have.elementWithText("Один"))
+            all(".list l").shouldNot(have.size(3))
             //TODO this is BUG
         }
     }

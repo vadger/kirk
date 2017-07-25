@@ -19,7 +19,7 @@ class CollectionSize(val size: Int) : CollectionCondition() {
 
 class CollectionExactText(val text: Array<out String>) : CollectionCondition() {
     override fun matches(item: List<WebElement>): Boolean {
-        return item.isNotEmpty() && item.map { it.text } == text.toList()
+        return item.map { it.text } == text.toList()
     }
 
     override fun description(item: List<WebElement>): Description {
