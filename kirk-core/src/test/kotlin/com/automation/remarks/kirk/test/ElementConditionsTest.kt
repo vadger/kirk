@@ -33,7 +33,19 @@ class ElementConditionsTest : BaseTest() {
     }
 
     @Test fun testNotConditionText() {
-        chrome.element("#header").shouldNot(have.text("Kirk"))
+        me.tatarka.assertk.assert {
+            chrome.element("#header").shouldNot(have.text("Kirk"))
+        }.throwsError {
+            it.hasClass(TimeoutException::class)
+            it.hasMessageStartingWith("""
+            failed while waiting 4 seconds
+            to assert text
+            for element located {By.cssSelector: #header}
+            reason: condition did not match
+                expected not: Kirk
+                actual: Kirk
+            """)
+        }
     }
 
     @Test fun testTextConditionFailMassage() {
@@ -59,7 +71,7 @@ class ElementConditionsTest : BaseTest() {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""
             failed while waiting 4 seconds
-            to assert element visibility
+            to assert visibility
             for element located {By.cssSelector: #input_invisible}
             reason: condition did not match
                 expected: visible

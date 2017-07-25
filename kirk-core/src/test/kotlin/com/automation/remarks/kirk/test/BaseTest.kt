@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
  */
 abstract class BaseTest {
 
-    val jetty = JettyServer(32941)
+    val jetty = JettyServer(8086)
     val url: String
         get() = jetty.url
 
