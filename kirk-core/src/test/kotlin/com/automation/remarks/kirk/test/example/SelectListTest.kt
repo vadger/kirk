@@ -24,7 +24,6 @@ class SelectListTest : BaseTest() {
             to(secondPage)
             val select = select(".genres")
             select.selectOption("Alt folk")
-            select.should(options("asd", "asd"))
             assert(select.allSelectedOptions.map { it.text }).isEqualTo(listOf("Alt folk"))
         }
     }
