@@ -2,12 +2,6 @@
 
 Doc Writer <http://automation-remarks.com>
 
-:TestVanillaBrowser: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/vanila/TestVanillaBrowser.kt
-:BrowserUsageTest: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/oop/BrowserUsageTest.kt
-:ToDo: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/example/TodoPage.kt
-:TodoAngularTest: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/example/TodoAngularTest.kt
-:KElementTest: ../../kirk-core/src/test/kotlin/com/automation/remarks/kirk/test/vanila/KElementTest.kt
-
 Kirk is a browser automation library for Kotlin. It's basically a Selenium-WebDriver wrapper library inspired by Selenide and Geb.
 
 - No Page Factory
@@ -573,12 +567,13 @@ Just create file **kirk.properties** in **src/main/resources** or **src/test/res
 It's possible to set such variables:
 
 ----
-kirk.timeout = 4000
-kirk.poolingInterval = 0.1
-kirk.startMaximized = true
-kirk.holdOpen = false
-kirk.screenSize = 1920,1080          // empty by default
-kirk.baseUrl = http://localhost:8086 // empty by default
+kirk.browser=chrome                // firefox, ie
+kirk.timeout=4000
+kirk.poolingInterval=0.1
+kirk.startMaximized=true
+kirk.holdOpen=false
+kirk.screenSize=1920,1080          // empty by default
+kirk.baseUrl=http://localhost:8086 // empty by default
 ----
 
 === System properties
@@ -638,6 +633,26 @@ val browser = Browser().with {
 You can use it for single instance alongside with System properties and
 **kirk.properties** file
 
+=== Driver implementation config
+
+You are able to change the target browser in which to run tests. This is possible by changing
+single property value **kirk.browser**.
+
+For now it's support for Chrome (default), Firefox and Internet Explorer.
+
+----
+kirk.browser = firefox
+----
+
+=== Chrome Options support
+
+You are able to set custom https://sites.google.com/a/chromium.org/chromedriver/capabilities[Chrome Options] in your tests.
+To do that, you should set **kirk.chrome.args** value
+
+----
+kirk.chrome.args=headless, disable-gpu
+----
+
 == About
 
 === Contributors
@@ -650,7 +665,7 @@ You can use it for single instance alongside with System properties and
 
 - Conditions refactoring
 - Kirk class added
-- Chrome Options support added
+- Chrome Options args support added
 
 ==== v0.7.1
 
