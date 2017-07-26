@@ -7,6 +7,7 @@ import com.automation.remarks.kirk.core.Select;
 import com.automation.remarks.kirk.test.BaseTest;
 import org.testng.annotations.Test;
 
+import static com.automation.remarks.kirk.Kirk.open;
 import static com.automation.remarks.kirk.conditions.HaveKt.have;
 
 /**
@@ -15,19 +16,11 @@ import static com.automation.remarks.kirk.conditions.HaveKt.have;
 public class TestJavaBrowser extends BaseTest {
 
   @Test
-  public void testName() {
-    Browser chrome = new Browser();
-    chrome.open(getUrl());
-    chrome.element("#header").should(have.text("Kirk"));
+  public void testCalculator() {
+    open(CalculatorPage::new)
+        .calculate("10", "/", "2")
+        .result.should(have.text("5"));
   }
-
-//  @Test
-//  public void testCalculator() {
-//    open(getUrl());
-//    at(CalculatorPage::new)
-//        .calculate("10", "/", "2")
-//        .result.should(have.text("5"));
-//  }
 }
 
 
