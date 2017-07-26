@@ -649,6 +649,7 @@ You can use it for single instance alongside with System properties and
 ==== v0.7.2
 - Conditions refactoring
 - Kirk class added
+- Chrome Options support added
 
 ==== v0.7.1
 
