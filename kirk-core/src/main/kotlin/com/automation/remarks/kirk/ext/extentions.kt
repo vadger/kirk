@@ -5,6 +5,7 @@ import com.automation.remarks.kirk.core.Select
 import com.automation.remarks.kirk.core.configuration
 import com.automation.remarks.kirk.core.loadConfig
 import org.openqa.selenium.*
+import org.openqa.selenium.interactions.Actions
 import org.openqa.selenium.remote.UnreachableBrowserException
 import java.io.File
 import kotlin.reflect.KClass
@@ -72,4 +73,12 @@ fun KElement.lastChild(): KElement {
 
 fun KElement.parent(): KElement {
     return this.element(By.xpath(".."))
+}
+
+fun Actions.hover(element: KElement) {
+    this.moveToElement(element.webElement)
+}
+
+fun Actions.click(element: KElement) {
+    this.click(element.webElement)
 }
