@@ -38,7 +38,7 @@ class WebDriverFactory {
 
     private fun createChromeDriver(): WebDriver {
         ChromeDriverManager.getInstance().setup()
-        return ChromeDriver(setChromeOptions())
+        return ChromeDriver(getOptions())
     }
 
     private fun createFireFoxDriver(): WebDriver {
@@ -64,7 +64,7 @@ class WebDriverFactory {
         return setWebDriver(createDriver())
     }
 
-    private fun setChromeOptions(): ChromeOptions {
+    private fun getOptions(): ChromeOptions {
         val option = ChromeOptions()
         option.addArguments(configuration.chromeArgs())
         return option
