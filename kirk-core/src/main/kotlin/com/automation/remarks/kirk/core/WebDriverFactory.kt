@@ -10,6 +10,9 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.ie.InternetExplorerDriver
 import java.util.concurrent.ConcurrentHashMap
+import org.openqa.selenium.chrome.ChromeOptions
+
+
 
 /**
  * Created by sergey on 25.06.17.
@@ -35,7 +38,7 @@ class WebDriverFactory {
 
     private fun createChromeDriver(): WebDriver {
         ChromeDriverManager.getInstance().setup()
-        return ChromeDriver()
+        return ChromeDriver(setChromeOptions())
     }
 
     private fun createFireFoxDriver(): WebDriver {
@@ -59,6 +62,12 @@ class WebDriverFactory {
             return driver
         }
         return setWebDriver(createDriver())
+    }
+
+    private fun setChromeOptions(): ChromeOptions {
+        val option = ChromeOptions()
+        option.addArguments(configuration.chromeArgs())
+        return option
     }
 }
 
