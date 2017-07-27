@@ -26,9 +26,9 @@ interface Configuration : Config {
     @DefaultValue("true")
     fun startMaximized(): Boolean
 
-    @Key("kirk.holdOpen")
-    @DefaultValue("false")
-    fun holdOpen(): Boolean
+    @Key("kirk.autoClose")
+    @DefaultValue("true")
+    fun autoClose(): Boolean
 
     @DefaultValue("")
     @Key("kirk.screenSize")

@@ -13,8 +13,8 @@ import kotlin.reflect.KClass
 /**
  * Created by sergey on 09.07.17.
  */
-fun WebDriver.autoClose(enabled: Boolean? = true) {
-    if (!enabled!!) {
+fun WebDriver.autoClose(enabled: Boolean = true) {
+    if (enabled) {
         Runtime.getRuntime().addShutdownHook(object : Thread() {
             override fun run() = quit()
         })

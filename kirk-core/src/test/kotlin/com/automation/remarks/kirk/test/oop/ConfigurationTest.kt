@@ -2,9 +2,7 @@ package com.automation.remarks.kirk.test.oop
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Configuration
-import com.automation.remarks.kirk.Kirk
 import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.ext.select
 import com.automation.remarks.kirk.test.BaseTest
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import me.tatarka.assertk.assert
@@ -37,7 +35,6 @@ class ConfigurationTest : BaseTest() {
         ChromeDriverManager.getInstance().setup()
         val browser = Browser().with {
             baseUrl = url
-            holdOpen = false
         }
 
         browser.open("/")
@@ -51,9 +48,9 @@ interface Cust : Configuration {
     @Key("firefox.timeout")
     override fun timeout(): Int
 
-    @Key("holdOpen")
+    @Key("autoClose")
     @DefaultValue("true")
-    override fun holdOpen(): Boolean
+    override fun autoClose(): Boolean
 
     @Separator(",")
     @DefaultValue("headless,disable-gpu,test")

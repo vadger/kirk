@@ -1,7 +1,6 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
-import com.automation.remarks.kirk.ext.autoClose
 import org.openqa.selenium.Alert
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
@@ -15,8 +14,6 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
     var baseUrl: String by baseUrl()
 
     var timeout: Int by timeout()
-
-    var holdOpen: Boolean? by autoClosable()
 
     var poolingInterval: Double by poolingInterval()
 
@@ -35,7 +32,6 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
     val js: JsExecutor by lazy { JsExecutor(driver) }
 
     override fun open(url: String) {
-        driver.autoClose(holdOpen)
         if (screenSize.isNotEmpty()) {
             driver.manage().window().size = Dimension(screenSize[0], screenSize[1])
         } else if (startMaximized!!) {

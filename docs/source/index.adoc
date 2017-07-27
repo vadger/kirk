@@ -103,7 +103,7 @@ Browser instance can be configured using code example below:
 ----
 val chrome = Browser(FirefoxDriver()).with {
             baseUrl = "http://local:8080"
-            holdOpen = true
+            autoClose = true
             startMaximized = false
             screenSize = listOf(640,480)
 }
@@ -246,7 +246,7 @@ Page lambda scope has access to all public methods and variable declared inside 
 === Auto close browser support
 
 Browser will automatically close at the end of either single test execution or
-bunch of tests. This behaviour can be changed by setting property **holdOpen=true**
+bunch of tests. This behaviour can be changed by setting property **autoClose=true**
 in a config file or system property.
 
 === Complex element interaction support
@@ -571,7 +571,7 @@ kirk.browser=chrome                // firefox, ie
 kirk.timeout=4000
 kirk.poolingInterval=0.1
 kirk.startMaximized=true
-kirk.holdOpen=false
+kirk.autoClose=false
 kirk.screenSize=1920,1080          // empty by default
 kirk.baseUrl=http://localhost:8086 // empty by default
 ----
@@ -597,7 +597,7 @@ You can define property directly in code
 ----
 val chrome = Browser(FirefoxDriver()).with {
             baseUrl = "http://local:8080"
-            holdOpen = true
+            autoClose = true
             startMaximized = false
             screenSize = listOf(640,480)
 }
@@ -615,9 +615,9 @@ interface CustomConfig : Configuration {
     @Key("firefox.timeout")
     override fun timeout(): Int
 
-    @Key("holdOpen")
+    @Key("autoClose")
     @DefaultValue("true")
-    override fun holdOpen(): Boolean
+    override fun autoClose(): Boolean
 }
 ----
 

@@ -1,16 +1,17 @@
 package com.automation.remarks.kirk.core
 
 import com.automation.remarks.kirk.Configuration
+import com.automation.remarks.kirk.ext.autoClose
 import com.automation.remarks.kirk.ext.isAlive
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import io.github.bonigarcia.wdm.FirefoxDriverManager
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.ie.InternetExplorerDriver
 import java.util.concurrent.ConcurrentHashMap
-import org.openqa.selenium.chrome.ChromeOptions
 
 
 /**
@@ -58,6 +59,7 @@ class WebDriverFactory {
     fun getDriver(): WebDriver {
         val driver = driverContainer[Thread.currentThread().id]
         if (driver != null && driver.isAlive()) {
+            driver.autoClose(configuration.autoClose())
             return driver
         }
         return setWebDriver(createDriver())
