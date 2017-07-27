@@ -12,7 +12,7 @@ abstract class Page(var browser: Browser) : SearchContext by browser {
 
     open val url: String? = null
     open val isAt: Browser.() -> Boolean = { true }
-    val currentUrl: String?
+    val currentUrl: String
         get() = browser.currentUrl
 
     fun select(cssLocator: String): Select {
