@@ -682,6 +682,9 @@ kirk.chrome.extensions = /path/extentions
 
 - hover, click, scrollTo added
 - chrome binary and extensions support added (thank's https://github.com/apanashchenko[apanashchenko])
+- currentUrl added for Page
+- browser current url is not lazy anymore
+- java compatibility improved for Be conditions
 
 ==== v0.7.2
 
