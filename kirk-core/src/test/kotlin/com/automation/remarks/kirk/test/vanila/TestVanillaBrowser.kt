@@ -38,7 +38,6 @@ class TestVanillaBrowser : BaseTest() {
     @Test fun testCanDriverPage() {
         drive {
             baseUrl = url
-            holdOpen = true
             to(::StartPage) {
                 list should (have.size(3))
                 link.click()

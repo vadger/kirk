@@ -59,10 +59,11 @@ class WebDriverFactory {
     fun getDriver(): WebDriver {
         val driver = driverContainer[Thread.currentThread().id]
         if (driver != null && driver.isAlive()) {
-            driver.autoClose(configuration.autoClose())
             return driver
         }
-        return setWebDriver(createDriver())
+        val newDriver = createDriver()
+        newDriver.autoClose(configuration.autoClose())
+        return setWebDriver(newDriver)
     }
 
     private fun getOptions(): ChromeOptions {
