@@ -30,9 +30,7 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
         return this.apply(block)
     }
 
-    val currentUrl: String by lazy {
-        driver.currentUrl
-    }
+    val currentUrl: String get() = driver.currentUrl
 
     val js: JsExecutor by lazy { JsExecutor(driver) }
 

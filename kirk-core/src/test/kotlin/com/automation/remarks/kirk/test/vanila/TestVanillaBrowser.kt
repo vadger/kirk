@@ -8,6 +8,7 @@ import com.automation.remarks.kirk.ext.lastChild
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.SecondPage
 import com.automation.remarks.kirk.test.pages.StartPage
+import me.tatarka.assertk.assertions.isEqualTo
 import org.openqa.selenium.Keys
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.interactions.Actions
@@ -17,6 +18,14 @@ import org.testng.annotations.Test
  * Created by sergey on 09.07.17.
  */
 class TestVanillaBrowser : BaseTest() {
+
+    @Test
+    fun testCanGetUrl() {
+        drive {
+            to(url)
+            me.tatarka.assertk.assert(currentUrl).isEqualTo(url)
+        }
+    }
 
     @Test fun testCanDriverBrowser() {
         drive {
