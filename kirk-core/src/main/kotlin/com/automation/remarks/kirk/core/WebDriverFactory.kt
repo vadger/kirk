@@ -13,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap
 import org.openqa.selenium.chrome.ChromeOptions
 
 
-
 /**
  * Created by sergey on 25.06.17.
  */
@@ -66,7 +65,10 @@ class WebDriverFactory {
 
     private fun getOptions(): ChromeOptions {
         val option = ChromeOptions()
-        option.addArguments(configuration.chromeArgs())
+        if (configuration.chromeArgs().isNotEmpty()) option.addArguments(configuration.chromeArgs())
+        if (!configuration.chromeBin().isNullOrEmpty()) option.setBinary(configuration.chromeBin())
+        if (configuration.chromeExtensions().isNotEmpty()) option.addExtensions(configuration.chromeExtensions())
+
         return option
     }
 }
