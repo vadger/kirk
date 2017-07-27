@@ -646,11 +646,28 @@ kirk.browser = firefox
 
 === Chrome Options support
 
+==== Args
 You are able to set custom https://sites.google.com/a/chromium.org/chromedriver/capabilities[Chrome Options] in your tests.
 To do that, you should set **kirk.chrome.args** value
 
 ----
 kirk.chrome.args=headless, disable-gpu
+----
+
+==== Binary
+
+It's possible to set path to chrome binary
+
+----
+kirk.chrome.binary = path/to/your/chrome/bin
+----
+
+==== Extensions
+
+It's possible to add extensions
+
+----
+kirk.chrome.extensions = /path/extentions
 ----
 
 == About
@@ -664,7 +681,7 @@ kirk.chrome.args=headless, disable-gpu
 ==== v0.7.3
 
 - hover, click, scrollTo added
-- chrome binary and extensions support added
+- chrome binary and extensions support added (thank's https://github.com/apanashchenko[apanashchenko])
 
 ==== v0.7.2
 
