@@ -59,6 +59,16 @@ class KElementTest : BaseTest() {
         browser.element("ul.list").all("li").should(have.size(3))
         // end::composition[]
     }
+
+    @Test fun testCanScrollToElement() {
+        drive {
+            to(url)
+            interact {
+                scrollTo(element("#invisible_link"))
+                hover(element("#invisible_link"))
+            }
+        }
+    }
 }
 
 fun Browser.s(cssLocator: String): KElement {

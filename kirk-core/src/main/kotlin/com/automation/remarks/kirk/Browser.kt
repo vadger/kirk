@@ -114,6 +114,10 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
         return this
     }
 
+    fun scrollTo(element: KElement) {
+        js.execute(element.webElement) { "arguments[0].scrollIntoView();" }
+    }
+
     override fun quit() {
         driver.quit()
     }
