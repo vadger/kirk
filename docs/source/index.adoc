@@ -661,6 +661,10 @@ kirk.chrome.args=headless, disable-gpu
 
 === Changelog
 
+==== v0.7.3
+
+- hover, click, scrollTo added
+
 ==== v0.7.2
 
 - Conditions refactoring
