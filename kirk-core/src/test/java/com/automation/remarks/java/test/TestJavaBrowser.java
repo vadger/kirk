@@ -8,6 +8,7 @@ import com.automation.remarks.kirk.test.BaseTest;
 import org.testng.annotations.Test;
 
 import static com.automation.remarks.kirk.Kirk.open;
+import static com.automation.remarks.kirk.conditions.BeKt.be;
 import static com.automation.remarks.kirk.conditions.HaveKt.have;
 
 /**
@@ -20,6 +21,12 @@ public class TestJavaBrowser extends BaseTest {
     open(CalculatorPage::new)
         .calculate("10", "/", "2")
         .result.should(have.text("5"));
+  }
+
+  @Test
+  public void testVisibleCondition() {
+    open(CalculatorPage::new)
+        .first.should(be.visible);
   }
 }
 
