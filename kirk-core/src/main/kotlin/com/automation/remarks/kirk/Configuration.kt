@@ -2,6 +2,7 @@ package com.automation.remarks.kirk
 
 import org.aeonbits.owner.Config
 import org.aeonbits.owner.Config.*
+import java.io.File
 
 /**
  * Created by sergey on 25.06.17.
@@ -43,4 +44,15 @@ interface Configuration : Config {
     @DefaultValue("")
     @Key("kirk.chrome.args")
     fun chromeArgs(): List<String>
+
+    /**
+     * Chrome binary property example: -Dkirk.chrome.bin="path/to/your/chrome/bin"
+     * */
+    @Key("kirk.chrome.binary")
+    fun chromeBin(): String
+
+    @Separator(",")
+    @DefaultValue("")
+    @Key("kirk.chrome.extensions")
+    fun chromeExtensions(): List<File>
 }
