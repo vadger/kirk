@@ -664,6 +664,7 @@ kirk.chrome.args=headless, disable-gpu
 ==== v0.7.3
 
 - hover, click, scrollTo added
+- chrome binary and extensions support added
 
 ==== v0.7.2
 
