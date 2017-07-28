@@ -12,7 +12,7 @@ import org.testng.annotations.Test
 /**
  * Created by sergey on 24.07.17.
  */
-class ElementCollectionConditionsTest : BaseTest() {
+class CollectionConditionsTest : BaseTest() {
 
     @Test
     fun testNotCondition() {
