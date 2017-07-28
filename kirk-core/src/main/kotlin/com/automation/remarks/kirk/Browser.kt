@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
+import com.automation.remarks.kirk.ext.hover
 import org.openqa.selenium.Alert
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension

@@ -1,5 +1,6 @@
 package com.automation.remarks.kirk.conditions
 
+import com.automation.remarks.kirk.core.Select
 import org.openqa.selenium.WebElement
 
 /**
@@ -14,6 +15,20 @@ class CollectionSize(val size: Int) : CollectionCondition() {
 
     override fun description(item: List<WebElement>): Description {
         return Description(item.size, size)
+    }
+}
+class CollectionMinimumSize(val index: Int) : CollectionCondition() {
+    override fun matches(item: List<WebElement>): Boolean {
+        return item.size-1 >= index
+    }
+
+    override fun description(item: List<WebElement>): Description {
+        return MinimumSizeConditionDesc(item.size-1, index, this)
+    }
+
+    class MinimumSizeConditionDesc(actual: Any, expected: Any, val condition: CollectionCondition):
+            Description(actual, expected) {
+        override val reason: String? = "required index $actual exceeds collections size"
     }
 }
 
