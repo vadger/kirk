@@ -10,6 +10,8 @@ class Have {
 
     fun size(size: Int) = CollectionSize(size)
 
+    fun sizeAtLeast(size: Int) = CollectionMinimumSize(size)
+
     fun elementWithText(text: String) = CollectionContainText(text)
 
     fun exactText(vararg text: String) = CollectionExactText(text)
