@@ -20,7 +20,7 @@ class ElementCollectionConditionsTest : BaseTest() {
             Kirk.drive {
                 to(url)
                 all(".list li").shouldNot(have.elementWithText("Один"))
-            }.driver.autoClose(true)
+            }
         }.throwsError {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""
@@ -35,12 +35,12 @@ class ElementCollectionConditionsTest : BaseTest() {
     }
 
     @Test
-    fun testCollectionMinimumSizCondition() {
+    fun testCollectionMinimumSizConditionThenBoundaryValueMore() {
         me.tatarka.assertk.assert {
             Kirk.drive {
                 to(url)
-                all("li")[20].should(be.visible)
-            }.driver.autoClose(true)
+                all("li")[10].should(be.visible)
+            }
         }.throwsError {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""
@@ -48,9 +48,25 @@ class ElementCollectionConditionsTest : BaseTest() {
             to assert collection minimum size
             for collection located {By.cssSelector: li}
             reason: required index 9 exceeds collections size
-                expected: [20]
+                expected: [10]
                 actual: [9]
             """)
+        }
+    }
+
+    @Test
+    fun testCollectionMinimumSizConditionBoundaryValue() {
+            Kirk.drive {
+                to(url)
+                all("li")[9].should(be.visible)
+            }
+    }
+
+    @Test
+    fun testCollectionMinimumSizConditionThenBoundaryValueLess() {
+        Kirk.drive {
+            to(url)
+            all("li")[8].should(be.visible)
         }
     }
 }
