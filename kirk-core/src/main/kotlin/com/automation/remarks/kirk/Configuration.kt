@@ -55,4 +55,7 @@ interface Configuration : Config {
     @DefaultValue("")
     @Key("kirk.chrome.extensions")
     fun chromeExtensions(): List<File>
+
+    @Key("kirk.report.dir")
+    fun reportDir(): String
 }

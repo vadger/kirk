@@ -3,6 +3,7 @@ package com.automation.remarks.kirk.core
 import com.automation.remarks.kirk.conditions.Condition
 import com.automation.remarks.kirk.conditions.ConditionAssert
 import com.automation.remarks.kirk.ex.ConditionMismatchException
+import com.automation.remarks.kirk.ext.saveScreenshot
 import com.automation.remarks.kirk.locators.ElementLocator
 import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebDriver
@@ -19,7 +20,6 @@ fun <T> waitFor(driver: WebDriver,
                 poolingInterval: Double) {
 
     val endTime = System.currentTimeMillis() + timeout
-    val screen = ScreenshotContainer(driver)
     while (true) {
         try {
             return ConditionAssert.evaluate(locator.find(), condition)
@@ -32,7 +32,7 @@ fun <T> waitFor(driver: WebDriver,
             to assert $condition
             for ${locator.description}
             reason: ${ex.message}
-            screenshot: file://${screen.takeScreenshotAsFile()?.absolutePath}
+            screenshot: file://${driver.saveScreenshot().absolutePath}
                         """
                 throw TimeoutException(message)
             }
@@ -46,7 +46,7 @@ fun <T> waitFor(driver: WebDriver,
                 either wrong locator
                 or did not have time open load
 
-                screenshot: file://${screen.takeScreenshotAsFile()?.absolutePath}
+                screenshot: file://${driver.saveScreenshot().absolutePath}
                 """
                 throw TimeoutException(message)
             }

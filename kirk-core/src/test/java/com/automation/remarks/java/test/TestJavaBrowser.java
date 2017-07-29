@@ -30,7 +30,6 @@ public class TestJavaBrowser extends BaseTest {
   }
 }
 
-
 class CalculatorPage extends Page {
   public CalculatorPage(Browser browser) {
     super(browser);

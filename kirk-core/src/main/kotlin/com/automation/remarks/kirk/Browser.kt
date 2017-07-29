@@ -1,12 +1,13 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
-import com.automation.remarks.kirk.ext.hover
+import com.automation.remarks.kirk.ext.saveScreenshot
 import org.openqa.selenium.Alert
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.interactions.Actions
+import java.io.File
 
 class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
 
@@ -90,8 +91,10 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
         }
     }
 
-    fun takeScreenshot(saveTo: String = "${System.getProperty("user.dir")}/build/screen_${System.currentTimeMillis()}.png") {
-        ScreenshotContainer(driver, saveTo).takeScreenshotAsFile()
+    fun takeScreenshot(saveTo: String = "${System.getProperty("user.dir")}/build/reports/screen_${System.currentTimeMillis()}.png"): File {
+        val file = driver.saveScreenshot(saveTo)
+        screenshots.put(Thread.currentThread().id, file)
+        return file
     }
 
     override fun back(): Browser {
