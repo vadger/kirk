@@ -678,6 +678,12 @@ kirk.chrome.extensions = /path/extentions
 
 === Changelog
 
+==== v0.7.4
+
+- Conditions refactoring
+- .shouldHave() and .shouldBe() added for element and collection
+- .filterBy() added for collection
+
 ==== v0.7.3
 
 - hover, click, scrollTo added
