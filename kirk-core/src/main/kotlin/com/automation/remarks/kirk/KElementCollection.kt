@@ -1,9 +1,10 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.CollectionCondition
-import com.automation.remarks.kirk.conditions.CollectionSize
+import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
 import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.locators.CachedElementCollectionLocator
 import com.automation.remarks.kirk.locators.CachedWebElementLocator
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.WebElementListLocator
@@ -70,5 +71,9 @@ class KElementCollection(locator: ElementLocator<List<WebElement>>,
         should(have.sizeAtLeast(index))
         return KElement(CachedWebElementLocator(webElements[index],
                 "($webElements)[$index]"), driver)
+    }
+
+    fun that(condition: ElementCondition): KElementCollection {
+        return KElementCollection(CachedElementCollectionLocator(this.filter { condition.matches(it.webElement) }, "$this and filtered by $condition"), driver)
     }
 }

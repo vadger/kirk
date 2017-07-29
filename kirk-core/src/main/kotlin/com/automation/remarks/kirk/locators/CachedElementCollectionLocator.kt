@@ -6,11 +6,11 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sepi on 12.07.17.
  */
-class CachedElementCollectionLocator(private val list: List<KElement>) : ElementLocator<List<WebElement>> {
+class CachedElementCollectionLocator(private val list: List<KElement>, private val label: String) : ElementLocator<List<WebElement>> {
     override fun find(): List<WebElement> {
         return list.map { it.webElement }
     }
 
     override val description: String
-        get() = "elements collection ${list.map { it.toString() }}"
+        get() = label
 }
