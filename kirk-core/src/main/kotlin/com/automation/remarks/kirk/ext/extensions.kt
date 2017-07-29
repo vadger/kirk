@@ -1,3 +1,5 @@
+@file: JvmName("Extensions")
+
 package com.automation.remarks.kirk.ext
 
 import com.automation.remarks.kirk.*
