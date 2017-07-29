@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver
  */
 class JsExecutor(private val driver: WebDriver) {
 
+    @JvmOverloads
     fun execute(vararg args: Any, async: Boolean=false, script: () -> String): Any? {
         if (driver is JavascriptExecutor) {
             return when (async) {
