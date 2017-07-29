@@ -9,15 +9,11 @@ import org.openqa.selenium.By
  */
 interface SearchContext {
 
-    fun element(cssLocator: String): KElement {
-        return element(By.cssSelector(cssLocator))
-    }
+    fun element(cssLocator: String) = element(By.cssSelector(cssLocator))
 
     fun element(by: By): KElement
 
-    fun all(cssLocator: String): KElementCollection {
-        return all(By.cssSelector(cssLocator))
-    }
+    fun all(cssLocator: String) = all(By.cssSelector(cssLocator))
 
     fun all(by: By): KElementCollection
 }

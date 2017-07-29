@@ -8,8 +8,10 @@ import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator
 import com.automation.remarks.kirk.locators.WebElementLocator
 import org.openqa.selenium.By
+import org.openqa.selenium.Keys
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
+import java.io.File
 
 
 /**
@@ -56,6 +58,31 @@ class KElement(locator: ElementLocator<WebElement>,
 
     fun sendKeys(vararg keysToSend: CharSequence) {
         execute { sendKeys(*keysToSend) }
+    }
+
+    fun uploadFile(name: String) {
+        val resource = Thread.currentThread().contextClassLoader.getResource(name)
+        this.setValue(File(resource.toURI()).canonicalPath)
+    }
+
+    fun pressEnter() {
+        sendKeys(Keys.ENTER)
+    }
+
+    fun children(locator: String = "*"): KElementCollection {
+        return this.all(locator)
+    }
+
+    fun firstChild(): KElement {
+        return this.element(":first-child")
+    }
+
+    fun lastChild(): KElement {
+        return this.element(":last-child")
+    }
+
+    fun parent(): KElement {
+        return this.element(By.xpath(".."))
     }
 
     infix fun should(condition: ElementCondition) {

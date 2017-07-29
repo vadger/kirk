@@ -5,8 +5,6 @@ import com.automation.remarks.kirk.conditions.size
 import com.automation.remarks.kirk.conditions.text
 import com.automation.remarks.kirk.ext.autoClose
 import com.automation.remarks.kirk.ext.click
-import com.automation.remarks.kirk.ext.firstChild
-import com.automation.remarks.kirk.ext.lastChild
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.SecondPage
 import com.automation.remarks.kirk.test.pages.StartPage
