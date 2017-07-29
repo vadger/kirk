@@ -1,3 +1,5 @@
+@file: JvmName("Screenshots")
+
 package com.automation.remarks.kirk.core
 
 import java.io.File
