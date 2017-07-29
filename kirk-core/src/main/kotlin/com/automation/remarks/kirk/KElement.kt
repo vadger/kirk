@@ -7,10 +7,7 @@ import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.InnerListWebElementLocator
 import com.automation.remarks.kirk.locators.InnerWebElementLocator
 import com.automation.remarks.kirk.locators.WebElementLocator
-import org.openqa.selenium.By
-import org.openqa.selenium.Keys
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.WebElement
+import org.openqa.selenium.*
 import java.io.File
 
 
@@ -40,6 +37,9 @@ class KElement(locator: ElementLocator<WebElement>,
 
     val isSelected: Boolean
         get() = webElement.isSelected
+
+    val location: Point
+        get() = webElement.location
 
     val classes: List<String>
         get() = webElement.classes
