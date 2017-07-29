@@ -51,4 +51,8 @@ class CssClassValue(val cssClass: String) : ElementCondition() {
     override fun description(item: WebElement): Description {
         return Description(item.classes, cssClass, diff = false)
     }
+
+    override fun toString(): String {
+        return "css class value {$cssClass}"
+    }
 }

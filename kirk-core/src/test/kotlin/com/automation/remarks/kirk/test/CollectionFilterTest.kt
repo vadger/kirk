@@ -1,8 +1,8 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Kirk
-import com.automation.remarks.kirk.conditions.cssClass
 import com.automation.remarks.kirk.conditions.size
+import com.automation.remarks.kirk.conditions.text
 import org.testng.annotations.Test
 
 /**
@@ -15,7 +15,7 @@ class CollectionFilterTest : BaseTest() {
         Kirk.drive {
             to(url)
             all(".list li").shouldHave(size(3))
-            all(".list li").filterBy(cssClass("Один")).shouldHave(size(1))
+            all(".list li").filterBy(text("Один")).shouldHave(size(1))
         }
     }
 }
