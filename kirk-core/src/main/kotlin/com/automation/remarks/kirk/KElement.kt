@@ -1,7 +1,7 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.ElementCondition
-import com.automation.remarks.kirk.conditions.be
+import com.automation.remarks.kirk.conditions.visible
 import com.automation.remarks.kirk.ext.classes
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.InnerListWebElementLocator
@@ -74,7 +74,7 @@ class KElement(locator: ElementLocator<WebElement>,
     }
 
     fun execute(commands: WebElement.() -> Unit): KElement {
-        super.should(be.visible)
+        super.shouldBe(visible)
         webElement.commands()
         return this
     }

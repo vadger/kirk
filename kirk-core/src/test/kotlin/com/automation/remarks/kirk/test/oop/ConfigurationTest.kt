@@ -2,7 +2,7 @@ package com.automation.remarks.kirk.test.oop
 
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Configuration
-import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.conditions.size
 import com.automation.remarks.kirk.test.BaseTest
 import io.github.bonigarcia.wdm.ChromeDriverManager
 import me.tatarka.assertk.assert
@@ -38,7 +38,7 @@ class ConfigurationTest : BaseTest() {
         }
 
         browser.open("/")
-        browser.all("li").should(have.size(10))
+        browser.all("li").shouldHave(size(10))
     }
 }
 

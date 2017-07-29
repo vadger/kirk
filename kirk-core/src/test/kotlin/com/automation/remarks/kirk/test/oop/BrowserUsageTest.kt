@@ -1,7 +1,8 @@
 package com.automation.remarks.kirk.test.oop
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.conditions.size
+import com.automation.remarks.kirk.conditions.text
 import com.automation.remarks.kirk.ex.WrongUrlException
 import com.automation.remarks.kirk.test.BaseTest
 import me.tatarka.assertk.assert
@@ -20,7 +21,7 @@ class BrowserUsageTest : BaseTest() {
     fun testСanRunBrowser() {
         val browser = Browser(ChromeDriver())
         browser.open(url)
-        browser.element("#header").should(have.text("Kirk"))
+        browser.element("#header").shouldHave(text("Kirk"))
     }
     // end::testСanRunBrowser[]
 
@@ -29,18 +30,18 @@ class BrowserUsageTest : BaseTest() {
         val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
         firefox.open(url)
         firefox.element(".paginator a").click()
-        firefox.element("#header").should(have.text("Second page"))
+        firefox.element("#header").shouldHave(text("Second page"))
     }
 
     @Test
     fun testCanOpenTwoBrowser() {
         val chrome = Browser(ChromeDriver())
         chrome.open(url)
-        chrome.element("#header").should(have.text("Kirk"))
+        chrome.element("#header").shouldHave(text("Kirk"))
 
         val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
         firefox.open(url)
-        firefox.all("li").should(have.size(10))
+        firefox.all("li").shouldHave(size(10))
     }
 
     @Test
@@ -58,7 +59,7 @@ class BrowserUsageTest : BaseTest() {
         }
 
         chrome.open("/")
-        chrome.all("li").should(have.size(10))
+        chrome.all("li").shouldHave(size(10))
     }
 
     @Test

@@ -2,8 +2,8 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.CollectionCondition
 import com.automation.remarks.kirk.conditions.ElementCondition
-import com.automation.remarks.kirk.conditions.be
-import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.conditions.empty
+import com.automation.remarks.kirk.conditions.sizeAtLeast
 import com.automation.remarks.kirk.locators.CachedElementCollectionLocator
 import com.automation.remarks.kirk.locators.CachedWebElementLocator
 import com.automation.remarks.kirk.locators.ElementLocator
@@ -33,7 +33,7 @@ class KElementCollection(locator: ElementLocator<List<WebElement>>,
     }
 
     infix fun shouldNot(condition: CollectionCondition) {
-        super.shouldNot(be.empty)
+        super.shouldNotBe(empty)
         super.shouldNot(condition)
     }
 
@@ -68,12 +68,12 @@ class KElementCollection(locator: ElementLocator<List<WebElement>>,
     }
 
     operator fun get(index: Int): KElement {
-        should(have.sizeAtLeast(index))
+        shouldHave(sizeAtLeast(index))
         return KElement(CachedWebElementLocator(webElements[index],
                 "($webElements)[$index]"), driver)
     }
 
-    fun that(condition: ElementCondition): KElementCollection {
+    fun filterBy(condition: ElementCondition): KElementCollection {
         return KElementCollection(CachedElementCollectionLocator(this.filter { condition.matches(it.webElement) }, "$this and filtered by $condition"), driver)
     }
 }

@@ -2,7 +2,8 @@ package com.automation.remarks.kirk.test.vanila
 
 import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.Kirk.Companion.drive
-import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.conditions.size
+import com.automation.remarks.kirk.conditions.text
 import com.automation.remarks.kirk.ext.firstChild
 import com.automation.remarks.kirk.ext.lastChild
 import com.automation.remarks.kirk.test.BaseTest
@@ -31,7 +32,7 @@ class TestVanillaBrowser : BaseTest() {
         drive {
             screenSize = listOf(640, 480)
             open(url)
-            element("#header").should(have.text("Kirk"))
+            element("#header").shouldHave(text("Kirk"))
         }
     }
 
@@ -39,9 +40,9 @@ class TestVanillaBrowser : BaseTest() {
         drive {
             baseUrl = url
             to(::StartPage) {
-                list should (have.size(3))
+                list shouldHave size(3)
                 link.click()
-                at(::SecondPage).header.should(have.text("Second page"))
+                at(::SecondPage).header.shouldHave(text("Second page"))
             }
             interact {
                 keyDown(Keys.CONTROL)
@@ -56,9 +57,9 @@ class TestVanillaBrowser : BaseTest() {
     @Test fun testCanDriveScripts() {
         drive {
             open(url)
-            element("#header").should(have.text("Kirk"))
+            element("#header").shouldHave(text("Kirk"))
             element(".paginator a").click()
-            element("#header").should(have.text("Second page"))
+            element("#header").shouldHave(text("Second page"))
         }
     }
     // end::testCanDriveScripts[]
@@ -68,17 +69,17 @@ class TestVanillaBrowser : BaseTest() {
             baseUrl = url
             startMaximized = false
             open("/")
-            element("#header").should(have.text("Kirk"))
+            element("#header").shouldHave(text("Kirk"))
         }
         drive(ChromeDriver()) {
             startMaximized = false
             open(url)
             element(".paginator a").click()
-            at(::SecondPage).header.should(have.text("Second page"))
+            at(::SecondPage).header.shouldHave(text("Second page"))
         }
 
         firstBrowser.to(::StartPage).link.click()
-        firstBrowser.at(::SecondPage).header.should(have.text("Second page"))
+        firstBrowser.at(::SecondPage).header.shouldHave(text("Second page"))
     }
 }
 

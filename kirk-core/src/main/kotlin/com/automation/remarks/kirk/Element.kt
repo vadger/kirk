@@ -21,4 +21,20 @@ abstract class Element<out T>(protected val locator: ElementLocator<T>,
     protected fun shouldNot(condition: Condition<T>) {
         should(not(condition))
     }
+
+    infix fun shouldHave(condition: Condition<T>) {
+        should(condition)
+    }
+
+    fun shouldBe(condition: Condition<T>) {
+        should(condition)
+    }
+
+    fun shouldNotHave(condition: Condition<T>) {
+        shouldNot(condition)
+    }
+
+    fun shouldNotBe(condition: Condition<T>) {
+        shouldNot(condition)
+    }
 }

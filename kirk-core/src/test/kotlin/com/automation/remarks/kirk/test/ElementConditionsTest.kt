@@ -1,8 +1,9 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.conditions.be
-import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.conditions.attr
+import com.automation.remarks.kirk.conditions.text
+import com.automation.remarks.kirk.conditions.visible
 import me.tatarka.assertk.assertions.hasClass
 import me.tatarka.assertk.assertions.hasMessageStartingWith
 import org.openqa.selenium.TimeoutException
@@ -25,16 +26,16 @@ class ElementConditionsTest : BaseTest() {
     }
 
     @Test fun testTextConditionPositive() {
-        chrome.element("#header").should(have.text("Kirk"))
+        chrome.element("#header").shouldHave(text("Kirk"))
     }
 
     @Test fun testNotCondition() {
-        chrome.element("#input_invisible").shouldNot(be.visible)
+        chrome.element("#input_invisible").shouldNotBe(visible)
     }
 
     @Test fun testNotConditionText() {
         me.tatarka.assertk.assert {
-            chrome.element("#header").shouldNot(have.text("Kirk"))
+            chrome.element("#header").shouldNotHave(text("Kirk"))
         }.throwsError {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""
@@ -50,7 +51,7 @@ class ElementConditionsTest : BaseTest() {
 
     @Test fun testTextConditionFailMassage() {
         me.tatarka.assertk.assert {
-            chrome.element("#header").should(have.text("irk"))
+            chrome.element("#header").shouldHave(text("irk"))
         }.throwsError {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""
@@ -66,7 +67,7 @@ class ElementConditionsTest : BaseTest() {
 
     @Test fun testElementVisibilityConditionFailMassage() {
         me.tatarka.assertk.assert {
-            chrome.element("#input_invisible").should(be.visible)
+            chrome.element("#input_invisible").shouldBe(visible)
         }.throwsError {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""
@@ -82,7 +83,7 @@ class ElementConditionsTest : BaseTest() {
 
     @Test fun testElementAttrConditionFailMassage() {
         me.tatarka.assertk.assert {
-            chrome.element(".paginator a").should(have.attr("href", "second_page.html"))
+            chrome.element(".paginator a").shouldHave(attr("href", "second_page.html"))
         }.throwsError {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""

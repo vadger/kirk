@@ -1,7 +1,8 @@
 package com.automation.remarks.kirk.test.oop
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.conditions.have
+import com.automation.remarks.kirk.conditions.size
+import com.automation.remarks.kirk.conditions.text
 import com.automation.remarks.kirk.test.BaseTest
 import com.automation.remarks.kirk.test.pages.StartPage
 import org.testng.annotations.BeforeClass
@@ -23,11 +24,11 @@ class PageObjectTest : BaseTest() {
     @Test
     fun testCanOpenStartPage() {
         val startPage = chrome.to(::StartPage)
-        startPage.header.should(have.text("Kirk"))
+        startPage.header.shouldHave(text("Kirk"))
     }
 
     @Test
     fun testCanOpenStartPageAndUseClosure() {
-        chrome.at(::StartPage).list should have.size(3)
+        chrome.at(::StartPage).list shouldHave size(3)
     }
 }

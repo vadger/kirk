@@ -1,9 +1,8 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Kirk
-import com.automation.remarks.kirk.conditions.be
-import com.automation.remarks.kirk.conditions.have
-import com.automation.remarks.kirk.ext.autoClose
+import com.automation.remarks.kirk.conditions.elementWithText
+import com.automation.remarks.kirk.conditions.visible
 import me.tatarka.assertk.assertions.hasClass
 import me.tatarka.assertk.assertions.hasMessageStartingWith
 import org.openqa.selenium.TimeoutException
@@ -19,7 +18,7 @@ class CollectionConditionsTest : BaseTest() {
         me.tatarka.assertk.assert {
             Kirk.drive {
                 to(url)
-                all(".list li").shouldNot(have.elementWithText("Один"))
+                all(".list li").shouldNotHave(elementWithText("Один"))
             }
         }.throwsError {
             it.hasClass(TimeoutException::class)
@@ -39,7 +38,7 @@ class CollectionConditionsTest : BaseTest() {
         me.tatarka.assertk.assert {
             Kirk.drive {
                 to(url)
-                all("li")[10].should(be.visible)
+                all("li")[10].shouldBe(visible)
             }
         }.throwsError {
             it.hasClass(TimeoutException::class)
@@ -56,17 +55,17 @@ class CollectionConditionsTest : BaseTest() {
 
     @Test
     fun testCollectionMinimumSizConditionBoundaryValue() {
-            Kirk.drive {
-                to(url)
-                all("li")[9].should(be.visible)
-            }
+        Kirk.drive {
+            to(url)
+            all("li")[9].shouldBe(visible)
+        }
     }
 
     @Test
     fun testCollectionMinimumSizConditionThenBoundaryValueLess() {
         Kirk.drive {
             to(url)
-            all("li")[8].should(be.visible)
+            all("li")[8].shouldBe(visible)
         }
     }
 }
