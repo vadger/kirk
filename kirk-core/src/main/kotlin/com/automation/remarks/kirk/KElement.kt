@@ -2,7 +2,6 @@ package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.conditions.ElementCondition
 import com.automation.remarks.kirk.conditions.be
-import com.automation.remarks.kirk.conditions.not
 import com.automation.remarks.kirk.ext.classes
 import com.automation.remarks.kirk.locators.ElementLocator
 import com.automation.remarks.kirk.locators.InnerListWebElementLocator
@@ -42,6 +41,10 @@ class KElement(locator: ElementLocator<WebElement>,
 
     val classes: List<String>
         get() = webElement.classes
+
+    fun attr(name: String): String {
+        return webElement.getAttribute(name)
+    }
 
     fun click() {
         execute { click() }
