@@ -3,8 +3,8 @@ package com.automation.remarks.kirk.test.example.todo
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Page
 import com.automation.remarks.kirk.core.byXpath
+import com.automation.remarks.kirk.ext.hover
 import com.automation.remarks.kirk.ext.pressEnter
-import com.automation.remarks.kirk.test.vanila.hover
 
 /**
  * Created by sergey on 09.07.17.

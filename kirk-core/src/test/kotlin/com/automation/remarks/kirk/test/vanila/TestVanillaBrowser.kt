@@ -1,9 +1,10 @@
 package com.automation.remarks.kirk.test.vanila
 
-import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.Kirk.Companion.drive
 import com.automation.remarks.kirk.conditions.size
 import com.automation.remarks.kirk.conditions.text
+import com.automation.remarks.kirk.ext.autoClose
+import com.automation.remarks.kirk.ext.click
 import com.automation.remarks.kirk.ext.firstChild
 import com.automation.remarks.kirk.ext.lastChild
 import com.automation.remarks.kirk.test.BaseTest
@@ -12,7 +13,6 @@ import com.automation.remarks.kirk.test.pages.StartPage
 import me.tatarka.assertk.assertions.isEqualTo
 import org.openqa.selenium.Keys
 import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.interactions.Actions
 import org.testng.annotations.Test
 
 /**
@@ -71,7 +71,7 @@ class TestVanillaBrowser : BaseTest() {
             open("/")
             element("#header").shouldHave(text("Kirk"))
         }
-        drive(ChromeDriver()) {
+        drive(ChromeDriver().autoClose()) {
             startMaximized = false
             open(url)
             element(".paginator a").click()
@@ -81,12 +81,4 @@ class TestVanillaBrowser : BaseTest() {
         firstBrowser.to(::StartPage).link.click()
         firstBrowser.at(::SecondPage).header.shouldHave(text("Second page"))
     }
-}
-
-fun Actions.hover(element: KElement) {
-    this.moveToElement(element.webElement)
-}
-
-fun Actions.click(element: KElement) {
-    this.click(element.webElement)
 }
