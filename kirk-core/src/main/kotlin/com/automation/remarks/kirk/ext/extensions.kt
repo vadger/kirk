@@ -9,6 +9,7 @@ import com.automation.remarks.kirk.Kirk
 import com.automation.remarks.kirk.core.Select
 import com.automation.remarks.kirk.core.configuration
 import com.automation.remarks.kirk.core.loadConfig
+import com.automation.remarks.kirk.core.screenshots
 import org.apache.commons.io.FileUtils
 import org.openqa.selenium.*
 import org.openqa.selenium.interactions.Actions
@@ -33,6 +34,7 @@ fun WebDriver.saveScreenshot(path: String = "${System.getProperty("user.dir")}/b
     val scrFile = (this as TakesScreenshot).getScreenshotAs(OutputType.FILE)
     val screenshot = File(path)
     FileUtils.copyFile(scrFile, screenshot)
+    screenshots[Thread.currentThread().id] = screenshot
     return screenshot
 }
 
