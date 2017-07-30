@@ -19,7 +19,7 @@ abstract class Page(var browser: Browser) : SearchContext by browser {
         return browser.select(cssLocator)
     }
 
-    fun <T : Page> to(pageClass: (Browser) -> T): T {
+    fun <T : Page> at(pageClass: (Browser) -> T): T {
         return browser.at(pageClass)
     }
 }
