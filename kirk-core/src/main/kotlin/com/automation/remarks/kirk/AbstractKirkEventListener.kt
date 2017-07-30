@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver
 /**
  * Created by sergey on 30.07.17.
  */
-open class AbstractEventListener : EventListener {
+open class AbstractKirkEventListener : KirkEventListener {
     override fun onFail(exception: Exception) {}
 
     override fun afterNavigation(url: String, driver: WebDriver) {}

@@ -10,7 +10,7 @@ import org.openqa.selenium.interactions.Actions
 import java.io.File
 
 class Browser(val driver: WebDriver = getDriver(),
-              val listener: EventListener = AbstractEventListener()) : SearchContext, Navigable {
+              val listener: KirkEventListener = AbstractKirkEventListener()) : SearchContext, Navigable {
 
     init {
         listener.onStart()

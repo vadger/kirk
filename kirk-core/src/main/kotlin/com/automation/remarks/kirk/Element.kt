@@ -13,7 +13,7 @@ abstract class Element<out T>(protected val locator: ElementLocator<T>,
                               protected val driver: WebDriver) {
     var waitTimeout: Int = 4000
     var waitPoolingInterval: Double = 0.1
-    var eventListener: EventListener? = null
+    var eventListener: KirkEventListener? = null
 
 
     protected fun should(condition: Condition<T>) {

@@ -1,7 +1,7 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.EventListener
+import com.automation.remarks.kirk.KirkEventListener
 import com.automation.remarks.kirk.conditions.text
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
@@ -14,13 +14,13 @@ class EventListenerTest : BaseTest() {
 
     @Test
     fun testCanLogEvents() {
-        val chrome = Browser(listener = LoggerListener())
+        val chrome = Browser(listener = LoggerListenerKirk())
         chrome.to(url)
         chrome.element("#header").shouldHave(text("Kirk"))
     }
 }
 
-class LoggerListener : EventListener {
+class LoggerListenerKirk : KirkEventListener {
     override fun onFail(exception: Exception) = println("Epic Fail")
 
     override fun beforeElementLocation(by: By, driver: WebDriver) = println("$by")

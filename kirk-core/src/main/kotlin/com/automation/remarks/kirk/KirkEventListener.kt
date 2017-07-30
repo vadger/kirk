@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver
 /**
  * Created by sergey on 30.07.17.
  */
-interface EventListener {
+interface KirkEventListener {
     fun onStart()
     fun beforeNavigation(url: String, driver: WebDriver)
     fun afterNavigation(url: String, driver: WebDriver)
