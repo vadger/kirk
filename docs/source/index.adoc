@@ -683,6 +683,8 @@ kirk.chrome.extensions = /path/extentions
 - Conditions refactoring
 - .shouldHave() and .shouldBe() added for element and collection
 - .filterBy() added for collection
+- Kirk event listener added
+- Screenshot container fix
 
 ==== v0.7.3
 
