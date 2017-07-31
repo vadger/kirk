@@ -14,8 +14,13 @@ abstract class Element<out T>(protected val locator: ElementLocator<T>,
     var waitTimeout: Int = 4000
     var waitPoolingInterval: Double = 0.1
 
-    protected fun should(condition: Condition<T>) {
+    protected fun should(condition: Condition<T>, waitTimeout: Int = this.waitTimeout,
+                         waitPoolingInterval: Double = this.waitPoolingInterval) {
         waitFor(driver, this.locator, condition, waitTimeout, waitPoolingInterval)
+    }
+
+    protected fun should(condition: Condition<T>) {
+        should(condition, waitTimeout, waitPoolingInterval)
     }
 
     protected fun shouldNot(condition: Condition<T>) {

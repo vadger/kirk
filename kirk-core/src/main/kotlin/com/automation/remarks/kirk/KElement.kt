@@ -93,6 +93,11 @@ class KElement(locator: ElementLocator<WebElement>,
         super.shouldNot(condition)
     }
 
+    fun waitUntil(condition: ElementCondition, timeout: Int = 0, poolingInterval: Double = 0.1): KElement {
+        this.should(condition, timeout, poolingInterval)
+        return this
+    }
+
     fun setValue(value: String): KElement {
         return execute {
             clear()
