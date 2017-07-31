@@ -55,6 +55,11 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
         open(url)
     }
 
+    fun to(url: String, block: Browser.() -> Unit) {
+        open(url)
+        this.apply(block)
+    }
+
     fun interact(block: Actions.() -> Unit) {
         this.actions.apply(block).build().perform()
     }
