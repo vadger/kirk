@@ -35,6 +35,14 @@ class ElementConditionsTest : BaseTest() {
         chrome.element("#header").waitUntil(visible, 5000, 0.2)
     }
 
+    @Test fun testWaitUtilTextCondition() {
+        chrome.element("#header").waitUntil(text("Kirk"), 5000)
+    }
+
+    @Test fun testWaitUtilAttributeCondition() {
+        chrome.element("[title='a']").waitUntil(attr("class", "a para"), 3000)
+    }
+
     @Test fun testNotConditionText() {
         me.tatarka.assertk.assert {
             chrome.element("#header").shouldNotHave(text("Kirk"))
