@@ -9,7 +9,12 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.interactions.Actions
 import java.io.File
 
-class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
+class Browser(val driver: WebDriver = getDriver(),
+              val listener: KirkEventListener = AbstractKirkEventListener()) : SearchContext, Navigable {
+
+    init {
+        listener.onStart()
+    }
 
     var config: Configuration = loadConfig(Configuration::class)
 
@@ -34,6 +39,7 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
     val js: JsExecutor by lazy { JsExecutor(driver) }
 
     override fun open(url: String) {
+        listener.beforeNavigation(url, driver)
         if (screenSize.isNotEmpty()) {
             driver.manage().window().size = Dimension(screenSize[0], screenSize[1])
         } else if (startMaximized!!) {
@@ -45,6 +51,7 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
         } else {
             driver.navigate().to(baseUrl + url)
         }
+        listener.afterNavigation(url, driver)
     }
 
     private fun isAbsoluteUrl(url: String): Boolean {
@@ -83,9 +90,11 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
     }
 
     override fun element(by: By): KElement {
+        listener.beforeElementLocation(by, driver)
         return KElement(by, driver).apply {
             waitTimeout = timeout
             waitPoolingInterval = poolingInterval
+            eventListener = listener
         }
     }
 
