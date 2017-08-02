@@ -16,7 +16,7 @@ Simple script example:
             element("#inputEmail3").setVal("admin")
             element("#inputPassword3").setVal("admin")
             element("#parent > form > div:nth-child(3) > div > button").click()
-            element("a.navbar-brand").should(have.text("Video service"))
+            element("a.navbar-brand").shouldHave(text("Video service"))
         }
     }
 ```
