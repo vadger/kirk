@@ -360,6 +360,10 @@ class TodoAngularTest {
 }
 ----
 
+=== Browse actions listener
+
+TBD
+
 == Alerts
 
 Nowadays alerts is not widely used in modern web applications, however Kirk allows to interact with alert windows
@@ -602,7 +606,25 @@ There are some cases when you need to wait sindle element before doind some acti
 element(".spinner_button").waitUntil(visible, 6000).click()
 ----
 
-NOTE: WaitUntil will evaluate condition until custom timeout exceeds. 
+NOTE: WaitUntil will evaluate condition until custom timeout exceeds.
+
+=== Element collection
+
+Kirk allow to locate collection of elements
+
+[source, java]
+----
+all(".list li").shoulBe(visible)
+----
+
+==== Collection filter
+
+It's possible to filter collection elements using **filterBy()**
+
+[source, java]
+----
+all(".list li").filterBy(text("One")).shoulHave(size(1))
+---- 
 
 == Configuration
 
