@@ -68,4 +68,11 @@ class BrowserUsageTest : BaseTest() {
             Browser().open("/")
         }
     }
+
+    @Test fun testBrowserInteract() {
+        Browser().to(url) {
+            element("#header").shouldHave(text("Kirk"))
+            all("li").shouldHave(size(10))
+        }
+    }
 }

@@ -6,13 +6,13 @@ import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Configuration
 import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.Kirk
-import com.automation.remarks.kirk.core.Select
-import com.automation.remarks.kirk.core.configuration
-import com.automation.remarks.kirk.core.loadConfig
-import com.automation.remarks.kirk.core.screenshots
+import com.automation.remarks.kirk.core.*
 import org.apache.commons.io.FileUtils
 import org.openqa.selenium.*
+import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.interactions.Actions
+import org.openqa.selenium.logging.LogEntries
+import org.openqa.selenium.logging.LogType
 import org.openqa.selenium.remote.UnreachableBrowserException
 import java.io.File
 import kotlin.reflect.KClass
@@ -73,4 +73,12 @@ fun Actions.hover(element: KElement) {
 
 fun Actions.click(element: KElement) {
     this.click(element.webElement)
+}
+
+fun WebDriver.logs(logType: String): LogEntries {
+    if (this is ChromeDriver) {
+        return this.manage().logs().get(logType)
+    } else {
+        throw UnsupportedOperationException()
+    }
 }

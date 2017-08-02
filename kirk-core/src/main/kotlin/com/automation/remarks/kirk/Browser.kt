@@ -1,12 +1,15 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
+import com.automation.remarks.kirk.ext.logs
 import com.automation.remarks.kirk.ext.saveScreenshot
 import org.openqa.selenium.Alert
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.interactions.Actions
+import org.openqa.selenium.logging.LogEntries
+import org.openqa.selenium.logging.LogType
 import java.io.File
 
 class Browser(val driver: WebDriver = getDriver(),
@@ -60,6 +63,11 @@ class Browser(val driver: WebDriver = getDriver(),
 
     fun to(url: String) {
         open(url)
+    }
+
+    fun to(url: String, block: Browser.() -> Unit) {
+        to(url)
+        this.apply(block)
     }
 
     fun interact(block: Actions.() -> Unit) {
@@ -123,6 +131,14 @@ class Browser(val driver: WebDriver = getDriver(),
 
     fun scrollTo(element: KElement) {
         js.execute(element.webElement) { "arguments[0].scrollIntoView();" }
+    }
+
+    /**
+     * Supported log types
+     * @see LogType
+     */
+    fun logs(logType: String): LogEntries {
+        return driver.logs(logType)
     }
 
     override fun quit() {
