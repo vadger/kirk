@@ -73,7 +73,7 @@ fun Actions.click(element: KElement) {
     this.click(element.webElement)
 }
 
-fun extractJSLogs() {
+fun WebDriver.extractJSLogs() {
     val logEntries = driverFactory.getDriver().manage().logs().get(LogType.BROWSER)
     for (entry in logEntries) {
         println("$entry")

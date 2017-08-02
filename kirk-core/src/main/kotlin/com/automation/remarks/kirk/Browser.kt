@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
+import com.automation.remarks.kirk.ext.extractJSLogs
 import com.automation.remarks.kirk.ext.saveScreenshot
 import org.openqa.selenium.Alert
 import org.openqa.selenium.By
@@ -123,6 +124,10 @@ class Browser(val driver: WebDriver = getDriver(),
 
     fun scrollTo(element: KElement) {
         js.execute(element.webElement) { "arguments[0].scrollIntoView();" }
+    }
+
+    fun extractJSLogs() {
+        driver.extractJSLogs()
     }
 
     override fun quit() {

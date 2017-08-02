@@ -3,8 +3,6 @@ package com.automation.remarks.kirk.test
 import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Kirk
 import com.automation.remarks.kirk.conditions.size
-import com.automation.remarks.kirk.conditions.text
-import com.automation.remarks.kirk.ext.extractJSLogs
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.testng.annotations.Test
 
@@ -18,8 +16,8 @@ class JsErrorTest : BaseTest() {
         Kirk.drive {
             to(url)
             all(".list li").shouldHave(size(3))
+            extractJSLogs()
         }
-        extractJSLogs()
     }
 
     @Test
@@ -27,8 +25,7 @@ class JsErrorTest : BaseTest() {
         val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
         firefox.to(url)
         firefox.all(".list li").shouldHave(size(3))
-
-        extractJSLogs()
+        firefox.extractJSLogs()
 
         firefox.quit()
     }
