@@ -68,8 +68,14 @@ private fun <T> highlightElement(driver: WebDriver, locator: ElementLocator<T>) 
 }
 
 private fun highlightElement(driver: WebDriver, element: WebElement) {
-    JsExecutor(driver).execute(element) {
-        "arguments[0].style.setProperty('border', '2px dotted red');"
+
+    val size = configuration.highlightSize()
+    val style = configuration.highlightStyle()
+    val color = configuration.highlightColor()
+    if (configuration.highlightBorder()) {
+        JsExecutor(driver).execute(element) {
+            "arguments[0].style.setProperty('border', '$size $style $color');"
+        }
     }
 }
 

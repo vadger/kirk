@@ -670,6 +670,62 @@ It's possible to add extensions
 kirk.chrome.extensions = /path/extentions
 ----
 
+=== Highlight Element style
+
+It's possible to customization highlight in screenshot
+
+Just create file **kirk.properties** in **src/main/resources** or **src/test/resources** of the project.
+It's possible to set such variables:
+
+----
+kirk.highlight.border=true      // default true
+kirk.highlight.style=dotted
+kirk.highlight.size=2px
+kirk.highlight.color=red
+----
+
+==== Highlight Border
+
+Enable *true* or disable *false* border highlight
+
+==== Highlight Style
+
+The border-style property sets the style of an element's four borders. This property can have next values:
+
+
+|===
+|Header 1 |Header 2
+
+|dotted
+|Specifies a dotted border
+
+|dashed
+|Specifies a dashed border
+
+|solid
+|Specifies a solid border
+
+|double
+|Specifies a double border
+
+|groove
+|Specifies a 3D grooved border
+
+|ridge
+|Specifies a 3D ridged border
+
+|inset
+|Specifies a 3D inset border
+
+|outset
+|Specifies a 3D outset border
+|===
+
+
+==== Highlight Size
+
+Line thickness in pixels
+
 == About
 
 === Contributors
@@ -685,6 +741,7 @@ kirk.chrome.extensions = /path/extentions
 - .filterBy() added for collection
 - Kirk event listener added
 - Screenshot container fix
+- Highlight config added (thank's https://github.com/ArtyomAnohin[ArtyomAnohin])
 
 ==== v0.7.3
 
