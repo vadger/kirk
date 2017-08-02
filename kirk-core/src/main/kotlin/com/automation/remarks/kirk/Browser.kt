@@ -56,7 +56,7 @@ class Browser(val driver: WebDriver = getDriver()) : SearchContext, Navigable {
     }
 
     fun to(url: String, block: Browser.() -> Unit) {
-        open(url)
+        to(url)
         this.apply(block)
     }
 
