@@ -11,6 +11,7 @@ import org.apache.commons.io.FileUtils
 import org.openqa.selenium.*
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.interactions.Actions
+import org.openqa.selenium.logging.LogEntries
 import org.openqa.selenium.logging.LogType
 import org.openqa.selenium.remote.UnreachableBrowserException
 import java.io.File
@@ -74,12 +75,9 @@ fun Actions.click(element: KElement) {
     this.click(element.webElement)
 }
 
-fun WebDriver.extractJSLogs() {
+fun WebDriver.logs(logType: String): LogEntries {
     if (this is ChromeDriver) {
-        val logEntries = this.manage().logs().get(LogType.BROWSER)
-        for (entry in logEntries) {
-            println("$entry")
-        }
+        return this.manage().logs().get(logType)
     } else {
         throw UnsupportedOperationException()
     }
