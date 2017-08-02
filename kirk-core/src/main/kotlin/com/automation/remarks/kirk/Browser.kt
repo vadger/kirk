@@ -62,6 +62,11 @@ class Browser(val driver: WebDriver = getDriver(),
         open(url)
     }
 
+    fun to(url: String, block: Browser.() -> Unit) {
+        to(url)
+        this.apply(block)
+    }
+
     fun interact(block: Actions.() -> Unit) {
         this.actions.apply(block).build().perform()
     }
