@@ -741,6 +741,7 @@ Line thickness in pixels
 - .filterBy() added for collection
 - Kirk event listener added
 - Screenshot container fix
+- Highlight config added (thank's https://github.com/ArtyomAnohin[ArtyomAnohin])
 
 ==== v0.7.3
 
