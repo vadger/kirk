@@ -1,9 +1,7 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.conditions.attr
-import com.automation.remarks.kirk.conditions.text
-import com.automation.remarks.kirk.conditions.visible
+import com.automation.remarks.kirk.conditions.*
 import me.tatarka.assertk.assertions.hasClass
 import me.tatarka.assertk.assertions.hasMessageStartingWith
 import org.openqa.selenium.TimeoutException
@@ -31,6 +29,18 @@ class ElementConditionsTest : BaseTest() {
 
     @Test fun testNotCondition() {
         chrome.element("#input_invisible").shouldNotBe(visible)
+    }
+
+    @Test fun testConditionWaitUntil() {
+        chrome.element("#header").waitUntil(visible, 5000)
+    }
+
+    @Test fun testWaitUtilTextCondition() {
+        chrome.element("#header").waitUntil(text("Kirk"), 5000)
+    }
+
+    @Test fun testWaitUtilAttributeCondition() {
+        chrome.element("[title='a']").waitUntil(attr("class", "a para"), 3000)
     }
 
     @Test fun testNotConditionText() {
@@ -93,6 +103,22 @@ class ElementConditionsTest : BaseTest() {
             reason: condition did not match
                 expected: []second_page.html
                 actual: [http://localhost:8086/]second_page.html
+            """)
+        }
+    }
+
+    @Test fun testConditionWaitUntilText() {
+        me.tatarka.assertk.assert {
+            chrome.element("#input_invisible").waitUntil(visible, 6000)
+        }.throwsError {
+            it.hasClass(TimeoutException::class)
+            it.hasMessageStartingWith("""
+            failed while waiting 6 seconds
+            to assert visibility
+            for element located {By.cssSelector: #input_invisible}
+            reason: condition did not match
+                expected: visible
+                actual: invisible
             """)
         }
     }
