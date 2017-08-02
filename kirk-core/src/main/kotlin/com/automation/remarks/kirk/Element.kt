@@ -16,8 +16,7 @@ abstract class Element<out T>(protected val locator: ElementLocator<T>,
     var eventListener: KirkEventListener? = null
 
 
-    protected fun should(condition: Condition<T>, waitTimeout: Int = this.waitTimeout,
-                         waitPoolingInterval: Double = this.waitPoolingInterval) {
+    protected fun should(condition: Condition<T>, waitTimeout: Int = this.waitTimeout) {
         try {
             waitFor(driver, this.locator, condition, waitTimeout, waitPoolingInterval)
         } catch (ex: Exception) {
@@ -27,7 +26,7 @@ abstract class Element<out T>(protected val locator: ElementLocator<T>,
     }
 
     protected fun should(condition: Condition<T>) {
-        should(condition, waitTimeout, waitPoolingInterval)
+        should(condition, waitTimeout)
     }
 
     protected fun shouldNot(condition: Condition<T>) {
