@@ -32,7 +32,7 @@ class ElementConditionsTest : BaseTest() {
     }
 
     @Test fun testConditionWaitUntil() {
-        chrome.element("#header").waitUntil(visible, 5000, 0.2)
+        chrome.element("#header").waitUntil(visible, 5000)
     }
 
     @Test fun testWaitUtilTextCondition() {
@@ -109,7 +109,7 @@ class ElementConditionsTest : BaseTest() {
 
     @Test fun testConditionWaitUntilText() {
         me.tatarka.assertk.assert {
-            chrome.element("#input_invisible").waitUntil(visible, 6000, 0.2)
+            chrome.element("#input_invisible").waitUntil(visible, 6000)
         }.throwsError {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""
