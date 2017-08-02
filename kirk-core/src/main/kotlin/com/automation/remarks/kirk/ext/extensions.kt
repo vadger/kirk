@@ -9,6 +9,7 @@ import com.automation.remarks.kirk.Kirk
 import com.automation.remarks.kirk.core.*
 import org.apache.commons.io.FileUtils
 import org.openqa.selenium.*
+import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.interactions.Actions
 import org.openqa.selenium.logging.LogType
 import org.openqa.selenium.remote.UnreachableBrowserException
@@ -74,8 +75,12 @@ fun Actions.click(element: KElement) {
 }
 
 fun WebDriver.extractJSLogs() {
-    val logEntries = this.manage().logs().get(LogType.BROWSER)
-    for (entry in logEntries) {
-        println("$entry")
+    if (this is ChromeDriver) {
+        val logEntries = this.manage().logs().get(LogType.BROWSER)
+        for (entry in logEntries) {
+            println("$entry")
+        }
+    } else {
+        throw UnsupportedOperationException()
     }
 }

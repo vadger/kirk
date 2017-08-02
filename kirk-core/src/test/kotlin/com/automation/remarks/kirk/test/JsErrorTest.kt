@@ -1,9 +1,7 @@
 package com.automation.remarks.kirk.test
 
-import com.automation.remarks.kirk.Browser
 import com.automation.remarks.kirk.Kirk
 import com.automation.remarks.kirk.conditions.size
-import org.openqa.selenium.firefox.FirefoxDriver
 import org.testng.annotations.Test
 
 /**
@@ -11,7 +9,7 @@ import org.testng.annotations.Test
  */
 class JsErrorTest : BaseTest() {
 
-        @Test
+    @Test
     fun testCanPrintJsErrorInChrome() {
         Kirk.drive {
             to(url)
@@ -20,15 +18,6 @@ class JsErrorTest : BaseTest() {
         }
     }
 
-    @Test
-    fun testCanPrintJsErrorInFirefox() {
-        val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
-        firefox.to(url)
-        firefox.all(".list li").shouldHave(size(3))
-        firefox.extractJSLogs()
-
-        firefox.quit()
-    }
 }
 
 
