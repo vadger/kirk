@@ -11,11 +11,10 @@ Simple script example:
 
 ```java
  @Test fun testCanLogin() {
-        Browser.drive {
-            to("http://localhost:8086")
-            element("#inputEmail3").setVal("admin")
-            element("#inputPassword3").setVal("admin")
-            element("#parent > form > div:nth-child(3) > div > button").click()
+        Browser.to("http://localhost:8086"){
+            element("#inputEmail3").setValue("admin")
+            element("#inputPassword3").setValue("admin")
+            element("#parent > button").click()
             element("a.navbar-brand").shouldHave(text("Video service"))
         }
     }
