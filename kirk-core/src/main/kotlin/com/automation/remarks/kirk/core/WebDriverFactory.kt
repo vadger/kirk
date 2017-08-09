@@ -39,7 +39,8 @@ class WebDriverFactory {
 
     private fun createChromeDriver(): WebDriver {
         ChromeDriverManager.getInstance().setup()
-        return ChromeDriver(getOptions())
+        val capabilities = getCapabilities()
+        return ChromeDriver(capabilities.merge(getOptions()))
     }
 
     private fun createFireFoxDriver(): WebDriver {
@@ -67,20 +68,27 @@ class WebDriverFactory {
         return setWebDriver(newDriver)
     }
 
-    private fun getOptions(): ChromeOptions {
+    private fun getOptions(): DesiredCapabilities {
         val option = ChromeOptions()
         if (configuration.chromeArgs().isNotEmpty()) option.addArguments(configuration.chromeArgs())
         if (!configuration.chromeBin().isNullOrEmpty()) option.setBinary(configuration.chromeBin())
         if (configuration.chromeExtensions().isNotEmpty()) option.addExtensions(configuration.chromeExtensions())
 
-        return option
+        val capabilities = DesiredCapabilities()
+        capabilities.setCapability(ChromeOptions.CAPABILITY, getOptions())
+
+        return capabilities
     }
 
     private fun getCapabilities(): DesiredCapabilities {
-        configuration.capabilities()
+        val capabilities = configuration.capabilities()
 
+        val map = HashMap<String, Any>()
+        capabilities
+                .map { it.split("=") }
+                .forEach { map[it[0]] = it[1] }
 
-        return DesiredCapabilities()
+        return DesiredCapabilities(map)
     }
 }
 
