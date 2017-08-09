@@ -116,7 +116,7 @@ fun screenSize(): ScreenSizeDelegate {
     return ScreenSizeDelegate()
 }
 
-class AutoClosableDelegate{
+class AutoClosableDelegate {
     private var prop: Boolean? = null
 
     operator fun getValue(browser: Browser, property: KProperty<*>): Boolean? {

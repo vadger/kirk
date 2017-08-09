@@ -77,4 +77,9 @@ interface Configuration : Config {
     @Key("kirk.highlight.color")
     @DefaultValue("red")
     fun highlightColor(): String
+
+    @Separator(",")
+    @DefaultValue("")
+    @Key("kirk.desired.capabilities")
+    fun capabilities(): List<String>
 }
