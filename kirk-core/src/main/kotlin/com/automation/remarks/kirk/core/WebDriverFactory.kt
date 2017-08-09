@@ -45,12 +45,12 @@ class WebDriverFactory {
 
     private fun createFireFoxDriver(): WebDriver {
         FirefoxDriverManager.getInstance().setup()
-        return FirefoxDriver()
+        return FirefoxDriver(getCapabilities())
     }
 
     private fun createInternetExplorerDriver(): WebDriver {
         InternetExplorerDriverManager.getInstance().setup()
-        return InternetExplorerDriver()
+        return InternetExplorerDriver(getCapabilities())
     }
 
     fun setWebDriver(webDriver: WebDriver): WebDriver {
