@@ -69,13 +69,13 @@ class WebDriverFactory {
     }
 
     private fun getOptions(): DesiredCapabilities {
-        val option = ChromeOptions()
-        if (configuration.chromeArgs().isNotEmpty()) option.addArguments(configuration.chromeArgs())
-        if (!configuration.chromeBin().isNullOrEmpty()) option.setBinary(configuration.chromeBin())
-        if (configuration.chromeExtensions().isNotEmpty()) option.addExtensions(configuration.chromeExtensions())
+        val options = ChromeOptions()
+        if (configuration.chromeArgs().isNotEmpty()) options.addArguments(configuration.chromeArgs())
+        if (!configuration.chromeBin().isNullOrEmpty()) options.setBinary(configuration.chromeBin())
+        if (configuration.chromeExtensions().isNotEmpty()) options.addExtensions(configuration.chromeExtensions())
 
         val capabilities = DesiredCapabilities()
-        capabilities.setCapability(ChromeOptions.CAPABILITY, getOptions())
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options)
 
         return capabilities
     }
