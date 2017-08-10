@@ -12,6 +12,8 @@ import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.ie.InternetExplorerDriver
 import org.openqa.selenium.remote.DesiredCapabilities
+import org.openqa.selenium.remote.RemoteWebDriver
+import java.net.URI
 import java.util.concurrent.ConcurrentHashMap
 
 
@@ -28,6 +30,10 @@ class WebDriverFactory {
 
     private fun createDriver(): WebDriver {
         val browser = configuration.browserName()
+        if (configuration.remoteUrl().isNotBlank()) {
+            return createRemoteDriver(browser)
+        }
+
         when (browser) {
             CHROME -> return createChromeDriver()
             FIREFOX -> return createFireFoxDriver()
@@ -51,6 +57,17 @@ class WebDriverFactory {
     private fun createInternetExplorerDriver(): WebDriver {
         InternetExplorerDriverManager.getInstance().setup()
         return InternetExplorerDriver(getCapabilities())
+    }
+
+    private fun createRemoteDriver(browser: String): WebDriver {
+        val remoteUrl = configuration.remoteUrl()
+        var capabilities: DesiredCapabilities? = null
+        when (browser) {
+            CHROME -> capabilities = DesiredCapabilities.chrome()
+            FIREFOX -> capabilities = DesiredCapabilities.firefox()
+            INTERNET_EXPLORER -> capabilities = DesiredCapabilities.internetExplorer()
+        }
+        return RemoteWebDriver(URI.create(remoteUrl).toURL(), capabilities)
     }
 
     fun setWebDriver(webDriver: WebDriver): WebDriver {

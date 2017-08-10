@@ -82,4 +82,8 @@ interface Configuration : Config {
     @DefaultValue("")
     @Key("kirk.desired.capabilities")
     fun capabilities(): List<String>
+
+    @Key("kirk.remote.url")
+    @DefaultValue("")
+    fun remoteUrl(): String
 }
