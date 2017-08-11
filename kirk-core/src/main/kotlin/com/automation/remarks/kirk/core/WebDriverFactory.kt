@@ -11,6 +11,9 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.ie.InternetExplorerDriver
+import org.openqa.selenium.remote.DesiredCapabilities
+import org.openqa.selenium.remote.RemoteWebDriver
+import java.net.URI
 import java.util.concurrent.ConcurrentHashMap
 
 
@@ -27,6 +30,10 @@ class WebDriverFactory {
 
     private fun createDriver(): WebDriver {
         val browser = configuration.browserName()
+        if (configuration.remoteUrl().isNotBlank()) {
+            return createRemoteDriver(browser)
+        }
+
         when (browser) {
             CHROME -> return createChromeDriver()
             FIREFOX -> return createFireFoxDriver()
@@ -38,17 +45,30 @@ class WebDriverFactory {
 
     private fun createChromeDriver(): WebDriver {
         ChromeDriverManager.getInstance().setup()
-        return ChromeDriver(getOptions())
+        val capabilities = getCapabilities()
+        return ChromeDriver(capabilities.merge(getOptions()))
     }
 
     private fun createFireFoxDriver(): WebDriver {
         FirefoxDriverManager.getInstance().setup()
-        return FirefoxDriver()
+        return FirefoxDriver(getCapabilities())
     }
 
     private fun createInternetExplorerDriver(): WebDriver {
         InternetExplorerDriverManager.getInstance().setup()
-        return InternetExplorerDriver()
+        return InternetExplorerDriver(getCapabilities())
+    }
+
+    private fun createRemoteDriver(browser: String): WebDriver {
+        val remoteUrl = configuration.remoteUrl()
+        var capabilities: DesiredCapabilities = DesiredCapabilities()
+        when (browser) {
+            CHROME -> capabilities = DesiredCapabilities.chrome().merge(getOptions())
+            FIREFOX -> capabilities = DesiredCapabilities.firefox()
+            INTERNET_EXPLORER -> capabilities = DesiredCapabilities.internetExplorer()
+        }
+        return RemoteWebDriver(URI.create(remoteUrl).toURL(), capabilities
+                .merge(getCapabilities()))
     }
 
     fun setWebDriver(webDriver: WebDriver): WebDriver {
@@ -66,13 +86,27 @@ class WebDriverFactory {
         return setWebDriver(newDriver)
     }
 
-    private fun getOptions(): ChromeOptions {
-        val option = ChromeOptions()
-        if (configuration.chromeArgs().isNotEmpty()) option.addArguments(configuration.chromeArgs())
-        if (!configuration.chromeBin().isNullOrEmpty()) option.setBinary(configuration.chromeBin())
-        if (configuration.chromeExtensions().isNotEmpty()) option.addExtensions(configuration.chromeExtensions())
+    private fun getOptions(): DesiredCapabilities {
+        val options = ChromeOptions()
+        if (configuration.chromeArgs().isNotEmpty()) options.addArguments(configuration.chromeArgs())
+        if (!configuration.chromeBin().isNullOrEmpty()) options.setBinary(configuration.chromeBin())
+        if (configuration.chromeExtensions().isNotEmpty()) options.addExtensions(configuration.chromeExtensions())
 
-        return option
+        val capabilities = DesiredCapabilities()
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options)
+
+        return capabilities
+    }
+
+    private fun getCapabilities(): DesiredCapabilities {
+        val capabilities = configuration.capabilities()
+
+        val map = HashMap<String, Any>()
+        capabilities
+                .map { it.split("=") }
+                .forEach { map[it[0]] = it[1] }
+
+        return DesiredCapabilities(map)
     }
 }
 
