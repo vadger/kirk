@@ -63,13 +63,12 @@ class WebDriverFactory {
         val remoteUrl = configuration.remoteUrl()
         var capabilities: DesiredCapabilities = DesiredCapabilities()
         when (browser) {
-            CHROME -> capabilities = DesiredCapabilities.chrome()
+            CHROME -> capabilities = DesiredCapabilities.chrome().merge(getOptions())
             FIREFOX -> capabilities = DesiredCapabilities.firefox()
             INTERNET_EXPLORER -> capabilities = DesiredCapabilities.internetExplorer()
         }
         return RemoteWebDriver(URI.create(remoteUrl).toURL(), capabilities
-                .merge(getCapabilities())
-                .merge(getOptions()))
+                .merge(getCapabilities()))
     }
 
     fun setWebDriver(webDriver: WebDriver): WebDriver {
