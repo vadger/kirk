@@ -104,9 +104,15 @@ class WebDriverFactory {
         val map = HashMap<String, Any>()
         capabilities
                 .map { it.split("=") }
-                .forEach { map[it[0]] = it[1] }
+                .forEach { map[it[0]] = convert(it[1]) }
 
         return DesiredCapabilities(map)
+    }
+
+    private fun convert(value: String): Any {
+        if (value == "true" || value == "false")
+            return value.toBoolean()
+        return value
     }
 }
 
