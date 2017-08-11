@@ -60,7 +60,7 @@ fun timeout(): TimeoutDelegate {
 }
 
 class PoolingIntervalDelegate {
-    private var prop: Double = 0.0
+    private var prop: Double = - 0.1
 
     operator fun getValue(browser: Browser, property: KProperty<*>): Double {
         if (prop < 0) {
