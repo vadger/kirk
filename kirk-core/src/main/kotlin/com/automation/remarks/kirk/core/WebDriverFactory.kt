@@ -67,8 +67,13 @@ class WebDriverFactory {
             FIREFOX -> capabilities = DesiredCapabilities.firefox()
             INTERNET_EXPLORER -> capabilities = DesiredCapabilities.internetExplorer()
         }
-        return RemoteWebDriver(URI.create(remoteUrl).toURL(), capabilities
-                .merge(getCapabilities()))
+        try {
+            return RemoteWebDriver(URI.create(remoteUrl).toURL(), capabilities
+                    .merge(getCapabilities()))
+        } catch (ex: Exception){
+            System.err.println(ex)
+            throw ex
+        }
     }
 
     fun setWebDriver(webDriver: WebDriver): WebDriver {
