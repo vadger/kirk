@@ -1,8 +1,5 @@
 version: "{branch} {build}"
 
-build:
-  verbosity: detailed
-
 install:
   - choco install firefox
   - choco install googlechrome
