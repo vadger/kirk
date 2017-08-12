@@ -3,6 +3,10 @@ version: "{branch} {build}"
 build:
   verbosity: detailed
 
+install:
+  - choco install firefox
+  - choco install googlechrome
+
 test_script:
   - gradlew.bat test
 
