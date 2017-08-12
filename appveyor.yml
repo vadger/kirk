@@ -1,0 +1,14 @@
+version: "{branch} {build}"
+
+build:
+  verbosity: detailed
+
+test_script:
+  - gradlew.bat test
+
+branches:
+  only:
+    - master
+
+cache:
+  - C:\Users\appveyor\.gradle
