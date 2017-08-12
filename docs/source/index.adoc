@@ -745,6 +745,25 @@ It's possible to add extensions
 kirk.chrome.extensions = /path/extentions
 ----
 
+=== Remote Driver support
+
+It's possible to run tests with the remote driver.
+
+----
+kirk.browser = chrome
+kirk.remote.url=http://35.184.156.125:4444/wd/hub
+----
+
+Kirk will automatically create RemoteDriver and run tests.
+
+=== Desired capabilities support
+
+Kirk supports custom desired capabilities
+
+----
+kirk.desired.capabilities = version=59.0, enableVNC=true
+----
+
 === Highlight Element style
 
 It's possible to customization highlight in screenshot
