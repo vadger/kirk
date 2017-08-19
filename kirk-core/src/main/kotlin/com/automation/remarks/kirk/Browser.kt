@@ -129,8 +129,9 @@ class Browser(val driver: WebDriver = getDriver(),
         return this
     }
 
-    fun scrollTo(element: KElement) {
+    fun scrollTo(element: KElement): KElement {
         js.execute(element.webElement) { "arguments[0].scrollIntoView();" }
+        return element
     }
 
     /**
