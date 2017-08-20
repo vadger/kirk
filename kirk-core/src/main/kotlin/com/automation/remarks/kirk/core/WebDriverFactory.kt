@@ -71,7 +71,11 @@ class WebDriverFactory {
             return RemoteWebDriver(URI.create(remoteUrl).toURL(), capabilities
                     .merge(getCapabilities()))
         } catch (ex: Exception){
-            System.err.println(ex)
+            System.err.println("""
+                ====== Error to start RemoteWebdriver session ======
+                $ex
+                ====================================================
+            """)
             throw ex
         }
     }

@@ -831,6 +831,12 @@ Line thickness in pixels
 
 === Changelog
 
+==== 0.8
+
+- Kotlin 1.1.4-2
+- scrollTo returns KElement
+- remote driver fail logging added
+
 ==== v0.7.5
 
 - waitUntil() added
