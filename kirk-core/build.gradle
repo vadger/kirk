@@ -11,6 +11,7 @@ buildscript {
 
 dependencies {
     compile "org.seleniumhq.selenium:selenium-java:3.4.0"
+    //compile("org.seleniumhq.selenium:selenium-api:3.4.0") { force = true }
     compile group: 'org.aeonbits.owner', name: 'owner', version: '1.0.9'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
     compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '1.7.0'

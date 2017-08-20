@@ -7,7 +7,6 @@ import com.automation.remarks.kirk.core.loadConfig
 import org.aeonbits.owner.Config
 import org.openqa.grid.selenium.GridLauncherV3
 import org.testng.annotations.BeforeClass
-import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
 /**
@@ -45,10 +44,10 @@ interface Firefox : Configuration {
 }
 
 interface RemoteDriver : Configuration {
-    @Config.Key("kirk.remote.url")
+
     @Config.DefaultValue("http://localhost:4444/wd/hub")
     override fun remoteUrl(): String
 
-    @Config.DefaultValue("firefox")
+    @Config.DefaultValue("chrome")
     override fun browserName(): String
 }
