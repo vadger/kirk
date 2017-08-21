@@ -25,7 +25,7 @@ fun <T> waitFor(driver: WebDriver,
         try {
             return ConditionAssert.evaluate(locator.find(), condition)
         } catch (ex: ConditionMismatchException) {
-            requre(System.currentTimeMillis() > endTime) {
+            require(System.currentTimeMillis() > endTime) {
                 highlightElement(driver, locator)
 
                 """
@@ -37,7 +37,7 @@ fun <T> waitFor(driver: WebDriver,
                         """
             }
         } catch (ex: org.openqa.selenium.NoSuchElementException) {
-            requre(System.currentTimeMillis() > endTime) {
+            require(System.currentTimeMillis() > endTime) {
                 """
             failed while waiting ${timeout / 1000} seconds
             for existence of ${locator.description}
@@ -50,14 +50,14 @@ fun <T> waitFor(driver: WebDriver,
             }
 
         } catch (ex: Exception) {
-            requre(System.currentTimeMillis() > endTime) { ex }
+            require(System.currentTimeMillis() > endTime) { ex }
         }
         Thread.sleep(poolingInterval.toLong())
     }
 }
 
-private fun requre(condition: Boolean, lazyMessage: () -> Any) {
-    if (!condition) {
+private fun require(condition: Boolean, lazyMessage: () -> Any) {
+    if (condition) {
         val message = lazyMessage()
         throw TimeoutException(message.toString())
     }
