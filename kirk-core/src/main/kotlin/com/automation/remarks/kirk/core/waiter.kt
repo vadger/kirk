@@ -20,26 +20,25 @@ fun <T> waitFor(driver: WebDriver,
                 poolingInterval: Double) {
 
     val endTime = System.currentTimeMillis() + timeout
+
     while (true) {
         try {
             return ConditionAssert.evaluate(locator.find(), condition)
         } catch (ex: ConditionMismatchException) {
-            if (System.currentTimeMillis() > endTime) {
+            requre(System.currentTimeMillis() > endTime) {
                 highlightElement(driver, locator)
 
-                val message = """
+                """
             failed while waiting ${timeout / 1000} seconds
             to assert $condition
             for ${locator.description}
             reason: ${ex.message}
             screenshot: file://${driver.saveScreenshot().absolutePath}
                         """
-                throw TimeoutException(message)
             }
-            Thread.sleep(poolingInterval.toLong())
         } catch (ex: org.openqa.selenium.NoSuchElementException) {
-            if (System.currentTimeMillis() > endTime) {
-                val message = """
+            requre(System.currentTimeMillis() > endTime) {
+                """
             failed while waiting ${timeout / 1000} seconds
             for existence of ${locator.description}
             reason: no such element
@@ -48,10 +47,19 @@ fun <T> waitFor(driver: WebDriver,
 
                 screenshot: file://${driver.saveScreenshot().absolutePath}
                 """
-                throw TimeoutException(message)
             }
-            Thread.sleep(poolingInterval.toLong())
+
+        } catch (ex: Exception) {
+            requre(System.currentTimeMillis() > endTime) { ex }
         }
+        Thread.sleep(poolingInterval.toLong())
+    }
+}
+
+private fun requre(condition: Boolean, lazyMessage: () -> Any) {
+    if (!condition) {
+        val message = lazyMessage()
+        throw TimeoutException(message.toString())
     }
 }
 
