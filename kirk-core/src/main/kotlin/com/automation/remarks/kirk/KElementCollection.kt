@@ -69,8 +69,7 @@ class KElementCollection(locator: ElementLocator<List<WebElement>>,
 
     operator fun get(index: Int): KElement {
         shouldHave(sizeAtLeast(index))
-        return KElement(CachedWebElementLocator(webElements[index],
-                "($webElements)[$index]"), driver)
+        return KElement(CachedWebElementLocator(locator, index), driver)
     }
 
     fun filterBy(condition: ElementCondition): KElementCollection {
