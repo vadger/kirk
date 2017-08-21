@@ -831,6 +831,10 @@ Line thickness in pixels
 
 === Changelog
 
+==== 0.8.1
+
+- StaleElementException fix for collection
+
 ==== 0.8
 
 - Kotlin 1.1.4-2

@@ -30,7 +30,7 @@ class WebDriverFactoryTest : BaseTest() {
         me.tatarka.assertk.assert(driverFactory.getDriver() is Firefox)
     }
 
-    @Test
+    @Test(enabled = false)
     fun testCanSpinRemoteDriver() {
         configuration = loadConfig(RemoteDriver::class)
         val driverFactory = WebDriverFactory()
