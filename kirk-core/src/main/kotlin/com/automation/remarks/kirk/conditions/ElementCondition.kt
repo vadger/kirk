@@ -39,7 +39,7 @@ class AttributeValue(val attr: String, val expect: String) : ElementCondition() 
     }
 
     override fun toString(): String {
-        return "attribute value {$attr}"
+        return "attribute {$attr}"
     }
 }
 
