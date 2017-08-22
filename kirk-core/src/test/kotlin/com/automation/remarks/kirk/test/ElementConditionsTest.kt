@@ -1,7 +1,9 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.conditions.*
+import com.automation.remarks.kirk.conditions.attr
+import com.automation.remarks.kirk.conditions.text
+import com.automation.remarks.kirk.conditions.visible
 import me.tatarka.assertk.assertions.hasClass
 import me.tatarka.assertk.assertions.hasMessageStartingWith
 import org.openqa.selenium.TimeoutException
@@ -98,7 +100,7 @@ class ElementConditionsTest : BaseTest() {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""
             failed while waiting 4 seconds
-            to assert attribute value {href}
+            to assert attribute {href}
             for element located {By.cssSelector: .paginator a}
             reason: condition did not match
                 expected: []second_page.html
