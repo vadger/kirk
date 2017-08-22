@@ -831,6 +831,12 @@ Line thickness in pixels
 
 === Changelog
 
+==== 0.8.2
+
+- Description fixed for indexed collection element
+- clickable condition added
+- General waiter exception description improved
+
 ==== 0.8.1
 
 - StaleElementException fix for collection
