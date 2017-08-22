@@ -5,6 +5,7 @@ import com.automation.remarks.kirk.conditions.ConditionAssert
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.ext.saveScreenshot
 import com.automation.remarks.kirk.locators.ElementLocator
+import org.openqa.selenium.NoSuchElementException
 import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
@@ -36,7 +37,7 @@ fun <T> waitFor(driver: WebDriver,
             screenshot: file://${driver.saveScreenshot().absolutePath}
                         """
             }
-        } catch (ex: org.openqa.selenium.NoSuchElementException) {
+        } catch (ex: NoSuchElementException) {
             require(System.currentTimeMillis() > endTime) {
                 """
             failed while waiting ${timeout / 1000} seconds
@@ -50,7 +51,14 @@ fun <T> waitFor(driver: WebDriver,
             }
 
         } catch (ex: Exception) {
-            require(System.currentTimeMillis() > endTime) { ex }
+            require(System.currentTimeMillis() > endTime) {
+                """
+            failed while waiting ${timeout / 1000} seconds
+            to assert $condition
+            for ${locator.description}
+            reason: ${ex.message}
+                """
+            }
         }
         Thread.sleep(poolingInterval.toLong())
     }
