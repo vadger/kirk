@@ -56,3 +56,14 @@ class CssClassValue(val cssClass: String) : ElementCondition() {
         return "css class value {$cssClass}"
     }
 }
+
+class Clickable : ElementCondition() {
+    override fun description(item: WebElement): Description {
+        return Description("not clickable", "clickable", diff = false)
+    }
+
+    override fun matches(item: WebElement): Boolean {
+        item.click()
+        return true
+    }
+}
