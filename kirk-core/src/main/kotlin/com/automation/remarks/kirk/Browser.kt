@@ -13,19 +13,12 @@ import org.openqa.selenium.logging.LogEntries
 import org.openqa.selenium.logging.LogType
 import java.io.File
 
-class Browser(val listener: KirkEventListener = AbstractKirkEventListener()) : SearchContext, Navigable {
+class Browser(var driver: WebDriver = getDriver(),
+              val listener: KirkEventListener = AbstractKirkEventListener()) : SearchContext, Navigable {
 
     init {
         listener.onStart()
     }
-
-    var driver: WebDriver = getDriver()
-        get() {
-            if (field.isAlive()) {
-                return field
-            }
-            return getDriver()
-        }
 
     var config: Configuration = loadConfig(Configuration::class)
 
