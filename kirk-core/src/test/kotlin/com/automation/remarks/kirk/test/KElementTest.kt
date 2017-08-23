@@ -1,13 +1,15 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.Kirk.Companion.drive
 import com.automation.remarks.kirk.conditions.cssClass
 import com.automation.remarks.kirk.conditions.exactText
 import com.automation.remarks.kirk.conditions.size
 import com.automation.remarks.kirk.conditions.text
-import com.automation.remarks.kirk.ext.*
+import com.automation.remarks.kirk.ext.hover
+import com.automation.remarks.kirk.ext.s
+import com.automation.remarks.kirk.ext.ss
+import me.tatarka.assertk.assertions.isEqualTo
 import org.testng.annotations.Test
 
 /**
@@ -72,8 +74,18 @@ class KElementTest : BaseTest() {
             }
         }
     }
-}
 
-fun Browser.s(cssLocator: String): KElement {
-    return element(cssLocator)
+    @Test fun testCanRecognizeLocator() {
+        drive {
+            to(url)
+            s("#header").shouldHave(text("Kirk"))
+            s("//*[@id='header']").shouldHave(text("Kirk"))
+            me.tatarka.assertk.assert(s("//*[@class='inner_link']/parent::div")).equals(element("#parent_div"))
+            me.tatarka.assertk.assert(s(".list > li:nth-child(1)").text).isEqualTo("Один")
+            me.tatarka.assertk.assert(s(".//*[@class='list']/li[1]").text).isEqualTo("Один")
+            s("ul.list").all("li").shouldHave(size(3))
+            s(".//ul[@class='list']").ss(".//li").shouldHave(size(3))
+            ss(".//*[@class='list']/li").shouldHave(size(3))
+        }
+    }
 }
