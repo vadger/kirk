@@ -831,6 +831,11 @@ Line thickness in pixels
 
 === Changelog
 
+==== 0.8.3
+
+- Recreate browse after quit
+- s and ss methods added
+
 ==== 0.8.2
 
 - Description fixed for indexed collection element
