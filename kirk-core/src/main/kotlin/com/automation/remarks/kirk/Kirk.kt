@@ -11,8 +11,7 @@ class Kirk {
 
     companion object {
 
-        private val browser
-            get() = Browser()
+        private val browser = Browser()
 
         @JvmStatic
         fun open(url: String) {
@@ -40,7 +39,8 @@ class Kirk {
         }
 
         fun drive(driver: WebDriver = getDriver(), block: Browser.() -> Unit): Browser {
-            val browser = Browser(driver).with { config = configuration }
+            val browser = Browser().with { config = configuration }
+            browser.driver = driver
             browser.block()
             return browser
         }
