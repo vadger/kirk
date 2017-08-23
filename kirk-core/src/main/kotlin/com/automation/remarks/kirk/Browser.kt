@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
+import com.automation.remarks.kirk.ext.isAlive
 import com.automation.remarks.kirk.ext.logs
 import com.automation.remarks.kirk.ext.saveScreenshot
 import org.openqa.selenium.Alert
@@ -151,4 +152,7 @@ class Browser(val driver: WebDriver = getDriver(),
 
     val title: String
         get() = driver.title
+
+    val isAlive: Boolean
+        get() = driver.isAlive()
 }

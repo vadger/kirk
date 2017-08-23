@@ -7,8 +7,7 @@ import com.automation.remarks.kirk.Page
  * Created by sergey on 09.07.17.
  */
 class StartPage(browser: Browser) : Page(browser) {
-    override val url: String?
-        get() = "/"
+    override val url = "/"
 
     val header = element("#header")
     val list = element(".list").all("li")

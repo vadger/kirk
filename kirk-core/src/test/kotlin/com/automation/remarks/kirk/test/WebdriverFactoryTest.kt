@@ -1,9 +1,12 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Configuration
+import com.automation.remarks.kirk.Kirk
+import com.automation.remarks.kirk.conditions.text
 import com.automation.remarks.kirk.core.WebDriverFactory
 import com.automation.remarks.kirk.core.configuration
 import com.automation.remarks.kirk.core.loadConfig
+import com.automation.remarks.kirk.test.pages.StartPage
 import org.aeonbits.owner.Config
 import org.openqa.grid.selenium.GridLauncherV3
 import org.testng.annotations.BeforeClass
@@ -35,6 +38,14 @@ class WebDriverFactoryTest : BaseTest() {
         configuration = loadConfig(RemoteDriver::class)
         val driverFactory = WebDriverFactory()
         me.tatarka.assertk.assert(driverFactory.getDriver() is Firefox)
+    }
+
+    @Test
+    fun testCanRecreateDriverAfterQuit() {
+        Kirk.open(url)
+        Kirk.at(::StartPage).browser.quit()
+        Kirk.open(url)
+        Kirk.at(::StartPage).header.shouldHave(text("Kirk"))
     }
 }
 
