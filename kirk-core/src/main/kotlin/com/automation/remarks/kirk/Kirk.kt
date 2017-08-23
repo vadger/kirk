@@ -11,7 +11,8 @@ class Kirk {
 
     companion object {
 
-        private val browser = Browser()
+        private val browser
+            get() = Browser()
 
         @JvmStatic
         fun open(url: String) {
