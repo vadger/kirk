@@ -295,6 +295,46 @@ drive {
 NOTE: `select()` method return lazy element, so interaction with the real webElement
 starts when you call some method ex select(".select").selectByIndex(1)
 
+=== Frame support
+
+Modern web pages more rarely contains frame, but still we have to support this.
+For example you have page with frame.
+
+[source, html]
+----
+<iframe id="test_frame" src="second_page.html" width="200" height="200">
+    alternative content for browsers which do not support iframe.
+</iframe>
+----
+
+To work with elenement inside you have to switch to this frame.
+
+[source, java]
+----
+drive{
+    to(url)
+    toFrame("#test_frame")
+    element("#header").shouldHave(text("Second page"))
+}
+----
+
+or
+
+----
+drive{
+    to(url)
+    toFrame(element("#test_frame"))
+    element("#header").shouldHave(text("Second page"))
+}
+----
+
+toFrame function returns Browser instance so you can easily chain method calls:
+
+
+----
+toFrame("#test_frame").element("#header").shouldBe(visible)
+----
+
 == The Page
 
 To use Page Object pattern, you create subclasses of Page that define with a help of powerful DSL that allows you to refer to content by meaningful names instead of tag names or CSS expressions.
