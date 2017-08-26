@@ -63,6 +63,10 @@ fun Browser.select(by: By): Select {
     return Select(element(by))
 }
 
+fun Browser.atFrame(cssLocator: String): Browser {
+    return toFrame(cssLocator)
+}
+
 fun Actions.hover(element: KElement) {
     this.moveToElement(element.webElement)
 }

@@ -28,5 +28,7 @@ interface Navigable {
 
     fun quit()
 
-    fun toFrame(frame: KElement)
+    fun toFrame(cssLocator: String): Browser
+
+    fun toFrame(frame: KElement): Browser
 }
