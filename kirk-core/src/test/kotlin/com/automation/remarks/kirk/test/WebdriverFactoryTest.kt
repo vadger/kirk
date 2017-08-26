@@ -2,6 +2,8 @@ package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Configuration
 import com.automation.remarks.kirk.Kirk
+import com.automation.remarks.kirk.Kirk.Companion.closeBrowser
+import com.automation.remarks.kirk.Kirk.Companion.open
 import com.automation.remarks.kirk.conditions.text
 import com.automation.remarks.kirk.core.WebDriverFactory
 import com.automation.remarks.kirk.core.configuration
@@ -42,9 +44,18 @@ class WebDriverFactoryTest : BaseTest() {
 
     @Test
     fun testCanRecreateDriverAfterQuit() {
-        Kirk.open(url)
+        open(url)
         Kirk.at(::StartPage).browser.quit()
-        Kirk.open(url)
+        open(url)
+        Kirk.at(::StartPage).header.shouldHave(text("Kirk"))
+    }
+
+
+    @Test
+    fun testCanRecreateDriverAfterKirkQuit() {
+        open(url)
+        closeBrowser()
+        open(url)
         Kirk.at(::StartPage).header.shouldHave(text("Kirk"))
     }
 }
