@@ -139,4 +139,8 @@ class Browser(val driver: WebDriver = getDriver(),
 
     val title: String
         get() = driver.title
+
+    override fun toFrame(frame: KElement) {
+        driver.switchTo().frame(frame.webElement)
+    }
 }
