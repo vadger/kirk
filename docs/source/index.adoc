@@ -871,6 +871,12 @@ Line thickness in pixels
 
 === Changelog
 
+=== 0.8.4
+
+- toFrame support added
+- Kirk.closeBrowser() added
+- Kirk.getBrowser() added
+
 ==== 0.8.3
 
 - Recreate browse after quit
