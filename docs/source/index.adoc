@@ -320,6 +320,7 @@ drive{
 
 or
 
+[source, java]
 ----
 drive{
     to(url)
@@ -328,9 +329,9 @@ drive{
 }
 ----
 
-toFrame function returns Browser instance so you can easily chain method calls:
+**toFrame()** function returns Browser instance so you can easily chain method calls:
 
-
+[source, java]
 ----
 toFrame("#test_frame").element("#header").shouldBe(visible)
 ----
