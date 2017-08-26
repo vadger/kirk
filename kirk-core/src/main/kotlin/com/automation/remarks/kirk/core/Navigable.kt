@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk.core
 
 import com.automation.remarks.kirk.Browser
+import com.automation.remarks.kirk.KElement
 import com.automation.remarks.kirk.Page
 
 /**
@@ -26,4 +27,8 @@ interface Navigable {
     fun refresh(): Browser
 
     fun quit()
+
+    fun toFrame(cssLocator: String): Browser
+
+    fun toFrame(frame: KElement): Browser
 }

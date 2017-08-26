@@ -155,4 +155,13 @@ class Browser(var driver: WebDriver = getDriver(),
 
     val isAlive: Boolean
         get() = driver.isAlive()
+
+    override fun toFrame(frame: KElement): Browser {
+        driver.switchTo().frame(frame.webElement)
+        return this
+    }
+
+    override fun toFrame(cssLocator: String): Browser {
+        return toFrame(element(cssLocator))
+    }
 }
