@@ -44,9 +44,9 @@ You are able to write tests using DSL
 @Test fun testCanDriveScripts() {
      drive {
         open(url)
-        element("#header").should(have.text("Kirk"))
+        element("#header").shouldHave(text("Kirk"))
         element(".paginator a").click()
-        element("#header").should(have.text("Second page"))
+        element("#header").shouldHave(text("Second page"))
      }
 }
 ----
@@ -60,7 +60,7 @@ Straightforward OOP way
 @Test fun testСanRunBrowser() {
     val browser = Browser(ChromeDriver())
     browser.open(url)
-    browser.element("#header").should(have.text("Kirk"))
+    browser.element("#header").shouldHave(text("Kirk"))
 }
 ----
 
@@ -120,9 +120,9 @@ The Browser class has a static method drive(), that makes a process of writing t
 @Test fun testCanDriveScripts() {
     drive {
        open(url)
-       element("#header").should(have.text("Kirk"))
+       element("#header").shouldHave(text("Kirk"))
        element(".paginator a").click()
-       element("#header").should(have.text("Second page"))
+       element("#header").shouldHave(text("Second page"))
     }
 }
 ----
@@ -134,7 +134,7 @@ This is pretty much the same as
 @Test fun testСanRunBrowser() {
       val browser = Browser(ChromeDriver())
       browser.open(url)
-      browser.element("#header").should(have.text("Kirk"))
+      browser.element("#header").shouldHave(text("Kirk"))
 }
 ----
 
@@ -225,7 +225,7 @@ class StartPage(browser: Browser) : Page(browser) {
 }
 
 Kirk.drive {
-    to(::StartPage).element("#header").should(have.text("Kirk"))
+    to(::StartPage).element("#header").shouldHave(text("Kirk"))
 }
 ----
 
