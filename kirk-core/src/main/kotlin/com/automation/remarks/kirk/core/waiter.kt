@@ -5,6 +5,7 @@ import com.automation.remarks.kirk.conditions.ConditionAssert
 import com.automation.remarks.kirk.ex.ConditionMismatchException
 import com.automation.remarks.kirk.ext.saveScreenshot
 import com.automation.remarks.kirk.locators.ElementLocator
+import org.openqa.selenium.NoSuchElementException
 import org.openqa.selenium.TimeoutException
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
@@ -20,26 +21,25 @@ fun <T> waitFor(driver: WebDriver,
                 poolingInterval: Double) {
 
     val endTime = System.currentTimeMillis() + timeout
+
     while (true) {
         try {
             return ConditionAssert.evaluate(locator.find(), condition)
         } catch (ex: ConditionMismatchException) {
-            if (System.currentTimeMillis() > endTime) {
+            require(System.currentTimeMillis() > endTime) {
                 highlightElement(driver, locator)
 
-                val message = """
+                """
             failed while waiting ${timeout / 1000} seconds
             to assert $condition
             for ${locator.description}
             reason: ${ex.message}
             screenshot: file://${driver.saveScreenshot().absolutePath}
                         """
-                throw TimeoutException(message)
             }
-            Thread.sleep(poolingInterval.toLong())
-        } catch (ex: org.openqa.selenium.NoSuchElementException) {
-            if (System.currentTimeMillis() > endTime) {
-                val message = """
+        } catch (ex: NoSuchElementException) {
+            require(System.currentTimeMillis() > endTime) {
+                """
             failed while waiting ${timeout / 1000} seconds
             for existence of ${locator.description}
             reason: no such element
@@ -48,10 +48,26 @@ fun <T> waitFor(driver: WebDriver,
 
                 screenshot: file://${driver.saveScreenshot().absolutePath}
                 """
-                throw TimeoutException(message)
             }
-            Thread.sleep(poolingInterval.toLong())
+
+        } catch (ex: Exception) {
+            require(System.currentTimeMillis() > endTime) {
+                """
+            failed while waiting ${timeout / 1000} seconds
+            to assert $condition
+            for ${locator.description}
+            reason: ${ex.message}
+                """
+            }
         }
+        Thread.sleep(poolingInterval.toLong())
+    }
+}
+
+private fun require(condition: Boolean, lazyMessage: () -> Any) {
+    if (condition) {
+        val message = lazyMessage()
+        throw TimeoutException(message.toString())
     }
 }
 

@@ -1,6 +1,7 @@
 package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.Kirk
+import com.automation.remarks.kirk.conditions.attr
 import com.automation.remarks.kirk.conditions.elementWithText
 import com.automation.remarks.kirk.conditions.visible
 import me.tatarka.assertk.assertions.hasClass
@@ -67,5 +68,25 @@ class CollectionConditionsTest : BaseTest() {
             to(url)
             all("li")[8].shouldBe(visible)
         }
+    }
+
+    @Test
+    fun testCanHandleExceptionForIndexedElement() {
+        me.tatarka.assertk.assert {
+            Kirk.drive {
+                to(url)
+                all("input[type='button']")[2].shouldHave(attr("value", "Запустит"))
+            }
+        }.throwsError {
+            it.hasMessageStartingWith("""
+            failed while waiting 4 seconds
+            to assert attribute {value}
+            for collection located {By.cssSelector: input[type='button']}[2]
+            reason: condition did not match
+                expected: Запустит[]
+                actual: Запустит[ь]
+            """)
+        }
+
     }
 }

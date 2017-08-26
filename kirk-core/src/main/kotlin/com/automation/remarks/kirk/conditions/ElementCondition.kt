@@ -39,7 +39,7 @@ class AttributeValue(val attr: String, val expect: String) : ElementCondition() 
     }
 
     override fun toString(): String {
-        return "attribute value {$attr}"
+        return "attribute {$attr}"
     }
 }
 
@@ -54,5 +54,16 @@ class CssClassValue(val cssClass: String) : ElementCondition() {
 
     override fun toString(): String {
         return "css class value {$cssClass}"
+    }
+}
+
+class Clickable : ElementCondition() {
+    override fun description(item: WebElement): Description {
+        return Description("not clickable", "clickable", diff = false)
+    }
+
+    override fun matches(item: WebElement): Boolean {
+        item.click()
+        return true
     }
 }

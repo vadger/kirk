@@ -60,7 +60,7 @@ fun timeout(): TimeoutDelegate {
 }
 
 class PoolingIntervalDelegate {
-    private var prop: Double = 0.0
+    private var prop: Double = - 0.1
 
     operator fun getValue(browser: Browser, property: KProperty<*>): Double {
         if (prop < 0) {
@@ -114,23 +114,4 @@ class ScreenSizeDelegate {
 
 fun screenSize(): ScreenSizeDelegate {
     return ScreenSizeDelegate()
-}
-
-class AutoClosableDelegate{
-    private var prop: Boolean? = null
-
-    operator fun getValue(browser: Browser, property: KProperty<*>): Boolean? {
-        if (prop == null) {
-            return browser.config.autoClose()
-        }
-        return prop
-    }
-
-    operator fun setValue(browser: Browser, property: KProperty<*>, value: Boolean?) {
-        prop = value
-    }
-}
-
-fun autoClosable(): AutoClosableDelegate {
-    return AutoClosableDelegate()
 }

@@ -196,7 +196,7 @@ class StartPage(browser: Browser) : Page(browser) {
 }
 
 Kirk.drive {
-    to(::StartPage).element("#header").should(have.text("Kirk"))
+    to(::StartPage).element("#header").shouldHave(text("Kirk"))
 }
 ----
 
@@ -236,7 +236,7 @@ lambda as a second parameter and points to the instance of that page.
 ----
 drive {
     to(::StartPage) {
-       element("#header").should(have.text("Kirk"))
+       element("#header").shouldHave(text("Kirk"))
     }
 }
 ----
@@ -293,7 +293,7 @@ drive {
 ----
 
 NOTE: `select()` method return lazy element, so interaction with the real webElement
-starts when you call some method ex select("#select").selectByIndex(1)
+starts when you call some method ex select(".select").selectByIndex(1)
 
 == The Page
 
@@ -342,9 +342,9 @@ class TodoAngularTest {
     @Test fun testCanAddNewTaskAndDelete() {
         open(::TodoPage) {
             addTasks("Item0")
-            taskList.should(have.size(1))
+            taskList.shouldHave(size(1))
             deleteTask("Item0")
-            taskList.should(have.size(0))
+            taskList.shouldHave(size(0))
         }
     }
 
@@ -352,13 +352,17 @@ class TodoAngularTest {
         open(::TodoPage) {
             addTasks("A", "B", "C")
             deactivateTask("A")
-            counter.should(have.text("2"))
+            counter.shouldHave(text("2"))
             goToCompletedTab()
-            taskList.should(have.exactText("A"))
+            taskList.shouldHave(exactText("A"))
         }
     }
 }
 ----
+
+=== Browse actions listener
+
+TBD
 
 == Alerts
 
@@ -488,7 +492,7 @@ Let's look at example below:
 .find element "a" inside "div"
 [source, java]
 ----
-element("ul.list").all("li").should(have.size(3))
+element("ul.list").all("li").shouldHave(size(3))
 ----
 
 Also there are some additional useful methods
@@ -502,14 +506,14 @@ Also there are some additional useful methods
 ----
 drive {
     to(url)
-    element("ul").firstChild().should(have.text("One"))
-    element("ul").lastChild().should(have.text("Three"))
+    element("ul").firstChild().shouldHave(text("One"))
+    element("ul").lastChild().shouldHave(text("Three"))
 }
 ----
 
 [source, java]
 ----
-element("div.b").parent().should(have.cssClass("a"))
+element("div.b").parent().shouldHave(cssClass("a"))
 ----
 
 NOTE: It's better to use CSS or Xpath locators to achieve the same result
@@ -550,6 +554,77 @@ drive {
    element("input").uploadFile("/home/user/file.pdf")
 }
 ----
+
+=== Conditions
+
+To make code more readable and concise Kirk provide useful methods that allow to asset different conditions
+either for single element or collection of elements.
+
+You can evaluate conditions using method listed below:
+
+Positive:
+
+- should()
+- shouldHave()
+- shoulBe()
+
+Negative:
+
+- shouldNot()
+- shouldNotHave()
+- shouldNotBe()
+
+Example:
+
+[source, java]
+----
+element("#h1").shouldHave(text("This is test"))
+----
+
+also the same can be aplicable for collection
+
+[source, java]
+----
+all("li").shouldHave(size(3))
+----
+
+All the conditions that currently supported by Kirk are listed in souce files **Have.kt** and **Be.kt**
+
+https://github.com/SergeyPirogov/kirk/blob/master/kirk-core/src/main/kotlin/com/automation/remarks/kirk/conditions/Have.kt[Have conditions]
+
+https://github.com/SergeyPirogov/kirk/blob/master/kirk-core/src/main/kotlin/com/automation/remarks/kirk/conditions/Be.kt[Be conditions]
+
+IMPORTANT: All should* methods evaluate condition with timeout. This means that should method will wait for condition true until **timeout** exceeds.
+By defult timeout is 4 seconds, but it can be hanged via Config (see Configuration section).
+
+==== Wait until conditions
+
+There are some cases when you need to wait sindle element before doind some actions. In such cases you should use `waitUnit()` method:
+
+[source, java]
+----
+element(".spinner_button").waitUntil(visible, 6000).click()
+----
+
+NOTE: WaitUntil will evaluate condition until custom timeout exceeds.
+
+=== Element collection
+
+Kirk allow to locate collection of elements
+
+[source, java]
+----
+all(".list li").shoulBe(visible)
+----
+
+==== Collection filter
+
+It's possible to filter collection elements using **filterBy()**
+
+[source, java]
+----
+all(".list li").filterBy(text("One")).shoulHave(size(1))
+---- 
 
 == Configuration
 
@@ -670,6 +745,25 @@ It's possible to add extensions
 kirk.chrome.extensions = /path/extentions
 ----
 
+=== Remote Driver support
+
+It's possible to run tests with the remote driver.
+
+----
+kirk.browser = chrome
+kirk.remote.url=http://35.184.156.125:4444/wd/hub
+----
+
+Kirk will automatically create RemoteDriver and run tests.
+
+=== Desired capabilities support
+
+Kirk supports custom desired capabilities
+
+----
+kirk.desired.capabilities = version=59.0, enableVNC=true
+----
+
 === Highlight Element style
 
 It's possible to customization highlight in screenshot
@@ -728,11 +822,42 @@ Line thickness in pixels
 
 == About
 
+
 === Contributors
 
-- Sergey Pirogov
+- Sergey Pirogov (Author)
+- Alexey Panashchenko
+- Artyom Anohin
 
 === Changelog
+
+==== 0.8.3
+
+- Recreate browse after quit
+- s and ss methods added
+
+==== 0.8.2
+
+- Description fixed for indexed collection element
+- clickable condition added
+- General waiter exception description improved
+
+==== 0.8.1
+
+- StaleElementException fix for collection
+
+==== 0.8
+
+- Kotlin 1.1.4-2
+- scrollTo returns KElement
+- remote driver fail logging added
+
+==== v0.7.5
+
+- waitUntil() added
+- Browser logs() support added
+- Remote Driver support added
+- Desired Capabilities support added
 
 ==== v0.7.4
 

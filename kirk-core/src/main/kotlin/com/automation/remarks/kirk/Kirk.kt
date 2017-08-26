@@ -11,7 +11,9 @@ class Kirk {
 
     companion object {
 
-        private val browser = Browser()
+        @JvmStatic
+        val browser
+            get() = Browser()
 
         @JvmStatic
         fun open(url: String) {
@@ -23,6 +25,7 @@ class Kirk {
             return browser.to(pageClass)
         }
 
+        @JvmStatic
         fun <T : Page> open(pageClass: (Browser) -> T, block: T.() -> Unit) {
             open(pageClass).block()
         }
@@ -32,8 +35,14 @@ class Kirk {
             return pageClass(browser)
         }
 
+        @JvmStatic
         fun <T : Page> at(pageClass: (Browser) -> T, block: T.() -> Unit) {
             at(pageClass).block()
+        }
+
+        @JvmStatic
+        fun closeBrowser(){
+            browser.quit()
         }
 
         fun drive(driver: WebDriver = getDriver(), block: Browser.() -> Unit): Browser {

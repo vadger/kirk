@@ -19,7 +19,8 @@ class BrowserUsageTest : BaseTest() {
     // tag::testСanRunBrowser[]
     @Test
     fun testСanRunBrowser() {
-        val browser = Browser(ChromeDriver())
+        val browser = Browser()
+        browser.driver = ChromeDriver()
         browser.open(url)
         browser.element("#header").shouldHave(text("Kirk"))
     }
@@ -27,7 +28,10 @@ class BrowserUsageTest : BaseTest() {
 
     @Test
     fun testCanSetNewDriver() {
-        val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
+        val firefox = Browser().with {
+            driver = FirefoxDriver()
+            startMaximized = false
+        }
         firefox.open(url)
         firefox.element(".paginator a").click()
         firefox.element("#header").shouldHave(text("Second page"))
@@ -35,11 +39,14 @@ class BrowserUsageTest : BaseTest() {
 
     @Test
     fun testCanOpenTwoBrowser() {
-        val chrome = Browser(ChromeDriver())
+        val chrome = Browser().with { driver = ChromeDriver() }
         chrome.open(url)
         chrome.element("#header").shouldHave(text("Kirk"))
 
-        val firefox = Browser(FirefoxDriver()).with { startMaximized = false }
+        val firefox = Browser().with {
+            driver = FirefoxDriver()
+            startMaximized = false
+        }
         firefox.open(url)
         firefox.all("li").shouldHave(size(10))
     }
@@ -53,7 +60,8 @@ class BrowserUsageTest : BaseTest() {
 
     @Test
     fun testCanOpenCanonicalUrl() {
-        val chrome = Browser(FirefoxDriver()).with {
+        val chrome = Browser().with {
+            driver = FirefoxDriver()
             baseUrl = url
             startMaximized = false
         }
@@ -69,7 +77,8 @@ class BrowserUsageTest : BaseTest() {
         }
     }
 
-    @Test fun testBrowserInteract() {
+    @Test
+    fun testBrowserInteract() {
         Browser().to(url) {
             element("#header").shouldHave(text("Kirk"))
             all("li").shouldHave(size(10))

@@ -1,15 +1,19 @@
 package com.automation.remarks.kirk
 
 import com.automation.remarks.kirk.core.*
+import com.automation.remarks.kirk.ext.isAlive
+import com.automation.remarks.kirk.ext.logs
 import com.automation.remarks.kirk.ext.saveScreenshot
 import org.openqa.selenium.Alert
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.interactions.Actions
+import org.openqa.selenium.logging.LogEntries
+import org.openqa.selenium.logging.LogType
 import java.io.File
 
-class Browser(val driver: WebDriver = getDriver(),
+class Browser(var driver: WebDriver = getDriver(),
               val listener: KirkEventListener = AbstractKirkEventListener()) : SearchContext, Navigable {
 
     init {
@@ -126,8 +130,17 @@ class Browser(val driver: WebDriver = getDriver(),
         return this
     }
 
-    fun scrollTo(element: KElement) {
+    fun scrollTo(element: KElement): KElement {
         js.execute(element.webElement) { "arguments[0].scrollIntoView();" }
+        return element
+    }
+
+    /**
+     * Supported log types
+     * @see LogType
+     */
+    fun logs(logType: String): LogEntries {
+        return driver.logs(logType)
     }
 
     override fun quit() {
@@ -139,6 +152,9 @@ class Browser(val driver: WebDriver = getDriver(),
 
     val title: String
         get() = driver.title
+
+    val isAlive: Boolean
+        get() = driver.isAlive()
 
     override fun toFrame(frame: KElement) {
         driver.switchTo().frame(frame.webElement)

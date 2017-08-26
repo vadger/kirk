@@ -9,4 +9,4 @@ package com.automation.remarks.kirk.conditions
 
 @JvmField val invisible = Not(Visibility())
 @JvmField val empty = CollectionSize(0)
-
+@JvmField val clickable = Clickable()

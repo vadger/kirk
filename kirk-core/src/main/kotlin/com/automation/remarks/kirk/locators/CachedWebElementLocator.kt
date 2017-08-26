@@ -5,11 +5,12 @@ import org.openqa.selenium.WebElement
 /**
  * Created by sergey on 28.06.17.
  */
-class CachedWebElementLocator(val webElement: WebElement, val label: String) : ElementLocator<WebElement> {
+class CachedWebElementLocator(val locator: ElementLocator<List<WebElement>>,
+                              val index: Int) : ElementLocator<WebElement> {
     override val description: String
-        get() = label
+        get() = "${locator.description}[$index]"
 
     override fun find(): WebElement {
-        return webElement
+        return locator.find()[index]
     }
 }

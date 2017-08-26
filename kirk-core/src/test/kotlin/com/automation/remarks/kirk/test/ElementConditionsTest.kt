@@ -33,6 +33,18 @@ class ElementConditionsTest : BaseTest() {
         chrome.element("#input_invisible").shouldNotBe(visible)
     }
 
+    @Test fun testConditionWaitUntil() {
+        chrome.element("#header").waitUntil(visible, 5000)
+    }
+
+    @Test fun testWaitUtilTextCondition() {
+        chrome.element("#header").waitUntil(text("Kirk"), 5000)
+    }
+
+    @Test fun testWaitUtilAttributeCondition() {
+        chrome.element("[title='a']").waitUntil(attr("class", "a para"), 3000)
+    }
+
     @Test fun testNotConditionText() {
         me.tatarka.assertk.assert {
             chrome.element("#header").shouldNotHave(text("Kirk"))
@@ -88,11 +100,27 @@ class ElementConditionsTest : BaseTest() {
             it.hasClass(TimeoutException::class)
             it.hasMessageStartingWith("""
             failed while waiting 4 seconds
-            to assert attribute value {href}
+            to assert attribute {href}
             for element located {By.cssSelector: .paginator a}
             reason: condition did not match
                 expected: []second_page.html
                 actual: [http://localhost:8086/]second_page.html
+            """)
+        }
+    }
+
+    @Test fun testConditionWaitUntilText() {
+        me.tatarka.assertk.assert {
+            chrome.element("#input_invisible").waitUntil(visible, 6000)
+        }.throwsError {
+            it.hasClass(TimeoutException::class)
+            it.hasMessageStartingWith("""
+            failed while waiting 6 seconds
+            to assert visibility
+            for element located {By.cssSelector: #input_invisible}
+            reason: condition did not match
+                expected: visible
+                actual: invisible
             """)
         }
     }
