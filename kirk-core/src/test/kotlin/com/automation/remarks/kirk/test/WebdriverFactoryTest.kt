@@ -47,7 +47,7 @@ class WebDriverFactoryTest : BaseTest() {
         open(url)
         Kirk.at(::StartPage).browser.quit()
         open(url)
-        Kirk.at(::StartPage).header.shouldHave(text("Kirk"))
+        Kirk.at(::StartPage).header shouldHave text("Kirk")
     }
 
 
@@ -56,7 +56,7 @@ class WebDriverFactoryTest : BaseTest() {
         open(url)
         closeBrowser()
         open(url)
-        Kirk.at(::StartPage).header.shouldHave(text("Kirk"))
+        Kirk.at(::StartPage).header shouldHave text("Kirk")
     }
 }
 
