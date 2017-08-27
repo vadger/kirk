@@ -872,7 +872,7 @@ Line thickness in pixels
 
 === Changelog
 
-=== 0.8.4
+==== 0.8.4
 
 - toFrame support added
 - Kirk.closeBrowser() added
