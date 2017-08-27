@@ -46,7 +46,7 @@ class ElementConditionsTest : BaseTest() {
     }
 
     @Test fun testNotConditionText() {
-        me.tatarka.assertk.assert {
+        assertThat {
             chrome.element("#header").shouldNotHave(text("Kirk"))
         }.throwsError {
             it.hasClass(TimeoutException::class)
@@ -62,7 +62,7 @@ class ElementConditionsTest : BaseTest() {
     }
 
     @Test fun testTextConditionFailMassage() {
-        me.tatarka.assertk.assert {
+        assertThat {
             chrome.element("#header").shouldHave(text("irk"))
         }.throwsError {
             it.hasClass(TimeoutException::class)
@@ -78,7 +78,7 @@ class ElementConditionsTest : BaseTest() {
     }
 
     @Test fun testElementVisibilityConditionFailMassage() {
-        me.tatarka.assertk.assert {
+        assertThat {
             chrome.element("#input_invisible").shouldBe(visible)
         }.throwsError {
             it.hasClass(TimeoutException::class)
@@ -94,7 +94,7 @@ class ElementConditionsTest : BaseTest() {
     }
 
     @Test fun testElementAttrConditionFailMassage() {
-        me.tatarka.assertk.assert {
+        assertThat {
             chrome.element(".paginator a").shouldHave(attr("href", "second_page.html"))
         }.throwsError {
             it.hasClass(TimeoutException::class)
@@ -110,7 +110,7 @@ class ElementConditionsTest : BaseTest() {
     }
 
     @Test fun testConditionWaitUntilText() {
-        me.tatarka.assertk.assert {
+        assertThat {
             chrome.element("#input_invisible").waitUntil(visible, 6000)
         }.throwsError {
             it.hasClass(TimeoutException::class)
