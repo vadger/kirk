@@ -99,6 +99,7 @@ class Browser(val driver: WebDriver = getDriver(),
     }
 
     override fun all(by: By): KElementCollection {
+        listener.beforeElementLocation(by, driver)
         return KElementCollection(by, driver).apply {
             waitTimeout = timeout
             waitPoolingInterval = poolingInterval
