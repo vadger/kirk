@@ -19,8 +19,7 @@ class BrowserUsageTest : BaseTest() {
     // tag::testСanRunBrowser[]
     @Test
     fun testСanRunBrowser() {
-        val browser = Browser()
-        browser.driver = ChromeDriver()
+        val browser = Browser(ChromeDriver())
         browser.open(url)
         browser.element("#header").shouldHave(text("Kirk"))
     }
@@ -28,8 +27,7 @@ class BrowserUsageTest : BaseTest() {
 
     @Test
     fun testCanSetNewDriver() {
-        val firefox = Browser().with {
-            driver = FirefoxDriver()
+        val firefox = Browser(FirefoxDriver()).apply {
             startMaximized = false
         }
         firefox.open(url)
@@ -39,12 +37,11 @@ class BrowserUsageTest : BaseTest() {
 
     @Test
     fun testCanOpenTwoBrowser() {
-        val chrome = Browser().with { driver = ChromeDriver() }
+        val chrome = Browser(ChromeDriver())
         chrome.open(url)
         chrome.element("#header").shouldHave(text("Kirk"))
 
-        val firefox = Browser().with {
-            driver = FirefoxDriver()
+        val firefox = Browser(FirefoxDriver()).apply {
             startMaximized = false
         }
         firefox.open(url)
@@ -60,8 +57,7 @@ class BrowserUsageTest : BaseTest() {
 
     @Test
     fun testCanOpenCanonicalUrl() {
-        val chrome = Browser().with {
-            driver = FirefoxDriver()
+        val chrome = Browser(FirefoxDriver()).apply {
             baseUrl = url
             startMaximized = false
         }

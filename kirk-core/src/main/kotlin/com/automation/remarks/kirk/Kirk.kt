@@ -46,7 +46,7 @@ class Kirk {
         }
 
         fun drive(driver: WebDriver = getDriver(), block: Browser.() -> Unit): Browser {
-            val browser = Browser(driver).with { config = configuration }
+            val browser = Browser(driver).apply { config = configuration }
             browser.block()
             return browser
         }

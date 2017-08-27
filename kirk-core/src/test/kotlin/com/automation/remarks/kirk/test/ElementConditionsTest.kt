@@ -19,7 +19,7 @@ class ElementConditionsTest : BaseTest() {
 
     @BeforeClass
     fun setUp() {
-        chrome = Browser().with {
+        chrome = Browser().apply {
             baseUrl = url
         }
         chrome.open(url)

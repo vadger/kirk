@@ -13,7 +13,7 @@ import org.openqa.selenium.logging.LogEntries
 import org.openqa.selenium.logging.LogType
 import java.io.File
 
-class Browser(var driver: WebDriver = getDriver(),
+class Browser(val driver: WebDriver = getDriver(),
               val listener: KirkEventListener = AbstractKirkEventListener()) : SearchContext, Navigable {
 
     init {
@@ -33,10 +33,6 @@ class Browser(var driver: WebDriver = getDriver(),
     var screenSize: List<Int> by screenSize()
 
     val actions = Actions(driver)
-
-    fun with(block: Browser.() -> Unit): Browser {
-        return this.apply(block)
-    }
 
     val currentUrl: String get() = driver.currentUrl
 
