@@ -77,13 +77,13 @@ class Browser(val driver: WebDriver = getDriver(),
         return page
     }
 
-    fun <T : Page> at(pageClass: (Browser) -> T): T {
+    fun <T : Page> at(pageClass: PageClass<T>): T {
         val page = pageClass(this)
         assert(page.isAt(this))
         return page
     }
 
-    override fun <T : Page> at(pageClass: (Browser) -> T, closure: T.() -> Unit): T {
+    override fun <T : Page> at(pageClass: PageClass<T>, closure: T.() -> Unit): T {
         val page = pageClass(this)
         page.closure()
         return page
