@@ -59,10 +59,12 @@ class KElementTest : BaseTest() {
     }
 
     @Test fun testCanCompose() {
-        val browser = Browser().apply { to(url) }
-        // tag::composition[]
-        browser.element("ul.list").all("li").shouldHave(size(3))
-        // end::composition[]
+        Browser().apply {
+            to(url)
+            // tag::composition[]
+            element("ul.list").all("li").shouldHave(size(3))
+            // end::composition[]
+        }
     }
 
     @Test fun testCanScrollToElement() {

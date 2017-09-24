@@ -16,9 +16,10 @@ class EventListenerTest : BaseTest() {
 
     @Test
     fun testCanLogEvents() {
-        val chrome = Browser(listener = LoggerListenerKirk())
-        chrome.to(url)
-        chrome.element("#header").shouldHave(text("Kirk"))
+       Browser(listener = LoggerListenerKirk()).apply {
+           to(url)
+           element("#header").shouldHave(text("Kirk"))
+       }.quit()
     }
 
     @Test

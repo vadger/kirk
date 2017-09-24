@@ -7,6 +7,7 @@ import com.automation.remarks.kirk.conditions.visible
 import me.tatarka.assertk.assertions.hasClass
 import me.tatarka.assertk.assertions.hasMessageStartingWith
 import org.openqa.selenium.TimeoutException
+import org.testng.annotations.AfterClass
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
 
@@ -23,6 +24,11 @@ class ElementConditionsTest : BaseTest() {
             baseUrl = url
         }
         chrome.open(url)
+    }
+
+    @AfterClass
+    fun closeBrowser(){
+        chrome.quit()
     }
 
     @Test fun testTextConditionPositive() {
