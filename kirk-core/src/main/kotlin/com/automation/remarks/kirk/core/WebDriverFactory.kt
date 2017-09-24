@@ -1,8 +1,6 @@
 package com.automation.remarks.kirk.core
 
-import com.automation.remarks.kirk.AbstractKirkEventListener
 import com.automation.remarks.kirk.Configuration
-import com.automation.remarks.kirk.KirkEventListener
 import com.automation.remarks.kirk.ext.autoClose
 import com.automation.remarks.kirk.ext.isAlive
 import io.github.bonigarcia.wdm.ChromeDriverManager
