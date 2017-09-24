@@ -920,6 +920,11 @@ Line thickness in pixels
 
 === Changelog
 
+==== 0.8.5
+
+- Classpath Listener support added
+- waitUntil for collection added
+
 ==== 0.8.4
 
 - toFrame support added

@@ -88,5 +88,6 @@ interface Configuration : Config {
     fun remoteUrl(): String
 
     @Key("kirk.listener")
+    @DefaultValue("")
     fun listenerClass(): String
 }
