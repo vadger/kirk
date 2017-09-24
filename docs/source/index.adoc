@@ -401,9 +401,57 @@ class TodoAngularTest {
 }
 ----
 
-=== Browse actions listener
+=== Browser actions listener
 
-TBD
+Kirk browser support event listener
+
+[source, java]
+----
+interface KirkEventListener {
+    fun onStart()
+    fun beforeNavigation(url: String, driver: WebDriver)
+    fun afterNavigation(url: String, driver: WebDriver)
+    fun beforeElementLocation(by: By, driver: WebDriver)
+    fun onFail(exception: Exception)
+}
+----
+
+You can use it as shown below
+
+[source, java]
+----
+class LoggerListenerKirk : KirkEventListener {
+    override fun onFail(exception: Exception) = println("Epic Fail")
+
+    override fun beforeElementLocation(by: By, driver: WebDriver) = println("$by")
+
+    override fun afterNavigation(url: String, driver: WebDriver) {}
+
+    override fun onStart() = println("On start")
+
+    override fun beforeNavigation(url: String, driver: WebDriver) = println("Navigation to $url")
+}
+
+val chrome = Browser(listener = LoggerListenerKirk())
+chrome.to(url)
+chrome.element("#header").shouldHave(text("Kirk"))
+----
+
+or by placing value in kirk.properties
+
+----
+kirk.listener = com.automation.remarks.kirk.test.ListenerFromClassPath
+----
+
+and then
+
+[source, java]
+----
+drive {
+    to(url)
+    element("#header").shouldHave(text("Kirk"))
+}
+----
 
 == Alerts
 

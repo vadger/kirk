@@ -1,8 +1,10 @@
 package com.automation.remarks.kirk.test
 
-import com.automation.remarks.kirk.Browser
-import com.automation.remarks.kirk.KirkEventListener
+import com.automation.remarks.kirk.*
 import com.automation.remarks.kirk.conditions.text
+import com.automation.remarks.kirk.core.configuration
+import com.automation.remarks.kirk.core.loadConfig
+import org.aeonbits.owner.Config
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.testng.annotations.Test
@@ -17,6 +19,26 @@ class EventListenerTest : BaseTest() {
         val chrome = Browser(listener = LoggerListenerKirk())
         chrome.to(url)
         chrome.element("#header").shouldHave(text("Kirk"))
+    }
+
+    @Test
+    fun testCatLoadListenerFromClass() {
+        configuration = loadConfig(ListenerConfig::class)
+        Kirk.drive {
+            to(url)
+            element("#header").shouldHave(text("Kirk"))
+        }
+    }
+}
+
+interface ListenerConfig : Configuration{
+    @Config.DefaultValue("com.automation.remarks.kirk.test.ListenerFromClassPath")
+    override fun listenerClass(): String
+}
+
+class ListenerFromClassPath : AbstractKirkEventListener() {
+    override fun onStart() {
+        print("Start from classpath listener")
     }
 }
 

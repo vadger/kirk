@@ -14,7 +14,7 @@ import org.openqa.selenium.logging.LogType
 import java.io.File
 
 class Browser(val driver: WebDriver = getDriver(),
-              val listener: KirkEventListener = AbstractKirkEventListener()) : SearchContext, Navigable {
+              val listener: KirkEventListener = getListener()) : SearchContext, Navigable {
 
     init {
         listener.onStart()

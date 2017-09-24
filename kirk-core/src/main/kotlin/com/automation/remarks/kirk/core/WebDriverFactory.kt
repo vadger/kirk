@@ -1,6 +1,8 @@
 package com.automation.remarks.kirk.core
 
+import com.automation.remarks.kirk.AbstractKirkEventListener
 import com.automation.remarks.kirk.Configuration
+import com.automation.remarks.kirk.KirkEventListener
 import com.automation.remarks.kirk.ext.autoClose
 import com.automation.remarks.kirk.ext.isAlive
 import io.github.bonigarcia.wdm.ChromeDriverManager
@@ -61,7 +63,7 @@ class WebDriverFactory {
 
     private fun createRemoteDriver(browser: String): WebDriver {
         val remoteUrl = configuration.remoteUrl()
-        var capabilities: DesiredCapabilities = DesiredCapabilities()
+        var capabilities = DesiredCapabilities()
         when (browser) {
             CHROME -> capabilities = DesiredCapabilities.chrome().merge(getOptions())
             FIREFOX -> capabilities = DesiredCapabilities.firefox()
@@ -131,4 +133,8 @@ var configuration: Configuration = loadConfig(Configuration::class)
 
 fun getDriver(): WebDriver {
     return driverFactory.getDriver()
+}
+
+fun getListener(): KirkEventListener {
+    return Class.forName(configuration.listenerClass()).newInstance() as KirkEventListener
 }
