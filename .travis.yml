@@ -4,7 +4,7 @@ sudo: required
 language: java
 addons:
   firefox: "latest"
-  chrome: "59"
+  chrome: stable
 
 cache:
   directories:
