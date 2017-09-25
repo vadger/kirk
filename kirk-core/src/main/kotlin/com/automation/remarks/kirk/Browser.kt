@@ -28,8 +28,6 @@ class Browser(val driver: WebDriver = getDriver(),
 
     var poolingInterval: Double by poolingInterval()
 
-    var startMaximized: Boolean? by startMaximized()
-
     var screenSize: List<Int> by screenSize()
 
     val actions = Actions(driver)

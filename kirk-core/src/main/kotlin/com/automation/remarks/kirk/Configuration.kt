@@ -22,10 +22,6 @@ interface Configuration : Config {
     @DefaultValue("0.1")
     fun poolingInterval(): Double
 
-    @Key("kirk.startMaximized")
-    @DefaultValue("true")
-    fun startMaximized(): Boolean
-
     @Key("kirk.autoClose")
     @DefaultValue("true")
     fun autoClose(): Boolean
