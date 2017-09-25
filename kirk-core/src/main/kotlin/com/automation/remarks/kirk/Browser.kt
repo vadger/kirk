@@ -42,8 +42,6 @@ class Browser(val driver: WebDriver = getDriver(),
         listener.beforeNavigation(url, driver)
         if (screenSize.isNotEmpty()) {
             driver.manage().window().size = Dimension(screenSize[0], screenSize[1])
-        } else if (startMaximized!!) {
-            driver.manage().window().maximize()
         }
 
         if (isAbsoluteUrl(url)) {
