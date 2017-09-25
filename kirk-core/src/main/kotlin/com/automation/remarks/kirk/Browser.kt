@@ -141,6 +141,7 @@ class Browser(val driver: WebDriver = getDriver(),
     }
 
     override fun quit() {
+        listener.beforeQuit()
         driver.quit()
     }
 

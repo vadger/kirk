@@ -2,6 +2,8 @@ package com.automation.remarks.kirk.test
 
 import com.automation.remarks.kirk.*
 import com.automation.remarks.kirk.conditions.text
+import com.automation.remarks.kirk.core.AbstractKirkEventListener
+import com.automation.remarks.kirk.core.KirkEventListener
 import com.automation.remarks.kirk.core.configuration
 import com.automation.remarks.kirk.core.loadConfig
 import org.aeonbits.owner.Config
